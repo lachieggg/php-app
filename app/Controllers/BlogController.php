@@ -12,10 +12,10 @@ class BlogController extends Controller
   public function blog($request, $response)
   {
     if($this->auth->isAdmin()) {
-      return $this->view->render($response, 'blog.twig');
+      return $this->view->render($response, 'views/home/blog.twig');
     }
 
-    return $this->view->render($response, 'private.twig');
+    return $this->view->render($response, 'views/home/private.twig');
   }
 
   public function getBlogPosts($request, $response)
@@ -72,13 +72,13 @@ class BlogController extends Controller
 
   public function getBlogAdmin($request, $response)
   {
-    return $this->view->render($response, 'blog/admin.twig');
+    return $this->view->render($response, 'views/home/blog/admin.twig');
     // must be admin....
     if($this->auth->isAdmin()) {
-      return $this->view->render($response, 'blog/blog.twig');
+      return $this->view->render($response, 'views/home/blog/blog.twig');
     } else {
       // no...
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
+      return $this->view->render($response, 'views/auth/unauthorized/general-unauthorized.twig');
     }
   }
 }

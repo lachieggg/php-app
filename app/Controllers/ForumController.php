@@ -12,13 +12,13 @@ class ForumController extends Controller
   public function forum($request, $response)
   {
 
-    return $this->view->render($response, 'private.twig');
+    return $this->view->render($response, 'views/home/private.twig');
 
 
     if($this->auth->isVerified()) {
-      return $this->view->render($response, 'forum.twig');
+      return $this->view->render($response, 'views/home/forum.twig');
     } else {
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
+      return $this->view->render($response, 'views/auth/unauthorized/general-unauthorized.twig');
     }
   }
 
@@ -66,7 +66,7 @@ class ForumController extends Controller
       return $this->view->render($response, 'forum/forum.twig');
     } else {
       // no...
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
+      return $this->view->render($response, 'views/auth/unauthorized/general-unauthorized.twig');
     }
   }
 

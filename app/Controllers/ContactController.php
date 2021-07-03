@@ -11,12 +11,12 @@ class ContactController extends Controller
 {
   public function contact($request, $response)
   {
-    return $this->view->render($response, 'contact.twig');
+    return $this->view->render($response, 'views/home/contact.twig');
 
     if($this->auth->isVerified()) {
-      return $this->view->render($response, 'contact.twig');
+      return $this->view->render($response, 'views/home/contact.twig');
     } else {
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
+      return $this->view->render($response, 'views/auth/unauthorized/general-unauthorized.twig');
     }
   }
 
@@ -37,7 +37,7 @@ class ContactController extends Controller
 
   public function submitContactPost($request, $response)
   {
-    // XSS protection 
+    // XSS protection
     $comment = str_replace('>', '', $request->getParam('comment'));
     $comment = str_replace('<', '', $comment);
     $mobile = str_replace('>', '', $request->getParam('mobile'));

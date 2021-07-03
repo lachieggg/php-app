@@ -2,7 +2,7 @@
 
 // View
 $app->get('/view', function ($request, $response) {
-  return $this->view->render($response, 'home.twig');
+  return $this->view->render($response, 'views/home/home.twig');
 });
 
 // Home
