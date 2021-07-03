@@ -31,7 +31,7 @@ class AuthController extends Controller
       return $response->withRedirect($this->router->pathFor('auth.signin'));
     }
 
-    return $response->withRedirect($this->router->pathFor('home'));
+    return $response->withRedirect($this->router->pathFor('home.home'));
   }
 
   // GET sign up
@@ -73,7 +73,7 @@ class AuthController extends Controller
 
     $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
 
-    return $response->withRedirect($this->router->pathFor('home'));
+    return $response->withRedirect($this->router->pathFor('home.home'));
   }
 
   // GET signed up
@@ -92,7 +92,7 @@ class AuthController extends Controller
   {
     $this->auth->logout();
 
-    return $response->withRedirect($this->router->pathFor('home'));
+    return $response->withRedirect($this->router->pathFor('home.home'));
   }
 
   public function userName($request, $response)

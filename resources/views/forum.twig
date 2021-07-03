@@ -13,7 +13,7 @@
   </head>
 
   <body id='primary-forum-body'>
-		<form action="{{ path_for('submitForumPost') }}" method="post" autocomplete="off">
+		<form action="{{ path_for('forum.post.create') }}" method="post" autocomplete="off">
 				<div class="form-group">
 						<label for="email">Forum Post:</label>
 						<input name="comment" id="forum-comment" class="form-control">

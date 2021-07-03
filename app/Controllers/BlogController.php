@@ -11,9 +11,11 @@ class BlogController extends Controller
 {
   public function blog($request, $response)
   {
-    return $this->view->render($response, 'private.twig');
+    if($this->auth->isAdmin()) {
+      return $this->view->render($response, 'blog.twig');
+    }
 
-    return $this->view->render($response, 'blog.twig');
+    return $this->view->render($response, 'private.twig');
   }
 
   public function getBlogPosts($request, $response)
@@ -49,13 +51,9 @@ class BlogController extends Controller
         'is_private' => 0
       ]);
 
-      return $response->withRedirect($this->router->pathFor('blog'));
-
-    } else {
-      // no...
-      return $response->withRedirect($this->router->pathFor('blog'));
 
     }
+    return $response->withRedirect($this->router->pathFor('blog.posts'));
   }
 
   public function deleteBlogPost($request, $response)
@@ -69,7 +67,7 @@ class BlogController extends Controller
         $post->save();
       }
     }
-    return $response->withRedirect($this->router->pathFor('blog'));
+    return $response->withRedirect($this->router->pathFor('blog.posts'));
   }
 
   public function getBlogAdmin($request, $response)

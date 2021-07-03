@@ -18,7 +18,7 @@
                 <li><a href="https://github.com/lachieggg" target="_blank">GitHub</a></li>
 
                 {% if auth.check %}
-                    <li><a href="{{ path_for('blogAdmin') }}">Admin</a></li>
+                    <li><a href="{{ path_for('blog.admin') }}">Admin</a></li>
                 {% endif %}
 
             </ul>
@@ -31,12 +31,12 @@
                             <!--
                             <li><a href="{{ path_for('auth.password.change') }}">Change password</a></li>
                             -->
-                            <li><a href="{{ path_for('auth.signout') }}">Sign out</a></li>
+                            <li><a href="{{ path_for('auth.sign-out') }}">Sign out</a></li>
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="{{ path_for('auth.signup') }}">Sign up</a></li>
-                    <li><a href="{{ path_for('auth.signin') }}">Sign in</a></li>
+                    <li><a href="{{ path_for('auth.sign-up') }}">Sign up</a></li>
+                    <li><a href="{{ path_for('auth.sign-in') }}">Sign in</a></li>
                 {% endif %}
             </ul>
             <!-- search button

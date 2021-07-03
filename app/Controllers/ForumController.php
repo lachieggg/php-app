@@ -55,13 +55,8 @@ class ForumController extends Controller
         'comment_text' => $post,
         'user_name' => $username
       ]);
-
-      return $response->withRedirect($this->router->pathFor('forum'));
-
-    } else {
-      // no...
-      return $response->withRedirect($this->router->pathFor('forum'));
     }
+    return $response->withRedirect($this->router->pathFor('forum'));
   }
 
   public function getForumPanel($request, $response)
