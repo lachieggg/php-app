@@ -7,7 +7,7 @@ $app->get('/view', function ($request, $response) {
 
 // Home
 $app->get('/', 'HomeController:index')->setName('home.root');
-$app->get('/home', 'HomeController:index')->setName('home.home');
+$app->get('/home', 'HomeController:index')->setName('home');
 $app->get('/blog', 'HomeController:blog')->setName('home.blog');
 $app->get('/readings', 'HomeController:readings')->setName('home.readings');
 $app->get('/github', 'HomeController:github')->setName('home.github');
