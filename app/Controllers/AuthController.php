@@ -16,7 +16,7 @@ class AuthController extends Controller
   // GET sign in
   public function getSignIn($request, $response)
   {
-    return $this->view->render($response, 'views/auth/sign-in.twig');
+    return $this->view->render($response, 'auth/sign-in.twig');
   }
 
   // POST sign in
@@ -37,7 +37,7 @@ class AuthController extends Controller
   // GET sign up
   public function getSignUp($request, $response)
   {
-    return $this->view->render($response, 'views/auth/sign-up.twig');
+    return $this->view->render($response, 'auth/sign-up.twig');
   }
 
   // POST sign up
@@ -79,13 +79,13 @@ class AuthController extends Controller
   // GET signed up
   public function getSignedUp($request, $response)
   {
-    return $this->view->render($response, 'views/auth/signed-up.twig');
+    return $this->view->render($response, 'auth/signed-up.twig');
   }
 
   // GET signed up
   public function getEmailExists($request, $response)
   {
-    return $this->view->render($response, 'views/auth/email-exists.twig');
+    return $this->view->render($response, 'auth/email-exists.twig');
   }
 
   public function getSignOut($request, $response)
