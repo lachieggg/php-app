@@ -1,0 +1,22 @@
+{% extends "templates/app.twig" %}
+
+{% block content %}
+
+
+<html>
+  <body>
+  <h1>Hi there!</h1>
+  <br>
+  You will need administrator approval before accessing that page.
+  <br>
+  <br>
+  Approval is given on a case by case basis.
+  <br>
+  <br>
+  Please click here to go back to the <a href="{{ path_for('home') }}">homepage</a>.
+  <br>
+  </body>
+</html>
+
+
+{% endblock %}

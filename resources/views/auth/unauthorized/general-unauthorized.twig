@@ -1,0 +1,20 @@
+{% extends "templates/app.twig" %}
+
+{% block content %}
+
+
+<html>
+  <body>
+  <!--<img src="images/403.jpg">
+  </img>-->
+  <img id='hp-warning-small' src="images/hp-small.jpg"></img>
+  <br>
+  <br>
+  It seems like you are not currently <a href="{{ path_for('auth.signin') }}">signed in</a> <b>or</b> you are not allowed to access this content.
+  <br>
+  <br>
+  </body>
+</html>
+
+
+{% endblock %}

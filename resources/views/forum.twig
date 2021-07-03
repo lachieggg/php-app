@@ -1,0 +1,31 @@
+{% extends "templates/app.twig" %}
+
+{% block content %}
+
+
+<html>
+
+	<head>
+		<title>Reading list </title>
+		<link rel='stylesheet' type='text/css' href='css/main.css'/>
+		<script src="./forum.js"></script>
+
+  </head>
+
+  <body id='primary-forum-body'>
+		<form action="{{ path_for('submitForumPost') }}" method="post" autocomplete="off">
+				<div class="form-group">
+						<label for="email">Forum Post:</label>
+						<input name="comment" id="forum-comment" class="form-control">
+				</div>
+
+				<button type="submit" class="btn btn-default">Post Comment</button>
+
+				{{ csrf.field | raw }}
+		</form>
+
+	</body>
+</html>
+
+
+{% endblock %}

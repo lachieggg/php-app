@@ -1,0 +1,30 @@
+body {
+  background: lightblue;
+  padding-top: 100px;
+  padding-bottom: 40px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.search-form {
+  display: block;
+  padding-top: 10px;
+}
+
+.home-img {
+  display: block;
+}
+
+@media (max-width: 960px)
+{
+  .search-form
+  {
+    display: none;
+  }
+
+  .home-img {
+    display: none;
+  }
+}

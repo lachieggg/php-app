@@ -1,0 +1,21 @@
+{% extends "templates/app.twig" %}
+
+{% block content %}
+
+
+<html>
+  <body>
+  <h1>Hi there!</h1>
+  <br>
+  It seems like you already have an account registered with that email address.
+  <br>
+  <br>
+  Would you like to <a href="{{ path_for('auth.signin') }}">sign in</a> instead?
+  <br>
+  <br>
+  If not, please try <a href="{{ path_for('auth.signup') }}">signing up</a> with a different email address.
+  </body>
+</html>
+
+
+{% endblock %}
