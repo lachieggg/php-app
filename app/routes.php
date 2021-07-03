@@ -12,6 +12,7 @@ $app->get('/blog', 'HomeController:blog')->setName('home.blog');
 $app->get('/readings', 'HomeController:readings')->setName('home.readings');
 $app->get('/github', 'HomeController:github')->setName('home.github');
 $app->get('/about', 'HomeController:about')->setName('home.about');
+$app->get('/forum', 'ForumController:forum')->setName('home.forum');
 
 // Blog
 $app->get('/blog/posts', 'BlogController:getBlogPosts')->setName('blog.posts');
@@ -22,7 +23,6 @@ $app->post('/blog/delete', 'BlogController:deleteBlogPost')->setName('blog.remov
 // Forum
 $app->post('/forum/post', 'ForumController:submitForumPost')->setName('forum.post.create');
 $app->get('/forum/posts', 'ForumController:getForumPosts')->setName('forum.posts.get');
-$app->get('/forum', 'ForumController:forum')->setName('forum');
 
 
 // Auth
