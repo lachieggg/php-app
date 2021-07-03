@@ -1,7 +1,8 @@
 
 var pictures = new Array(
 	'images/nice-picture-small.png',
-	'images/magnet.png');
+	'images/magnet.png',
+	'images/piano.jpg');
 
 window.onload = randomPicture();
 
