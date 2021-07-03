@@ -2,7 +2,7 @@
 var pictures = new Array(
 	'images/nice-picture-small.png',
 	'images/magnet.png',
-	'images/piano.jpeg');
+	'images/piano.png');
 
 window.onload = randomPicture();
 
