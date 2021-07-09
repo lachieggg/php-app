@@ -8,11 +8,6 @@ class HomeController extends Controller
 {
   var $privacy_mode;
 
-  function __construct($name) {
-    parent::__construct();
-    $this->privacy_mode =  True;
-  }
-
   public function index($request, $response)
   {
     if($this->privacy_mode) {

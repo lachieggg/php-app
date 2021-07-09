@@ -11,11 +11,6 @@ class BlogController extends Controller
 {
   var $privacy_mode;
 
-  function __construct($name) {
-    parent::__construct();
-    $this->privacy_mode =  True;
-  }
-
   public function blog($request, $response)
   {
     if($this->privacy_mode) {
@@ -31,7 +26,7 @@ class BlogController extends Controller
 
   public function getBlogPosts($request, $response)
   {
-    if($privacy_mode) {
+    if($this->privacy_mode) {
       return;
     }
 

@@ -13,7 +13,7 @@ class ForumController extends Controller
 
   public function forum($request, $response)
   {
-    if($privacy_mode) {
+    if($this->privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
 

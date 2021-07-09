@@ -13,10 +13,10 @@ class ContactController extends Controller
 
   public function contact($request, $response)
   {
-    if($privacy_mode) {
+    if($this->privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
-    
+
     if($this->auth->isVerified()) {
       return $this->view->render($response, 'home/contact.twig');
     } else {

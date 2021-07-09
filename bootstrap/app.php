@@ -92,9 +92,12 @@ $app->add(new \LoginApp\Middleware\OldInputMiddleware($container));
 $app->add(new \LoginApp\Middleware\CsrfViewMiddleware($container));
 
 
-//Cross site request forgery protection for Slim 3
+$container['BlogController']->privacy_mode = True;
+$container['ForumController']->privacy_mode = True;
+$container['HomeController']->privacy_mode = True;
+
+// CSRF protection for Slim 3
 $app->add($container->csrf);
-// auth
 
 
 require __DIR__ . '/../app/routes.php';
