@@ -18,7 +18,7 @@ class ContactController extends Controller
     if($this->auth->isVerified()) {
       return $this->view->render($response, 'home/contact.twig');
     } else {
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
+      return $this->view->render($response, 'auth/unauthorized.twig');
     }
   }
 

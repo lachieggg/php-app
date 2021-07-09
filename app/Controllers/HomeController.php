@@ -39,13 +39,13 @@ class HomeController extends Controller
       return $this->view->render($response, 'home/private.twig');
     }
     if(!$this->auth->user()) {
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
+      return $this->view->render($response, 'auth/unauthorized.twig');
     }
     if($this->auth->isDeleted()) {
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
+      return $this->view->render($response, 'auth/unauthorized.twig');
     }
     if(!$this->auth->isApproved()) {
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
+      return $this->view->render($response, 'auth/unauthorized.twig');
     }
 
     return $this->view->render($response, 'home/forum.twig');
