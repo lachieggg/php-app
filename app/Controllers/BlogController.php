@@ -12,6 +12,7 @@ class BlogController extends Controller
   var $privacy_mode;
 
   function __construct($name) {
+    parent::__construct();
     $this->privacy_mode =  True;
   }
 
