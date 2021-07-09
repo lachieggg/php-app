@@ -9,11 +9,15 @@ use Ramsey\Uuid\Uuid;
 
 class BlogController extends Controller
 {
-  var $privacy_mode = True;
+  var $privacy_mode;
+
+  function __construct($name) {
+    $this->privacy_mode =  True;
+  }
 
   public function blog($request, $response)
   {
-    if($privacy_mode) {
+    if($this->privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
 
