@@ -9,8 +9,6 @@ use Ramsey\Uuid\Uuid;
 
 class BlogController extends Controller
 {
-  var $privacy_mode;
-
   public function blog($request, $response)
   {
     if($this->privacy_mode) {

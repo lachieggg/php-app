@@ -9,8 +9,6 @@ use Ramsey\Uuid\Uuid;
 
 class ForumController extends Controller
 {
-  var $privacy_mode = True;
-
   public function forum($request, $response)
   {
     if($this->privacy_mode) {

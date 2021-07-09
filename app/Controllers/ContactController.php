@@ -9,8 +9,6 @@ use Ramsey\Uuid\Uuid;
 
 class ContactController extends Controller
 {
-  var $privacy_mode = True;
-
   public function contact($request, $response)
   {
     if($this->privacy_mode) {

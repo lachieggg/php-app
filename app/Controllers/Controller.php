@@ -6,9 +6,11 @@ namespace LoginApp\Controllers;
 class Controller
 {
   protected $container;
+  public $privacy_mode;
 
   public function __construct($container)
   {
+    $this->privacy_mode = True;
     $this->container = $container;
   }
 

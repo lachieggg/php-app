@@ -6,8 +6,6 @@ use Slim\Views\Twig as View;
 
 class HomeController extends Controller
 {
-  var $privacy_mode;
-
   public function index($request, $response)
   {
     if($this->privacy_mode) {
