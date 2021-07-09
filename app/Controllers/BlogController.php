@@ -9,6 +9,7 @@ use Ramsey\Uuid\Uuid;
 
 class BlogController extends Controller
 {
+  
   public function blog($request, $response)
   {
     if($this->auth->isAdmin()) {
@@ -27,30 +28,35 @@ class BlogController extends Controller
     return $response->withJson($posts);
   }
 
+  public function getVideoRenderHtml($type, $title, $url)
+  {
+    if($type == "Video") {
+      $html = "<b>". $title . "</b> <br> <br>
+            <video width='320' height='240' controls>
+            <source src='" . $url . "' type='video/mp4'>
+            </video>";
+    } else {
+      $html = "<b>". $title . " </b> <br> <br>
+            <img src='" . $url . "'>";
+    }
+
+    return $html;
+  }
+
   public function submitBlogPost($request, $response)
   {
-    // must be admin...
     if($this->auth->isAdmin()) {
-      $url = $request->getParam('post');
-      $title = $request->getParam('title');
       $type = $request->getParam('type');
+      $title = $request->getParam('title');
+      $url = $request->getParam('post');
 
-      if($type == "Video") {
-        $html = "<b>". $title . "</b> <br> <br>
-							<video width='320' height='240' controls>
-							<source src='" . $url . "' type='video/mp4'>
-							</video>";
-      } else {
-        $html = "<b>". $title . " </b> <br> <br>
-							<img src='" . $url . "'>";
-      }
+      $html = getVideoRenderHtml($type, $title, $url)
 
       $post = BlogPost::create([
         'uuid' => Uuid::uuid4(),
         'post_html' => $html,
         'is_private' => 0
       ]);
-
 
     }
     return $response->withRedirect($this->router->pathFor('blog.posts'));
@@ -59,9 +65,10 @@ class BlogController extends Controller
   public function deleteBlogPost($request, $response)
   {
     $uuid = $request->getParam('uuid');
-    // must be admin...
+
     if($this->auth->isAdmin()) {
       $post = BlogPost::where('uuid', $uuid)->first();
+
       if(isset($post)){
         $post->is_private = 1;
         $post->save();
@@ -72,13 +79,10 @@ class BlogController extends Controller
 
   public function getBlogAdmin($request, $response)
   {
-    return $this->view->render($response, 'home/blog/admin.twig');
-    // must be admin....
     if($this->auth->isAdmin()) {
       return $this->view->render($response, 'home/blog/blog.twig');
-    } else {
-      // no...
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
     }
+    // not authorized
+    return $this->view->render($response, 'auth/unauthorized.twig');
   }
 }

@@ -9,6 +9,7 @@ use Ramsey\Uuid\Uuid;
 
 class ContactController extends Controller
 {
+  
   public function contact($request, $response)
   {
     return $this->view->render($response, 'home/contact.twig');
@@ -21,7 +22,6 @@ class ContactController extends Controller
   }
 
   public function getContactPosts($request, $response) {
-    // must be verified....
     if($this->auth->isAdmin()) {
       $posts = Comment::select('user_comments.uuid', 'user_comments.comment_text', 'user_comments.created_at')
         ->orderBy('created_at', 'DESC')
@@ -29,7 +29,6 @@ class ContactController extends Controller
 
       return $response->withJson($posts);
     } else {
-      // no...
       $c = new \Illuminate\Database\Eloquent\Collection;
       return $response->withJson($c);
     }
@@ -45,8 +44,6 @@ class ContactController extends Controller
     $name = str_replace('>', '', $request->getParam('email'));
     $name = str_replace('<', '', $comment);
 
-    // do check for SQL injections
-    // sum
     $tab = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
     $text = $tab . "name: " . $name
     . "<br>" . $tab . "comment: " . $comment
@@ -66,15 +63,13 @@ class ContactController extends Controller
   public function deleteContactPost($request, $response)
   {
     if($this->auth->isAdmin()) {
-      // okay...
+
       $uuid = $request->getParam('uuid');
       $comment = Comment::where('uuid', $uuid)->first();
       $comment->delete();
 
       return $response->withRedirect($this->router->pathFor('contact'));
 
-    } else {
-      // no...
     }
   }
 

@@ -9,19 +9,21 @@ use Ramsey\Uuid\Uuid;
 
 class ForumController extends Controller
 {
+  var $privacy_mode = True;
+  var $privacy_mode_strict = True;
+
   public function forum($request, $response)
   {
-
-    return $this->view->render($response, 'home/private.twig');
-
+    if($privacy_mode || $privacy_mode_strict) {
+      return $this->view->render($response, 'home/private.twig');
+    }
 
     if($this->auth->isVerified()) {
       return $this->view->render($response, 'home/forum.twig');
-    } else {
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
     }
-  }
 
+    return $this->view->render($response, 'auth/unauthorized.twig');
+  }
 
   public function getForumPosts($request, $response) {
 
@@ -43,10 +45,8 @@ class ForumController extends Controller
     $name = str_replace('>', '', $request->getParam('email'));
     $name = str_replace('<', '', $comment);
 
-    // must be admin....
     if($this->auth->isVerified()) {
       $post = $request->getParam('comment');
-      // okay...
       $username = $this->auth->user->full_name;
 
 
@@ -61,20 +61,17 @@ class ForumController extends Controller
 
   public function getForumPanel($request, $response)
   {
-    // must be verified....
     if($this->auth->isVerified()) {
       return $this->view->render($response, 'forum/forum.twig');
-    } else {
-      // no...
-      return $this->view->render($response, 'auth/unauthorized/general-unauthorized.twig');
     }
+
+    return $this->view->render($response, 'auth/unauthorized.twig');
   }
 
   public function submitComment($request, $response)
   {
     if($this->auth->isVerified()) {
       $comment = $request->getParam('comment');
-      // okay...
 
       $comment = Comment::create([
         'uuid' => Uuid::uuid4(),
@@ -83,9 +80,6 @@ class ForumController extends Controller
       ]);
 
       return $response->withRedirect($this->router->pathFor('forum'));
-
-    } else {
-      // no...
 
     }
   }
