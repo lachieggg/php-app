@@ -9,11 +9,14 @@ use Ramsey\Uuid\Uuid;
 
 class ContactController extends Controller
 {
-  
+  var $privacy_mode = True;
+
   public function contact($request, $response)
   {
-    return $this->view->render($response, 'home/contact.twig');
-
+    if($privacy_mode) {
+      return $this->view->render($response, 'home/private.twig');
+    }
+    
     if($this->auth->isVerified()) {
       return $this->view->render($response, 'home/contact.twig');
     } else {

@@ -9,9 +9,14 @@ use Ramsey\Uuid\Uuid;
 
 class BlogController extends Controller
 {
-  
+  var $privacy_mode = True;
+
   public function blog($request, $response)
   {
+    if($privacy_mode) {
+      return $this->view->render($response, 'home/private.twig');
+    }
+
     if($this->auth->isAdmin()) {
       return $this->view->render($response, 'home/blog.twig');
     }
@@ -21,6 +26,10 @@ class BlogController extends Controller
 
   public function getBlogPosts($request, $response)
   {
+    if($privacy_mode) {
+      return;
+    }
+
     $posts = BlogPost::where('is_private', 0)
       ->orderBy('created_at', 'DESC')
       ->get();
@@ -80,7 +89,7 @@ class BlogController extends Controller
   public function getBlogAdmin($request, $response)
   {
     if($this->auth->isAdmin()) {
-      return $this->view->render($response, 'home/blog/blog.twig');
+      return $this->view->render($response, 'home/blog.twig');
     }
     // not authorized
     return $this->view->render($response, 'auth/unauthorized.twig');

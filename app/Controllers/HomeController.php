@@ -68,5 +68,5 @@ class HomeController extends Controller
     header("Location: https://github.com/lachieggg");
     die();
   }
-  
+
 }

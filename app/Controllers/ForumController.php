@@ -10,11 +10,10 @@ use Ramsey\Uuid\Uuid;
 class ForumController extends Controller
 {
   var $privacy_mode = True;
-  var $privacy_mode_strict = True;
 
   public function forum($request, $response)
   {
-    if($privacy_mode || $privacy_mode_strict) {
+    if($privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
 
