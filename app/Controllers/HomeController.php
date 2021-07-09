@@ -6,12 +6,15 @@ use Slim\Views\Twig as View;
 
 class HomeController extends Controller
 {
-  var $privacy_mode = True;
-  var $privacy_mode_strict = True;
+  var $privacy_mode;
+
+  function __construct($name) {
+    $this->privacy_mode =  True;
+  }
 
   public function index($request, $response)
   {
-    if($privacy_mode || $privacy_mode_strict) {
+    if($this->privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
 
@@ -20,7 +23,7 @@ class HomeController extends Controller
 
   public function blog($request, $response)
   {
-    if($privacy_mode || $privacy_mode_strict) {
+    if($this->privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
 
@@ -29,7 +32,7 @@ class HomeController extends Controller
 
   public function readings($request, $response)
   {
-    if($privacy_mode || $privacy_mode_strict) {
+    if($this->privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
 
@@ -38,7 +41,7 @@ class HomeController extends Controller
 
   public function forum($request, $response)
   {
-    if($privacy_mode || $privacy_mode_strict) {
+    if($this->privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
     if(!$this->auth->user()) {
@@ -56,7 +59,7 @@ class HomeController extends Controller
 
   public function about($request, $response)
   {
-    if($privacy_mode || $privacy_mode_strict) {
+    if($this->privacy_mode) {
       return $this->view->render($response, 'home/private.twig');
     }
 
