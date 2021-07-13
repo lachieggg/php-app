@@ -8,10 +8,6 @@ class HomeController extends Controller
 {
   public function index($request, $response)
   {
-    if($this->privacy_mode) {
-      return $this->view->render($response, 'home/private.twig');
-    }
-
     return $this->view->render($response, 'home/home.twig');
   }
 
