@@ -1,0 +1,13 @@
+# docker-compose.yml
+version: "3.7"
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:80"
+    volumes:
+      - ./src:/var/www
+    environment:
+      - APP_NAME=lachiegrant.io
