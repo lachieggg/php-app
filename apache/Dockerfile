@@ -7,7 +7,7 @@ RUN a2enmod rewrite
 
 
 # Copy bash script
-COPY ./apache-start /usr/local/bin
+COPY ./apache/apache-start /usr/local/bin
 
 # Add modules
 RUN a2enmod rewrite
