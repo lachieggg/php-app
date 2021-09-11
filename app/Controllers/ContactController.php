@@ -24,6 +24,7 @@ class ContactController extends Controller
 
   public function email($request, $response)
   {
+    header("Location: /");
     header("Location: mailto:lachie@lachiegrant.io");
     exit();
   }
