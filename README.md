@@ -30,6 +30,8 @@ Installation:
 
 `composer install` 
 
+`cp .env.sample .env`
+
 Docker:
 =
 This section will soon be updated with details for using [Docker](https://www.docker.com/) to run the application.
