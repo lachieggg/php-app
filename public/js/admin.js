@@ -34,9 +34,7 @@ function post(path, params, method='post') {
 function loadBlogContent() {
 	route = 'blogPosts';
 	var xhr = new XMLHttpRequest();
-  console.log(serverURL)
 	xhr.open('GET', route, true);
-  console.log(serverURL + route);
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   authToken = getCookie('PHPSESSID');
 
@@ -96,13 +94,6 @@ function getCookie(cookieName) {
   }
 
   return "";
-}
-
-var serverURL;
-if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-	serverURL = 'localhost/';
-} else {
-	serverURL = 'www.lachiegrant.io/';
 }
 
 loadBlogContent()
