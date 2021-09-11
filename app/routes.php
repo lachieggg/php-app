@@ -13,6 +13,7 @@ $app->get('/readings', 'HomeController:readings')->setName('home.readings');
 $app->get('/github', 'HomeController:github')->setName('home.github');
 $app->get('/about', 'HomeController:about')->setName('home.about');
 $app->get('/forum', 'ForumController:forum')->setName('home.forum');
+$app->get('/contact', 'ContactController:email')->setName('home.contact');
 
 // Blog
 $app->get('/blog/posts', 'BlogController:getBlogPosts')->setName('blog.posts');
