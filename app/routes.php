@@ -13,7 +13,6 @@ $app->get('/readings', 'HomeController:readings')->setName('home.readings');
 $app->get('/github', 'HomeController:github')->setName('home.github');
 $app->get('/about', 'HomeController:about')->setName('home.about');
 $app->get('/forum', 'ForumController:forum')->setName('home.forum');
-$app->get('/contact', 'ContactController:email')->setName('home.contact');
 
 // Blog
 $app->get('/blog/posts', 'BlogController:getBlogPosts')->setName('blog.posts');
@@ -36,6 +35,7 @@ $app->get('/change-password', 'AuthController:changePassword')->setName('auth.pa
 $app->get('/sign-out', 'AuthController:getSignOut')->setName('auth.sign-out');
 
 // Contact
+$app->get('/contact', 'ContactController:contact')->setName('contact');
 $app->post('/contact/message', 'ContactController:submitContactPost')->setName('contact.post');
 $app->get('/contact/posts', 'ContactController:getContactPosts')->setName('contact.posts');
 $app->post('/contact/post/delete', 'ContactController:deleteContactPost')->setName('contact.posts.delete');

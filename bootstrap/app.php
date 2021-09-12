@@ -4,8 +4,6 @@ use Respect\Validation\Validator as v;
 
 session_start();
 
-use SlimCrf;
-
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = new \Slim\App([

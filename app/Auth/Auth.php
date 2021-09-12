@@ -67,9 +67,6 @@ class Auth
 
     return false;
 
-    // if !user return false
-    // verify password for that user
-    // set into a session
   }
 
   public function logout()
@@ -79,7 +76,8 @@ class Auth
 
   public function isAdmin()
   {
-    $user = User::where('uuid', $_SESSION['user']) // useful for user auth middleware
+    // useful for user auth middleware
+    $user = User::where('uuid', $_SESSION['user'])
       ->where('is_admin', 1)
       ->first();
 
@@ -89,18 +87,7 @@ class Auth
     return false;
   }
 
-  // public function isAdmin() {
-  //   // TODO
-  //   return false;
-  // }
-
-  // a boolean combination of:
-  // check()
-  // isApproved()
-  // isDeleted()
-  // to ensure that the user is valid, approved and not deleted in one function
   public function isVerified() {
-    // privacy features
     // logged in
     if(!$this->user()) {
       return false;

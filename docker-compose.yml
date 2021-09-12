@@ -1,0 +1,23 @@
+# docker-compose.yml
+version: "3.7"
+services:
+  laravel-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.application
+    ports:
+      - "8000:80"
+    environment:
+      - APP_NAME=lachiegrant.io
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ROOT_HOST
