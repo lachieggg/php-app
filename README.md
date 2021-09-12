@@ -2,7 +2,7 @@
 
 This is the source code for [my personal site](http://www.lachiegrant.io).
 
-It uses [Laravel](https://laravel.com/) as a router, and [Slim](https://www.slimframework.com/) for authentication. [Respect Validation](https://github.com/Respect/Validation) is also utilized.
+It uses the [Laravel](https://laravel.com/) framework, and [Slim](https://www.slimframework.com/) for authentication. [Respect Validation](https://github.com/Respect/Validation) is also utilized.
 
 This repository is a full stack application, a combination of PHP and JavaScript.
 
