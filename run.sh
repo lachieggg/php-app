@@ -1,10 +1,11 @@
 #!/bin/bash
 
 ############################################
+docker system prune -a
+composer update
 composer install
-#docker system prune -a
-#docker build -t app -f Dockerfile.application .
-docker build -t app -f Dockerfile.database .
-#docker-compose up laravel-app database
-docker-compose up database
+docker build -t app
+docker build -t webserver
+docker build -t database
+docker-compose up webserver database app
 ############################################
