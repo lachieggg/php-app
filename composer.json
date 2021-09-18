@@ -14,5 +14,13 @@
       "psr-4" : {
         "LoginApp\\": "app"
       }
+    },
+    "scripts": {
+      "start": [
+        "docker-compose up -d"
+      ],
+      "start-alt": [
+        "docker compose up -d"
+      ]
     }
 }
