@@ -6,11 +6,21 @@
         "respect/validation": "^2.1",
         "ramsey/uuid": "^4.1",
         "slim/csrf": "^0.8.1",
-        "slim/flash": "^0.4.0"
+        "slim/flash": "^0.4.0",
+        "doctrine/dbal": "^3.1",
+        "vlucas/phpdotenv": "^5.3"
     },
     "autoload": {
       "psr-4" : {
         "LoginApp\\": "app"
       }
+    },
+    "scripts": {
+      "start": [
+        "docker-compose up -d"
+      ],
+      "start-alt": [
+        "docker compose up -d"
+      ]
     }
 }

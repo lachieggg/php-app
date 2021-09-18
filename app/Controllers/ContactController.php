@@ -22,13 +22,6 @@ class ContactController extends Controller
     }
   }
 
-  public function email($request, $response)
-  {
-    header("Location: /");
-    header("Location: mailto:lachie@lachiegrant.io");
-    exit();
-  }
-
   public function getContactPosts($request, $response) {
     if($this->auth->isAdmin()) {
       $posts = Comment::select('user_comments.uuid', 'user_comments.comment_text', 'user_comments.created_at')

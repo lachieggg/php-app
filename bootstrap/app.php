@@ -4,19 +4,23 @@ use Respect\Validation\Validator as v;
 
 session_start();
 
-use SlimCrf;
-
 require __DIR__ . '/../vendor/autoload.php';
+
+$host = getenv('MYSQL_HOST');
+$database = getenv('MYSQL_DATABASE');
+$username = getenv('MYSQL_USER');
+$password = getenv('MYSQL_PASSWORD');
+$driver = getenv('DATABASE_DRIVER');
 
 $app = new \Slim\App([
     'settings' => [
         'displayErrorDetails' => true,
         'db' => [
-            'driver' => 'mysql',
-            'host' => 'localhost',
-            'database' => 'db',
-            'username' => 'username',
-            'password' => 'password',
+            'driver' => $driver,
+            'host' => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
