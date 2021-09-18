@@ -22,7 +22,6 @@ services:
       - MYSQL_USER
       - MYSQL_PASSWORD
       - MYSQL_DATABASE
-      - MYSQL_ROOT_PASSWORD
       - MYSQL_ROOT_HOST
       - MYSQL_DRIVER
       - MYSQL_HOST
@@ -37,7 +36,6 @@ services:
       - MYSQL_USER
       - MYSQL_PASSWORD
       - MYSQL_DATABASE
-      - MYSQL_ROOT_PASSWORD
       - MYSQL_ROOT_HOST
     container_name: database
     networks:
