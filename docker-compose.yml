@@ -14,7 +14,18 @@ services:
     volumes:
       - ./:/var/www
     networks:
-      - www.lachiegrant.io
+      - app-network
+    links:
+      - database
+    env_file: .env
+    environment:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ROOT_HOST
+      - MYSQL_DRIVER
+      - MYSQL_HOST
 
   database:
     build:
@@ -28,7 +39,10 @@ services:
       - MYSQL_DATABASE
       - MYSQL_ROOT_PASSWORD
       - MYSQL_ROOT_HOST
-  
+    container_name: database
+    networks:
+      - app-network
+
   webserver:
     image: nginx:1.17-alpine
     container_name: webserver
@@ -39,8 +53,8 @@ services:
       - ./:/var/www
       - ./volumes/nginx:/etc/nginx/conf.d
     networks:
-      - www.lachiegrant.io
+      - app-network
 
 networks:
-  www.lachiegrant.io:
+  app-network:
     driver: bridge
