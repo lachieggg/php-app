@@ -1,4 +1,5 @@
-# www.lachiegrant.io
+lachiegrant.io
+=
 
 This is the source code for [my personal site](http://www.lachiegrant.io).
 
