@@ -1,14 +1,14 @@
 # docker-compose.yml
 version: "3.7"
 services:
-  app:
+  application:
     build:
       args:
         user: lachlan
         uid: 1000
       context: ./
-      dockerfile: Dockerfile.app
-    container_name: app
+      dockerfile: ./docker/application/Dockerfile.application
+    container_name: application
     restart: unless-stopped
     working_dir: /var/www
     volumes:
@@ -29,7 +29,7 @@ services:
   database:
     build:
       context: .
-      dockerfile: Dockerfile.database
+      dockerfile: ./docker/mysql/Dockerfile.database
     ports:
       - "3306:3306"
     environment:

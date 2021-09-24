@@ -30,18 +30,17 @@ RUN microdnf update && echo "[main]" > /etc/dnf/dnf.conf \
   && microdnf clean all \
   && mkdir /docker-entrypoint-initdb.d
 
-COPY prepare-image.sh /
+COPY docker/mysql/scripts/prepare-image.sh /
 RUN /prepare-image.sh && rm -f /prepare-image.sh
 
 ENV MYSQL_UNIX_PORT /var/lib/mysql/mysql.sock
 
 # Copy own custom MySQL configs
-COPY docker/mysql/my.cnf /etc/my.cnf
+COPY docker/mysql/config/my.cnf /etc/my.cnf
 
-COPY docker-mysql-entrypoint.sh /entrypoint.sh
-COPY healthcheck.sh /healthcheck.sh
+COPY docker/mysql/entrypoint/docker-mysql-entrypoint.sh /entrypoint.sh
+COPY docker/mysql/scripts/healthcheck.sh /healthcheck.sh
 ENTRYPOINT ["/entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh
 EXPOSE 3306 33060 33061
 CMD ["mysqld"]
-

@@ -35,7 +35,7 @@ $app->get('/change-password', 'AuthController:changePassword')->setName('auth.pa
 $app->get('/sign-out', 'AuthController:getSignOut')->setName('auth.sign-out');
 
 // Contact
-$app->get('/contact', 'ContactController:contact')->setName('contact');
+$app->get('/contact', 'ContactController:email')->setName('contact');
 $app->post('/contact/message', 'ContactController:submitContactPost')->setName('contact.post');
 $app->get('/contact/posts', 'ContactController:getContactPosts')->setName('contact.posts');
 $app->post('/contact/post/delete', 'ContactController:deleteContactPost')->setName('contact.posts.delete');

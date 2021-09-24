@@ -21,6 +21,12 @@
       ],
       "start-alt": [
         "docker compose up -d"
+      ],
+      "stop": [
+	"docker kill $(docker ps -q)"
+      ],
+      "restart": [
+        "composer stop; composer start"
       ]
     }
 }
