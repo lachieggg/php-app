@@ -1,17 +1,19 @@
 lachiegrant.io
 =
 
-This is the source code for [my personal site](http://www.lachiegrant.io).
+This is the API source code for [my personal site](http://www.lachiegrant.io).
 
-It uses the [Laravel](https://laravel.com/) framework, and [Slim](https://www.slimframework.com/) for authentication. [Respect Validation](https://github.com/Respect/Validation) is also utilized.
+The API uses the [Slim](https://www.slimframework.com/) micro framework. 
+
+[Eloquent](https://laravel.com/docs/8.x/eloquent) is used as an ORM. 
+
+[Respect Validation](https://github.com/Respect/Validation) is used as a validation engine.
 
 This repository is a full stack application, a combination of PHP and JavaScript.
 
 The database driver is [MySQL](https://www.mysql.com/).
 
-Currently the application can be run using [Apache](http://www.apache.org/) and [Composer](https://getcomposer.org/).
-
-[Docker](https://www.docker.com) will be added as the default way to run the application in future.
+[Docker](https://www.docker.com) is the simplest way to run the application in local and production environments.
 
 Security
 =
@@ -21,22 +23,26 @@ MySQL injection protection is also built in.
 
 Base:
 =
-To get started you will need both `composer` and `apache`.
+To get started you will need both `composer` and `docker`
 
-[Composer](https://getcomposer.org/) and [Apache](http://www.apache.org/).
+[Composer](https://getcomposer.org/) and [Docker](http://www.docker.com/).
 
 Installation:
 =
+Run:
+
 `composer update` 
 
 `composer install` 
 
 `cp .env.sample .env`
 
+`composer start`
+
 Docker:
 =
-This section will soon be updated with details for using [Docker](https://www.docker.com/) to run the application.
+This section will be updated with details for using [Docker](https://www.docker.com/) to run the application.
 
 Configuration:
 =
-You will need to edit `bootstrap/app.php` and add your own database settings there.
+You may need to edit `bootstrap/app.php` and add your own database settings there.
