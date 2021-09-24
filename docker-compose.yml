@@ -6,7 +6,7 @@ services:
       args:
         user: lachlan
         uid: 1000
-      context: ./
+      context: .
       dockerfile: ./docker/application/Dockerfile.application
     container_name: application
     restart: unless-stopped
@@ -42,14 +42,15 @@ services:
       - app-network
 
   webserver:
-    image: nginx:1.17-alpine
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile.nginx
     container_name: webserver
     restart: unless-stopped
     ports:
       - 8000:80
     volumes:
       - ./:/var/www
-      - ./volumes/nginx:/etc/nginx/conf.d
     networks:
       - app-network
 
