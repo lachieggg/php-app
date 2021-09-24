@@ -1,7 +1,7 @@
 lachiegrant.io
 =
 
-This is the API source code for [my personal site](http://www.lachiegrant.io).
+This is the web app source code for [my personal site](http://www.lachiegrant.io).
 
 The API uses the [Slim](https://www.slimframework.com/) micro framework. 
 
