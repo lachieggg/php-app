@@ -46,3 +46,5 @@ This section will be updated with details for using [Docker](https://www.docker.
 Configuration:
 =
 You may need to edit `bootstrap/app.php` and add your own database settings there.
+
+For TLS/SSL, the keys and certs go in `docker/ssl/private` and `docker/ssl/certs` respectively.
