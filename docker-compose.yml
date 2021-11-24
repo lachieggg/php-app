@@ -47,8 +47,11 @@ services:
       dockerfile: ./docker/nginx/Dockerfile.nginx
     container_name: webserver
     restart: unless-stopped
+    depends_on:
+      - application
     ports:
       - 8000:80
+      - 443:443
     volumes:
       - ./:/var/www
     networks:
