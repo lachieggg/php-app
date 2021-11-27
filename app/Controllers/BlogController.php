@@ -57,7 +57,7 @@ class BlogController extends Controller
       $title = $request->getParam('title');
       $url = $request->getParam('post');
 
-      $html = getVideoRenderHtml($type, $title, $url)
+      $html = getVideoRenderHtml($type, $title, $url);
 
       $post = BlogPost::create([
         'uuid' => Uuid::uuid4(),
