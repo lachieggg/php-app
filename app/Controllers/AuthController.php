@@ -28,7 +28,7 @@ class AuthController extends Controller
     );
 
     if(!$auth) {
-      return $response->withRedirect($this->router->pathFor('auth.signin'));
+      return $response->withRedirect($this->router->pathFor('auth.sign-in'));
     }
 
     return $response->withRedirect($this->router->pathFor('home'));
@@ -52,11 +52,11 @@ class AuthController extends Controller
 
 
     if(User::where('email', $request->getParam('email'))->exists()) {
-      return $response->withRedirect($this->router->pathFor('auth.emailexists'));
+      return $response->withRedirect($this->router->pathFor('auth.email-exists'));
     }
 
     if($validation->failed()) {
-      return $response->withRedirect($this->router->pathFor('auth.signup'));
+      return $response->withRedirect($this->router->pathFor('auth.sign-up'));
     }
 
     $first_name = $request->getParam('first_name');

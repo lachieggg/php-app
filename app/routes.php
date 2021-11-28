@@ -24,7 +24,6 @@ $app->post('/blog/delete', 'BlogController:deleteBlogPost')->setName('blog.remov
 $app->post('/forum/post', 'ForumController:submitForumPost')->setName('forum.post.create');
 $app->get('/forum/posts', 'ForumController:getForumPosts')->setName('forum.posts.get');
 
-
 // Auth
 $app->post('/sign-up', 'AuthController:postSignUp')->setName('auth.sign-up');
 $app->get('/sign-up', 'AuthController:getSignUp')->setName('auth.sign-up');

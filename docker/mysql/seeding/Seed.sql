@@ -2,9 +2,7 @@ CREATE DATABASE IF NOT EXISTS website;
 USE website;
 CREATE TABLE IF NOT EXISTS users (
     uuid varchar(36) NOT NULL,
-    first_name varchar(255),
-    last_name varchar(255),
-    full_name varchar(255),
+    name varchar(255),
     email varchar(255),
     password varchar(255),
     created_at timestamp,
@@ -27,4 +25,3 @@ CREATE TABLE IF NOT EXISTS website.blog_posts (
               updated_at DATETIME
 );
 ALTER TABLE website.users ADD is_admin BOOL NULL;
-
