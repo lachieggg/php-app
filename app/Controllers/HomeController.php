@@ -14,7 +14,7 @@ class HomeController extends Controller
   public function blog($request, $response)
   {
     if($this->privacy_mode) {
-      return $this->view->render($response, 'home/private.twig');
+      return $this->view->render($response, 'auth/private.twig');
     }
 
     return $this->view->render($response, 'home/blog.twig');
@@ -23,7 +23,7 @@ class HomeController extends Controller
   public function readings($request, $response)
   {
     if($this->privacy_mode) {
-      return $this->view->render($response, 'home/private.twig');
+      return $this->view->render($response, 'auth/private.twig');
     }
 
     return $this->view->render($response, 'home/readings.twig');
@@ -32,7 +32,7 @@ class HomeController extends Controller
   public function forum($request, $response)
   {
     if($this->privacy_mode) {
-      return $this->view->render($response, 'home/private.twig');
+      return $this->view->render($response, 'auth/private.twig');
     }
     if(!$this->auth->user()) {
       return $this->view->render($response, 'auth/unauthorized.twig');
@@ -50,7 +50,7 @@ class HomeController extends Controller
   public function about($request, $response)
   {
     if($this->privacy_mode) {
-      return $this->view->render($response, 'home/private.twig');
+      return $this->view->render($response, 'auth/private.twig');
     }
 
     return $this->view->render($response, 'home/about.twig');
