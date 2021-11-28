@@ -19,7 +19,7 @@ function loadForumContent() {
       var i;
       for(i=0; i<responseJsonArr.length; i++) {
         comment = responseJsonArr[i]['comment_text'];
-        name = responseJsonArr[i]['full_name'];
+        name = responseJsonArr[i]['name'];
         time = responseJsonArr[i]['created_at'];
         console.log(comment);
         renderPost(comment, time, name);

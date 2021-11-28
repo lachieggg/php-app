@@ -66,7 +66,6 @@ class Auth
     }
 
     return false;
-
   }
 
   public function logout()

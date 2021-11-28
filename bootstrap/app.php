@@ -1,5 +1,6 @@
 <?php
 
+
 use Respect\Validation\Validator as v;
 
 session_start();
@@ -94,6 +95,8 @@ $container['csrf'] = function ($container) {
 $app->add(new \LoginApp\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new \LoginApp\Middleware\OldInputMiddleware($container));
 $app->add(new \LoginApp\Middleware\CsrfViewMiddleware($container));
+
+v::with('\\LoginApp\\Validation\\Rules\\');
 
 
 // CSRF protection for Slim 3

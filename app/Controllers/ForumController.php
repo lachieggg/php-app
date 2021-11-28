@@ -24,7 +24,7 @@ class ForumController extends Controller
 
   public function getForumPosts($request, $response) {
 
-    $posts = Comment::select('user_comments.comment_text', 'user_comments.created_at', 'users.full_name')
+    $posts = Comment::select('user_comments.comment_text', 'user_comments.created_at', 'users.name')
       ->leftJoin('users', 'user_comments.user_uuid', '=', 'users.uuid')
       ->orderBy('created_at', 'DESC')
       ->get(['user_comments.*', 'users.*']);

@@ -7,9 +7,7 @@ use LoginApp\Controllers\Controller;
 use Slim\Views\Twig as View;
 use LoginApp\Models\User;
 use Ramsey\Uuid\Uuid;
-
 use Respect\Validation\Validator as v;
-
 
 class AuthController extends Controller
 {
@@ -44,30 +42,23 @@ class AuthController extends Controller
   public function postSignUp($request, $response)
   {
     $validation = $this->validator->validate($request, [
-      'email' => v::noWhitespace()->notEmpty(),
-      'first_name' => v::noWhitespace()->notEmpty()->alpha(),
-      'last_name' => v::noWhitespace()->notEmpty()->alpha(),
+      'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
+      'name' => v::noWhitespace()->notEmpty()->alpha(),
       'password' => v::noWhitespace()->notEmpty()
     ]);
 
-
-    if(User::where('email', $request->getParam('email'))->exists()) {
-      return $response->withRedirect($this->router->pathFor('auth.email-exists'));
-    }
+    //if($request->getParam('password') == $request->getParam('password_second')) {
+    //  return false;
+    //}
 
     if($validation->failed()) {
       return $response->withRedirect($this->router->pathFor('auth.sign-up'));
     }
 
-    $first_name = $request->getParam('first_name');
-    $last_name = $request->getParam('last_name');
-
     $user = User::create([
       'uuid' => Uuid::uuid4(),
       'email' => $request->getParam('email'),
-      'first_name' => $first_name,
-      'last_name' => $last_name,
-      'full_name' => $first_name . ' ' . $last_name,
+      'name' => $request->getParam('name'),
       'password' =>  password_hash($request->getParam('password'), PASSWORD_DEFAULT),
     ]);
 

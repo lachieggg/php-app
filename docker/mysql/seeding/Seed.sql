@@ -6,10 +6,12 @@ CREATE TABLE IF NOT EXISTS users (
     email varchar(255),
     password varchar(255),
     created_at timestamp,
-    updated_at timestamp
+    updated_at timestamp,
+    is_deleted BOOL NULL,
+    is_approved BOOL NULL,
+    is_admin BOOL NULL
 );
-ALTER TABLE website.users ADD is_deleted BOOL NULL;
-ALTER TABLE website.users ADD is_approved BOOL NULL;
+
 CREATE TABLE IF NOT EXISTS website.user_comments (
     uuid varchar(36) NULL,
     user_uuid varchar(36) NULL,
@@ -24,4 +26,3 @@ CREATE TABLE IF NOT EXISTS website.blog_posts (
               created_at DATETIME,
               updated_at DATETIME
 );
-ALTER TABLE website.users ADD is_admin BOOL NULL;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb4a0cefef24351ef553c9886d268f93",
+    "content-hash": "632958f753789732aeeb55bf15c021bc",
     "packages": [
         {
             "name": "brick/math",
@@ -228,36 +228,38 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.1.4",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "821b4f01a36ce63ed36c090ea74767b72db367e9"
+                "reference": "5d54f63541d7bed1156cb5c9b79274ced61890e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/821b4f01a36ce63ed36c090ea74767b72db367e9",
-                "reference": "821b4f01a36ce63ed36c090ea74767b72db367e9",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/5d54f63541d7bed1156cb5c9b79274ced61890e4",
+                "reference": "5d54f63541d7bed1156cb5c9b79274ced61890e4",
                 "shasum": ""
             },
             "require": {
                 "composer/package-versions-deprecated": "^1.11.99",
-                "doctrine/cache": "^1.0|^2.0",
+                "doctrine/cache": "^1.11|^2.0",
                 "doctrine/deprecations": "^0.5.3",
                 "doctrine/event-manager": "^1.0",
-                "php": "^7.3 || ^8.0"
+                "php": "^7.3 || ^8.0",
+                "psr/cache": "^1|^2|^3",
+                "psr/log": "^1|^2|^3"
             },
             "require-dev": {
                 "doctrine/coding-standard": "9.0.0",
                 "jetbrains/phpstorm-stubs": "2021.1",
-                "phpstan/phpstan": "1.1.1",
-                "phpstan/phpstan-strict-rules": "^1",
+                "phpstan/phpstan": "1.2.0",
+                "phpstan/phpstan-strict-rules": "^1.1",
                 "phpunit/phpunit": "9.5.10",
                 "psalm/plugin-phpunit": "0.16.1",
                 "squizlabs/php_codesniffer": "3.6.1",
                 "symfony/cache": "^5.2|^6.0",
                 "symfony/console": "^2.0.5|^3.0|^4.0|^5.0|^6.0",
-                "vimeo/psalm": "4.12.0"
+                "vimeo/psalm": "4.13.0"
             },
             "suggest": {
                 "symfony/console": "For helpful console commands such as SQL execution and import of files."
@@ -329,7 +331,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-15T16:44:33+00:00"
+            "time": "2021-11-26T21:00:12+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -1214,6 +1216,52 @@
             "time": "2021-10-28T11:13:42+00:00"
         },
         {
+            "name": "psr/cache",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/cache.git",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for caching libraries",
+            "keywords": [
+                "cache",
+                "psr",
+                "psr-6"
+            ],
+            "time": "2016-08-06T20:24:11+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "1.1.2",
             "source": {
@@ -1306,6 +1354,53 @@
                 "response"
             ],
             "time": "2016-08-06T14:39:51+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
+                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2021-05-03T11:20:27+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -1525,97 +1620,44 @@
             "time": "2021-09-25T23:10:38+00:00"
         },
         {
-            "name": "respect/stringifier",
-            "version": "0.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Respect/Stringifier.git",
-                "reference": "e55af3c8aeaeaa2abb5fa47a58a8e9688cc23b59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Respect/Stringifier/zipball/e55af3c8aeaeaa2abb5fa47a58a8e9688cc23b59",
-                "reference": "e55af3c8aeaeaa2abb5fa47a58a8e9688cc23b59",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.8",
-                "malukenho/docheader": "^0.1.7",
-                "phpunit/phpunit": "^6.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Respect\\Stringifier\\": "src/"
-                },
-                "files": [
-                    "src/stringify.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Respect/Stringifier Contributors",
-                    "homepage": "https://github.com/Respect/Stringifier/graphs/contributors"
-                }
-            ],
-            "description": "Converts any value to a string",
-            "homepage": "http://respect.github.io/Stringifier/",
-            "keywords": [
-                "respect",
-                "stringifier",
-                "stringify"
-            ],
-            "time": "2017-12-29T19:39:25+00:00"
-        },
-        {
             "name": "respect/validation",
-            "version": "2.2.3",
+            "version": "1.1.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Respect/Validation.git",
-                "reference": "4c21a7ffc9a4915673cb2c2843963919e664e627"
+                "reference": "45d109fc830644fecc1145200d6351ce4f2769d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Respect/Validation/zipball/4c21a7ffc9a4915673cb2c2843963919e664e627",
-                "reference": "4c21a7ffc9a4915673cb2c2843963919e664e627",
+                "url": "https://api.github.com/repos/Respect/Validation/zipball/45d109fc830644fecc1145200d6351ce4f2769d0",
+                "reference": "45d109fc830644fecc1145200d6351ce4f2769d0",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8.0",
-                "respect/stringifier": "^0.2.0",
+                "php": ">=5.4",
                 "symfony/polyfill-mbstring": "^1.2"
             },
             "require-dev": {
-                "egulias/email-validator": "^3.0",
-                "malukenho/docheader": "^0.1",
-                "mikey179/vfsstream": "^1.6",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-deprecation-rules": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpunit/phpunit": "^9.3",
-                "psr/http-message": "^1.0",
-                "respect/coding-standard": "^3.0",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symfony/validator": "^3.0||^4.0",
-                "zendframework/zend-validator": "^2.1"
+                "egulias/email-validator": "~1.2 || ~2.1",
+                "mikey179/vfsstream": "^1.5",
+                "phpunit/phpunit": "~4.0 || ~5.0",
+                "symfony/validator": "~2.6.9",
+                "zendframework/zend-validator": "~2.3"
             },
             "suggest": {
                 "egulias/email-validator": "Strict (RFC compliant) email validation",
                 "ext-bcmath": "Arbitrary Precision Mathematics",
-                "ext-fileinfo": "File Information",
                 "ext-mbstring": "Multibyte String Functions",
+                "friendsofphp/php-cs-fixer": "Fix PSR2 and other coding style issues",
                 "symfony/validator": "Use Symfony validator through Respect\\Validation",
                 "zendframework/zend-validator": "Use Zend Framework validator through Respect\\Validation"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Respect\\Validation\\": "library/"
@@ -1623,7 +1665,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -1638,7 +1680,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2021-03-19T14:12:45+00:00"
+            "time": "2019-05-28T06:10:06+00:00"
         },
         {
             "name": "slim/csrf",
@@ -2894,16 +2936,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "a27fa056df8a6384316288ca8b0fa3a35fdeb569"
+                "reference": "65cb6f0b956485e1664f13d023c55298a4bb59ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a27fa056df8a6384316288ca8b0fa3a35fdeb569",
-                "reference": "a27fa056df8a6384316288ca8b0fa3a35fdeb569",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/65cb6f0b956485e1664f13d023c55298a4bb59ca",
+                "reference": "65cb6f0b956485e1664f13d023c55298a4bb59ca",
                 "shasum": ""
             },
             "require": {
@@ -2962,7 +3004,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-17T08:44:23+00:00"
+            "time": "2021-11-25T13:46:55+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
