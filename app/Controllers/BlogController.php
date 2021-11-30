@@ -90,6 +90,6 @@ class BlogController extends Controller
       return $this->view->render($response, 'home/blog.twig');
     }
     // not authorized
-    return $this->view->render($response, 'auth/unauthorized.twig');
+    return $this->view->render($response, 'auth/private.twig');
   }
 }
