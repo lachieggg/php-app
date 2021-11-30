@@ -3,30 +3,13 @@
 namespace LoginApp\Controllers;
 
 use Slim\Views\Twig as View;
+use LoginApp\Controllers\BlogController;
 
 class HomeController extends Controller
 {
   public function index($request, $response)
   {
     return $this->view->render($response, 'home/home.twig');
-  }
-
-  public function blog($request, $response)
-  {
-    if($this->privacy_mode) {
-      return $this->view->render($response, 'auth/private.twig');
-    }
-
-    return $this->view->render($response, 'home/blog.twig');
-  }
-
-  public function readings($request, $response)
-  {
-    if($this->privacy_mode) {
-      return $this->view->render($response, 'auth/private.twig');
-    }
-
-    return $this->view->render($response, 'home/readings.twig');
   }
 
   public function forum($request, $response)
@@ -47,14 +30,11 @@ class HomeController extends Controller
     return $this->view->render($response, 'home/forum.twig');
   }
 
-  public function about($request, $response)
+  public function thinkers($request, $response)
   {
-    if($this->privacy_mode) {
-      return $this->view->render($response, 'auth/private.twig');
-    }
-
-    return $this->view->render($response, 'home/about.twig');
+    return $this->view->render($response, 'home/thinkers.twig');
   }
+
 
   public function github($request, $response)
   {

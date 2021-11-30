@@ -4,8 +4,9 @@ body {
   padding-bottom: 40px;
 }
 
-::-webkit-scrollbar {
-  display: none;
+:root { 
+  scrollbar-color: #BA0B00 #000000;
+  scrollbar-width: none;
 }
 
 .search-form {
@@ -27,4 +28,19 @@ body {
   .home-img {
     display: none;
   }
+}
+
+.index-body {
+	background-color: lightblue;
+	font-family: Sans-serif;
+	font-weight: 100;
+}
+
+#login-welcome-img {
+  height: 25%;
+  width: 25%;
+}
+
+#login-welcome-div {
+  text-align: center;
 }

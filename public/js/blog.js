@@ -1,7 +1,7 @@
 
 
 function loadBlogContent() {
-	route = 'blogPosts';
+	route = '/blog/posts';
 	var xhr = new XMLHttpRequest();
   console.log(serverURL)
 	xhr.open('GET', route, true);
@@ -11,21 +11,22 @@ function loadBlogContent() {
 
   xhr.setRequestHeader('Authorization', 'Bearer ' + authToken);
 	xhr.onload = function () {
-	    // do something to response
-      var responseText = this.responseText;
-      var responseJsonArr = JSON.parse(responseText);
-      var i;
-      for(i=0; i<responseJsonArr.length; i++) {
-        postHtml = responseJsonArr[i]['post_html']
-        renderPost(postHtml);
-      }
+	  // do something to response
+    var responseText = this.responseText;
+    var responseJsonArr = JSON.parse(responseText);
+    var i;
+    for(i=0; i<responseJsonArr.length; i++) {
+      content = responseJsonArr[i]['content'];
+      console.log(content);
+      renderPost(content);
+    }
 	};
 	xhr.send();
 }
 
-function renderPost(postHtml, index) {
+function renderPost(content, index) {
   blogBodyElement = document.getElementById('blog-body-content');
-  blogBodyElement.innerHTML = blogBodyElement.innerHTML + '<hr>' + postHtml;
+  blogBodyElement.innerHTML = blogBodyElement.innerHTML + '<hr>' + content;
 }
 
 function getCookie(cookieName) {
@@ -45,11 +46,6 @@ function getCookie(cookieName) {
   return "";
 }
 
-var serverURL;
-if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
-	serverURL = 'localhost/';
-} else {
-	serverURL = 'www.lachiegrant.io/';
-}
+var serverURL = "localhost";
 
 loadBlogContent()

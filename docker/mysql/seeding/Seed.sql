@@ -16,13 +16,16 @@ CREATE TABLE IF NOT EXISTS website.user_comments (
     uuid varchar(36) NULL,
     user_uuid varchar(36) NULL,
     comment_text TEXT NULL,
-              created_at DATETIME,
-              updated_at DATETIME
+    created_at DATETIME,
+    updated_at DATETIME
 );
 CREATE TABLE IF NOT EXISTS website.blog_posts (
     uuid varchar(36) NULL,
-    post_html TEXT NULL,
-              is_private TINYINT,
-              created_at DATETIME,
-              updated_at DATETIME
+    is_private BOOL DEFAULT FALSE,
+    is_deleted BOOL DEFAULT FALSE,
+    created_at DATETIME,
+    updated_at DATETIME,
+    title TEXT,
+    content TEXT,
+    type TEXT
 );

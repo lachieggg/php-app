@@ -8,13 +8,12 @@ $app->get('/view', function ($request, $response) {
 // Home
 $app->get('/', 'HomeController:index')->setName('home.root');
 $app->get('/home', 'HomeController:index')->setName('home');
-$app->get('/blog', 'HomeController:blog')->setName('home.blog');
-$app->get('/readings', 'HomeController:readings')->setName('home.readings');
 $app->get('/github', 'HomeController:github')->setName('home.github');
-$app->get('/about', 'HomeController:about')->setName('home.about');
 $app->get('/forum', 'ForumController:forum')->setName('home.forum');
+$app->get('/thinkers', 'HomeController:thinkers')->setName('home.thinkers');
 
 // Blog
+$app->get('/blog', 'BlogController:blog')->setName('blog');
 $app->get('/blog/posts', 'BlogController:getBlogPosts')->setName('blog.posts');
 $app->get('/blog/admin', 'BlogController:getBlogAdmin')->setName('blog.admin');
 $app->post('/blog/create', 'BlogController:submitBlogPost')->setName('blog.create');

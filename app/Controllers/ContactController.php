@@ -24,6 +24,8 @@ class ContactController extends Controller
 
   public function email($request, $response)
   {
+    return $this->view->render($response, 'home/contact.twig');
+
     $email = "lachie@lachiegrant.io";
     header('Location: '.$newURL);
     die();
@@ -42,26 +44,20 @@ class ContactController extends Controller
     }
   }
 
+  /**
+   * 
+   */
   public function submitContactPost($request, $response)
   {
     // XSS protection
-    $comment = str_replace('>', '', $request->getParam('comment'));
-    $comment = str_replace('<', '', $comment);
-    $mobile = str_replace('>', '', $request->getParam('mobile'));
-    $mobile = str_replace('<', '', $comment);
-    $name = str_replace('>', '', $request->getParam('email'));
-    $name = str_replace('<', '', $comment);
-
-    $tab = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-    $text = $tab . "name: " . $name
-    . "<br>" . $tab . "comment: " . $comment
-    . "<br>" . $tab . "mobile: " . $mobile
-    . "<br>" . $tab . "email: " . $email;
-
+    $comment = htmlspecialchars($request->getParam('comment'));
+    $mobile = htmlspecialchars($request->getParam('mobile'));
+    $name = htmlspecialchars($request->getParam('email'));
+   
     $comment = Comment::create([
       'uuid' => Uuid::uuid4(),
       'user_uuid' => $this->auth->user->uuid,
-      'comment_text' => $text
+      'comment_text' => $comment 
     ]);
 
     return $response->withRedirect($this->router->pathFor('contact'));

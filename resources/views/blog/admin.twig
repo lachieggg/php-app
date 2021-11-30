@@ -1,0 +1,47 @@
+{% extends "templates/app.twig" %}
+
+{% block content %}
+
+<head>
+	<title>Admin Panel</title>
+	<link rel='stylesheet' type='text/css' href='css/main.css'/>
+	<script src="js/admin.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body class='index-body' id='main-body'>
+    <div id='blog-body-content'>
+	    <h1>
+		Blog Admin Panel
+		</h1>
+        <br>
+        <form action="{{ path_for('blog.create') }}" method="post" autocomplete="off">
+            <div class="form-group">
+                <label for="post-title-text-input">Title:</label>
+                    <input type="text" name="title" id="post-title-text-input" class="form-control" value="My Title">
+                        <br>
+                        <br>
+                        <label for="post">Content URL:</label>
+                        <input type="text" name="post" id="post-text-input" class="form-control" value=''/>
+                        <br>
+                        <label for="post-type-input">Content type:</label>
+                        <br>
+                        <select id="post-type-input" name="type">
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                            <option value="video">Text</option>
+                        </select>
+                    </input>
+                </label>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-default">Create post</button>
+            </div>
+            {{ csrf.field | raw }}
+
+        </form>
+	</div>
+
+</body>
+
+{% endblock %}

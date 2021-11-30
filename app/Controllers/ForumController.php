@@ -35,21 +35,16 @@ class ForumController extends Controller
   public function submitForumPost($request, $response)
   {
     // XSS protection
-    $comment = str_replace('>', '', $request->getParam('comment'));
-    $comment = str_replace('<', '', $comment);
-    $mobile = str_replace('>', '', $request->getParam('mobile'));
-    $mobile = str_replace('<', '', $comment);
-    $name = str_replace('>', '', $request->getParam('email'));
-    $name = str_replace('<', '', $comment);
+    $comment = htmlspecialchars($request->getParam('comment'));
+    $mobile = htmlspecialchars($request->getParam('mobile'));
+    $name = htmlspecialchars($request->getParam('email'));
 
     if($this->auth->isVerified()) {
-      $post = $request->getParam('comment');
       $username = $this->auth->user->full_name;
-
 
       $post = Comment::create([
         'uuid' => Uuid::uuid4(),
-        'comment_text' => $post,
+        'comment_text' => $comment,
         'user_name' => $username
       ]);
     }

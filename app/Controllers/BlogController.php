@@ -16,7 +16,7 @@ class BlogController extends Controller
     }
 
     if($this->auth->isAdmin()) {
-      return $this->view->render($response, 'home/blog.twig');
+      return $this->view->render($response, 'blog/blog.twig');
     }
 
     return $this->view->render($response, 'home/private.twig');
@@ -24,30 +24,13 @@ class BlogController extends Controller
 
   public function getBlogPosts($request, $response)
   {
-    if($this->privacy_mode) {
-      return;
-    }
-
-    $posts = BlogPost::where('is_private', 0)
-      ->orderBy('created_at', 'DESC')
+    $posts = BlogPost::where([
+      ['is_deleted', false],
+      ['is_private', false]
+    ])->orderBy('created_at', 'DESC')
       ->get();
 
     return $response->withJson($posts);
-  }
-
-  public function getVideoRenderHtml($type, $title, $url)
-  {
-    if($type == "Video") {
-      $html = "<b>". $title . "</b> <br> <br>
-            <video width='320' height='240' controls>
-            <source src='" . $url . "' type='video/mp4'>
-            </video>";
-    } else {
-      $html = "<b>". $title . " </b> <br> <br>
-            <img src='" . $url . "'>";
-    }
-
-    return $html;
   }
 
   public function submitBlogPost($request, $response)
@@ -55,13 +38,13 @@ class BlogController extends Controller
     if($this->auth->isAdmin()) {
       $type = $request->getParam('type');
       $title = $request->getParam('title');
-      $url = $request->getParam('post');
-
-      $html = getVideoRenderHtml($type, $title, $url);
+      $content = $request->getParam('post');
 
       $post = BlogPost::create([
         'uuid' => Uuid::uuid4(),
-        'post_html' => $html,
+        'type' => $type,
+        'title' => $title,
+        'content' => $content,
         'is_private' => 0
       ]);
 
@@ -77,7 +60,7 @@ class BlogController extends Controller
       $post = BlogPost::where('uuid', $uuid)->first();
 
       if(isset($post)){
-        $post->is_private = 1;
+        $post->is_deleted = 1;
         $post->save();
       }
     }
@@ -87,7 +70,7 @@ class BlogController extends Controller
   public function getBlogAdmin($request, $response)
   {
     if($this->auth->isAdmin()) {
-      return $this->view->render($response, 'home/blog.twig');
+      return $this->view->render($response, 'blog/admin.twig');
     }
     // not authorized
     return $this->view->render($response, 'auth/private.twig');

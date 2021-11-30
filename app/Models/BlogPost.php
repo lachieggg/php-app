@@ -13,7 +13,10 @@ class BlogPost extends Model
 
     protected $fillable = [
         'uuid',
-        'post_html',
-        'is_private'
+        'title',
+        'type',
+        'content',
+        'is_private',
+        'is_deleted'
     ];
 }
