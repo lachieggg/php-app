@@ -2,6 +2,20 @@ body {
   background: lightblue;
   padding-top: 100px;
   padding-bottom: 40px;
+  text-align: center;
+}
+
+#sign-in-body {
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+#sign-up-form {
+  text-align: left;
+}
+
+#sign-in-form {
+  text-align: left;
 }
 
 :root { 
@@ -9,13 +23,22 @@ body {
   scrollbar-width: none;
 }
 
+#welcome-img {
+  width: 576px;
+  height: 324px;
+  border-radius: 60px;
+  border: 20px;
+  padding: 0px;
+}
+
 .search-form {
   display: block;
   padding-top: 10px;
 }
 
-.home-img {
-  display: block;
+#home-img {
+  align-self: center;
+  border-radius: 60px;
 }
 
 @media (max-width: 960px)
@@ -25,8 +48,9 @@ body {
     display: none;
   }
 
-  .home-img {
-    display: none;
+  #home-img {
+    border-radius: 60px;
+    align-self: center;
   }
 }
 
@@ -34,13 +58,4 @@ body {
 	background-color: lightblue;
 	font-family: Sans-serif;
 	font-weight: 100;
-}
-
-#login-welcome-img {
-  height: 25%;
-  width: 25%;
-}
-
-#login-welcome-div {
-  text-align: center;
 }
