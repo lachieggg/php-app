@@ -8,6 +8,7 @@ use Slim\Views\Twig as View;
 use LoginApp\Models\User;
 use Ramsey\Uuid\Uuid;
 use Respect\Validation\Validator as v;
+use Illuminate\Support\Arr;
 
 class AuthController extends Controller
 {
@@ -44,12 +45,9 @@ class AuthController extends Controller
     $validation = $this->validator->validate($request, [
       'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
       'name' => v::noWhitespace()->notEmpty()->alpha(),
-      'password' => v::noWhitespace()->notEmpty()
+      'password' => v::noWhitespace()->notEmpty()->passwordConfirmation(),
+      'password_confirmation' => v::noWhitespace()->notEmpty()->passwordConfirmation()
     ]);
-
-    //if($request->getParam('password') == $request->getParam('password_second')) {
-    //  return false;
-    //}
 
     if($validation->failed()) {
       return $response->withRedirect($this->router->pathFor('auth.sign-up'));
