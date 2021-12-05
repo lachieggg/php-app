@@ -29,8 +29,14 @@ class AuthController extends Controller
     $email = htmlspecialchars($request->getParam('email'));
     $password = htmlspecialchars($request->getParam('password'));
 
-    // TODO 
-    // password failure message
+    $validation = $this->validator->validate($request, [
+      'email' => v::noWhitespace()->notEmpty(),
+      'password' => v::noWhitespace()->notEmpty()->loginAttempt(),
+    ]);
+
+    if($validation->failed()) {
+      return $response->withRedirect($this->router->pathFor('auth.sign-in'));
+    }
 
     $auth = $this->auth->attempt(
       $email,
