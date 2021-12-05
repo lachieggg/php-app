@@ -9,26 +9,20 @@ use Ramsey\Uuid\Uuid;
 
 class ContactController extends Controller
 {
+  public function __construct($container) 
+  {
+    parent::__construct($container);
+    $this->privacy_mode = False;
+  }
+
   public function contact($request, $response)
   {
-    if($this->privacy_mode) {
-      return $this->view->render($response, 'home/private.twig');
-    }
-
-    if($this->auth->isVerified()) {
-      return $this->view->render($response, 'home/contact.twig');
-    } else {
-      return $this->view->render($response, 'auth/unauthorized.twig');
-    }
+    return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'home/contact.twig');
   }
 
   public function email($request, $response)
   {
-    return $this->view->render($response, 'home/contact.twig');
-
-    $email = "lachie@lachiegrant.io";
-    header('Location: '.$newURL);
-    die();
+    return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'home/contact.twig');
   }
 
   public function getContactPosts($request, $response) {
@@ -67,13 +61,11 @@ class ContactController extends Controller
   public function deleteContactPost($request, $response)
   {
     if($this->auth->isAdmin()) {
-
       $uuid = $request->getParam('uuid');
       $comment = Comment::where('uuid', $uuid)->first();
       $comment->delete();
 
       return $response->withRedirect($this->router->pathFor('contact'));
-
     }
   }
 

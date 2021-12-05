@@ -72,7 +72,6 @@ class ForumController extends Controller
       ]);
 
       return $response->withRedirect($this->router->pathFor('forum'));
-
     }
   }
 }

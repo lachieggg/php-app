@@ -15,22 +15,29 @@ class AuthController extends Controller
   // GET sign in
   public function getSignIn($request, $response)
   {
-    return $this->view->render($response, 'auth/sign-in.twig');
+    return isset($_SESSION['user']) ? $this->view->render($response, 'home/home.twig') : $this->view->render($response, 'auth/sign-in.twig');
   }
 
   // POST sign in
   public function postSignIn($request, $response)
   {
-    $auth = $this->auth->attempt(
-      $request->getParam('email'),
-      $request->getParam('password')
-    );
-
-    if(!$auth) {
-      return $response->withRedirect($this->router->pathFor('auth.sign-in'));
+    if(isset($_SESSION['user'])) {
+      return $response->withRedirect($this->router->pathFor('home'));
     }
 
-    return $response->withRedirect($this->router->pathFor('home'));
+    // XSS protection
+    $email = htmlspecialchars($request->getParam('email'));
+    $password = htmlspecialchars($request->getParam('password'));
+
+    // TODO 
+    // password failure message
+
+    $auth = $this->auth->attempt(
+      $email,
+      $password
+    );
+
+    return $auth ? $response->withRedirect($this->router->pathFor('home')) : $response->withRedirect($this->router->pathFor('auth.sign-in'));
   }
 
   // GET sign up
@@ -65,18 +72,6 @@ class AuthController extends Controller
     return $response->withRedirect($this->router->pathFor('home'));
   }
 
-  // GET signed up
-  public function getSignedUp($request, $response)
-  {
-    return $this->view->render($response, 'auth/signed-up.twig');
-  }
-
-  // GET signed up
-  public function getEmailExists($request, $response)
-  {
-    return $this->view->render($response, 'auth/email-exists.twig');
-  }
-
   public function getSignOut($request, $response)
   {
     $this->auth->logout();
@@ -88,6 +83,16 @@ class AuthController extends Controller
   {
     $user = $this->auth->user();
     return $user->first_name . ' ' . $user->last_name;
+  }
+
+  public function getBlogAdmin($request, $response)
+  {
+    return $this->auth->isAdmin() ? $this->view->render($response, 'auth/admin/blog.twig') : $this->view->render($response, 'auth/private.twig');
+  }
+
+  public function getGalleryAdmin($request, $response)
+  {
+    return $this->auth->isAdmin() ? $this->view->render($response, 'auth/admin/gallery.twig') : $this->view->render($response, 'auth/private.twig');
   }
 
 }

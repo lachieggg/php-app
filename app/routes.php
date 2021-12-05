@@ -11,11 +11,11 @@ $app->get('/home', 'HomeController:index')->setName('home');
 $app->get('/github', 'HomeController:github')->setName('home.github');
 $app->get('/forum', 'ForumController:forum')->setName('home.forum');
 $app->get('/thinkers', 'HomeController:thinkers')->setName('home.thinkers');
+$app->get('/gallery', 'HomeController:gallery')->setName('home.gallery');
 
 // Blog
 $app->get('/blog', 'BlogController:blog')->setName('blog');
 $app->get('/blog/posts', 'BlogController:getBlogPosts')->setName('blog.posts');
-$app->get('/blog/admin', 'BlogController:getBlogAdmin')->setName('blog.admin');
 $app->post('/blog/create', 'BlogController:submitBlogPost')->setName('blog.create');
 $app->post('/blog/delete', 'BlogController:deleteBlogPost')->setName('blog.remove');
 
@@ -37,3 +37,7 @@ $app->get('/contact', 'ContactController:email')->setName('contact');
 $app->post('/contact/message', 'ContactController:submitContactPost')->setName('contact.post');
 $app->get('/contact/posts', 'ContactController:getContactPosts')->setName('contact.posts');
 $app->post('/contact/post/delete', 'ContactController:deleteContactPost')->setName('contact.posts.delete');
+
+// Admin
+$app->get('/blog/admin', 'AuthController:getBlogAdmin')->setName('blog.admin');
+$app->get('/gallery/admin', 'AuthController:getGalleryAdmin')->setName('gallery.admin');

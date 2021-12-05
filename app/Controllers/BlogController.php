@@ -11,15 +11,7 @@ class BlogController extends Controller
 {
   public function blog($request, $response)
   {
-    if($this->privacy_mode) {
-      return $this->view->render($response, 'auth/private.twig');
-    }
-
-    if($this->auth->isAdmin()) {
-      return $this->view->render($response, 'blog/blog.twig');
-    }
-
-    return $this->view->render($response, 'home/private.twig');
+    return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'blog/blog.twig');
   }
 
   public function getBlogPosts($request, $response)
@@ -67,12 +59,4 @@ class BlogController extends Controller
     return $response->withRedirect($this->router->pathFor('blog.posts'));
   }
 
-  public function getBlogAdmin($request, $response)
-  {
-    if($this->auth->isAdmin()) {
-      return $this->view->render($response, 'blog/admin.twig');
-    }
-    // not authorized
-    return $this->view->render($response, 'auth/private.twig');
-  }
 }

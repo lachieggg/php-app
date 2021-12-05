@@ -29,3 +29,13 @@ CREATE TABLE IF NOT EXISTS website.blog_posts (
     content TEXT,
     type TEXT
 );
+
+CREATE TABLE IF NOT EXISTS website.gallery_posts (
+    uuid varchar(36) NULL,
+    is_deleted BOOL DEFAULT FALSE,
+    created_at DATETIME,
+    updated_at DATETIME,
+    title TEXT,
+    image_path TEXT,
+    description TEXT
+);

@@ -16,18 +16,19 @@ class Auth
     return $user;
   }
 
-  // has the user been approved?
-  public function isApproved() {
-    $approvedUser = User::where('uuid', $_SESSION['user'])
-    ->where('is_approved', '=', 1)
-    ->where('is_deleted', '!=', 1)
-    ->first();
-
-
-    if(isset($approvedUser)) {
-      return true;
+  // is the user signed in?
+  public function check()
+  {
+    $user = $this->user();
+    if(!isset($user)) {
+       return false;
     }
-    return false;
+    return isset($_SESSION['user']);
+  }
+
+  public function logout()
+  {
+    unset($_SESSION['user']);
   }
 
   // has the user been removed from the database?
@@ -40,16 +41,6 @@ class Auth
       return true;
     }
     return false;
-  }
-
-  // is the user signed in?
-  public function check()
-  {
-    $user = $this->user();
-    if(!isset($user)) {
-      return false;
-    }
-    return isset($_SESSION['user']);
   }
 
   public function attempt($email, $password)
@@ -66,11 +57,6 @@ class Auth
     }
 
     return false;
-  }
-
-  public function logout()
-  {
-    unset($_SESSION['user']);
   }
 
   public function isAdmin()
@@ -102,4 +88,17 @@ class Auth
     return true;
   }
 
+  // has the user been approved?
+  public function isApproved() {
+    $approvedUser = User::where('uuid', $_SESSION['user'])
+    ->where('is_approved', '=', 1)
+    ->where('is_deleted', '!=', 1)
+    ->first();
+
+
+    if(isset($approvedUser)) {
+      return true;
+    }
+    return false;
+  }
 }
