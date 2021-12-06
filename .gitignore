@@ -3,3 +3,4 @@ vendor/
 .env
 *.crt
 *.key
+*twig_cache*
