@@ -10,6 +10,6 @@ class LoginAttempt extends AbstractRule
 {
     public function validate($input)
     {
-       return True;
+        return True;
     }
 }

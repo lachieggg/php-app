@@ -85,12 +85,6 @@ class AuthController extends Controller
     return $response->withRedirect($this->router->pathFor('home'));
   }
 
-  public function userName($request, $response)
-  {
-    $user = $this->auth->user();
-    return $user->first_name . ' ' . $user->last_name;
-  }
-
   public function getBlogAdmin($request, $response)
   {
     return $this->auth->isAdmin() ? $this->view->render($response, 'auth/admin/blog.twig') : $this->view->render($response, 'auth/private.twig');

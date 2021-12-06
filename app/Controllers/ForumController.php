@@ -9,19 +9,6 @@ use Ramsey\Uuid\Uuid;
 
 class ForumController extends Controller
 {
-  public function forum($request, $response)
-  {
-    if($this->privacy_mode) {
-      return $this->view->render($response, 'auth/private.twig');
-    }
-
-    if($this->auth->isVerified()) {
-      return $this->view->render($response, 'home/forum.twig');
-    }
-
-    return $this->view->render($response, 'auth/unauthorized.twig');
-  }
-
   public function getForumPosts($request, $response) {
 
     $posts = Comment::select('user_comments.comment_text', 'user_comments.created_at', 'users.name')
@@ -49,15 +36,6 @@ class ForumController extends Controller
       ]);
     }
     return $response->withRedirect($this->router->pathFor('forum'));
-  }
-
-  public function getForumPanel($request, $response)
-  {
-    if($this->auth->isVerified()) {
-      return $this->view->render($response, 'forum/forum.twig');
-    }
-
-    return $this->view->render($response, 'auth/unauthorized.twig');
   }
 
   public function submitComment($request, $response)

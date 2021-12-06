@@ -9,7 +9,6 @@ $app->get('/view', function ($request, $response) {
 $app->get('/', 'HomeController:index')->setName('home.root');
 $app->get('/home', 'HomeController:index')->setName('home');
 $app->get('/github', 'HomeController:github')->setName('home.github');
-$app->get('/forum', 'ForumController:forum')->setName('home.forum');
 $app->get('/thinkers', 'HomeController:thinkers')->setName('home.thinkers');
 $app->get('/gallery', 'HomeController:gallery')->setName('home.gallery');
 

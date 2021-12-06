@@ -29,6 +29,8 @@ $app = new \Slim\App([
     ],
 ]);
 
+require __DIR__ . '/../app/routes.php';
+
 $container = $app->getContainer();
 
 $capsule = new \Illuminate\Database\Capsule\Manager;
@@ -46,7 +48,7 @@ $container['auth'] = function ($container) {
 
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/../resources/views', [
-        'cache' => false,
+        'cache' => 'twig_cache',
     ]);
 
     $view->addExtension(new \Slim\Views\TwigExtension(
@@ -102,5 +104,3 @@ v::with('\\LoginApp\\Validation\\Rules\\');
 // CSRF protection for Slim 3
 $app->add($container->csrf);
 
-
-require __DIR__ . '/../app/routes.php';

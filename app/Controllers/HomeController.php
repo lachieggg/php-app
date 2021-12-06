@@ -7,6 +7,13 @@ use LoginApp\Controllers\BlogController;
 
 class HomeController extends Controller
 {
+
+  public function __construct($container) 
+  {
+    parent::__construct($container);
+    $this->privacy_mode = False;
+  }
+
   public function index($request, $response)
   {
     return $this->view->render($response, 'home/home.twig');
@@ -19,7 +26,7 @@ class HomeController extends Controller
 
   public function gallery($request, $response)
   {
-    return $this->view->render($response, 'home/gallery.twig');
+    return $this->privacy_mode ? $this->view->render($response, 'home/gallery.twig') : $this->view->render($response, 'home/home.twig');
   }
 
   public function github($request, $response)
