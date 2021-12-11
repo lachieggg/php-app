@@ -12,20 +12,17 @@ use Illuminate\Support\Arr;
 
 class AuthController extends Controller
 {
-  // GET sign in
   public function getSignIn($request, $response)
   {
     return isset($_SESSION['user']) ? $this->view->render($response, 'home/home.twig') : $this->view->render($response, 'auth/sign-in.twig');
   }
 
-  // POST sign in
   public function postSignIn($request, $response)
   {
     if(isset($_SESSION['user'])) {
       return $response->withRedirect($this->router->pathFor('home'));
     }
 
-    // XSS protection
     $email = htmlspecialchars($request->getParam('email'));
     $password = htmlspecialchars($request->getParam('password'));
 
@@ -46,13 +43,11 @@ class AuthController extends Controller
     return $auth ? $response->withRedirect($this->router->pathFor('home')) : $response->withRedirect($this->router->pathFor('auth.sign-in'));
   }
 
-  // GET sign up
   public function getSignUp($request, $response)
   {
     return $this->view->render($response, 'auth/sign-up.twig');
   }
 
-  // POST sign up
   public function postSignUp($request, $response)
   {
     $validation = $this->validator->validate($request, [
@@ -94,5 +89,4 @@ class AuthController extends Controller
   {
     return $this->auth->isAdmin() ? $this->view->render($response, 'auth/admin/gallery.twig') : $this->view->render($response, 'auth/private.twig');
   }
-
 }

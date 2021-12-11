@@ -11,6 +11,8 @@ $app->get('/home', 'HomeController:index')->setName('home');
 $app->get('/github', 'HomeController:github')->setName('home.github');
 $app->get('/thinkers', 'HomeController:thinkers')->setName('home.thinkers');
 $app->get('/gallery', 'HomeController:gallery')->setName('home.gallery');
+$app->get('/resume', 'HomeController:resume')->setName('home.resume');
+
 
 // Blog
 $app->get('/blog', 'BlogController:blog')->setName('blog');

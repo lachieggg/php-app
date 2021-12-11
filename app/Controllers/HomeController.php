@@ -12,6 +12,8 @@ class HomeController extends Controller
   {
     parent::__construct($container);
     $this->privacy_mode = False;
+    $this->resume = getenv('RESUME_URL');
+    $this->github = getenv('GITHUB_URL');
   }
 
   public function index($request, $response)
@@ -31,7 +33,13 @@ class HomeController extends Controller
 
   public function github($request, $response)
   {
-    header("Location: https://github.com/lachieggg");
+    header("Location: " . $this->github);
+    die();
+  }
+
+  public function resume($request, $response)
+  {
+    header("Location: " . $this->resume);
     die();
   }
 
@@ -39,5 +47,4 @@ class HomeController extends Controller
   {
     return $this->view->render($response, 'auth/private.twig');
   }
-
 }

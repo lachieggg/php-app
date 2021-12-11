@@ -11,7 +11,6 @@ function loadBlogContent() {
 
   xhr.setRequestHeader('Authorization', 'Bearer ' + authToken);
 	xhr.onload = function () {
-	  // do something to response
     var responseText = this.responseText;
     var responseJsonArr = JSON.parse(responseText);
     var i;

@@ -1,21 +1,15 @@
+const env = {
+	S3_URL : "https://lachie-website.s3.ap-southeast-2.amazonaws.com/"
+}
 
 var pictures = new Array(
-	'images/nice-picture-small.png',
-	'images/magnet.png',
-	'images/piano.png');
+	env.S3_URL + 'images/magnet.png',
+	env.S3_URL + 'images/piano.png',
+	env.S3_URL + 'images/snow-sky.png');
 
 window.onload = randomPicture();
 
 function randomPicture() {
      var number = Math.floor(Math.random() * pictures.length);
      document.getElementById("home-img").src = pictures[number];
-}
-
-
-var serverURL;
-if (location.hostname === "localhost"
- || location.hostname === "127.0.0.1") {
-	serverURL = 'localhost/';
-} else {
-	serverURL = 'www.lachiegrant.io/';
 }

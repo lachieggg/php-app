@@ -11,7 +11,6 @@ function loadForumContent() {
 
   xhr.setRequestHeader('Authorization', 'Bearer ' + authToken);
 	xhr.onload = function () {
-	    // do something to response
       var responseText = this.responseText;
       console.log(responseText);
       var responseJsonArr = JSON.parse(responseText);
@@ -53,12 +52,6 @@ function getCookie(cookieName) {
   return "";
 }
 
-var serverURL;
-if (location.hostname === "localhost"
- || location.hostname === "127.0.0.1") {
-	serverURL = 'localhost/';
-} else {
-	serverURL = 'www.lachiegrant.io/';
-}
+var serverURL = "localhost";
 
 loadForumContent();
