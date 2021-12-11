@@ -47,9 +47,7 @@ $container['auth'] = function ($container) {
 };
 
 $container['view'] = function ($container) {
-    $view = new \Slim\Views\Twig(__DIR__ . '/../resources/views', [
-        'cache' => 'twig_cache',
-    ]);
+    $view = new \Slim\Views\Twig(__DIR__ . '/../resources/views');
 
     $view->addExtension(new \Slim\Views\TwigExtension(
         $container->router,
