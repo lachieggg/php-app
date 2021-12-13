@@ -1,11 +1,10 @@
 lachiegrant.io
 =
-
 This is the web app source code for [my personal site](http://www.lachiegrant.io).
 
-The API uses the [Slim](https://www.slimframework.com/) micro framework. 
+The API uses the [Slim](https://www.slimframework.com/) micro framework.
 
-[Eloquent](https://laravel.com/docs/8.x/eloquent) is used as an ORM. 
+[Eloquent](https://laravel.com/docs/8.x/eloquent) is used as an ORM.
 
 [Respect Validation](https://github.com/Respect/Validation) is used as a validation engine.
 
@@ -21,30 +20,36 @@ Currently there is CSRF and XSS protection implemented.
 
 MySQL injection protection is also built in.
 
-Base:
+All passwords are stored as a hash in the database with a salt.
+
+Base
 =
 To get started you will need both `composer` and `docker`
 
 [Composer](https://getcomposer.org/) and [Docker](http://www.docker.com/).
 
-Installation:
+Installation
 =
 Run:
 
-`composer update` 
+`composer update`
 
-`composer install` 
+`composer install`
 
 `cp .env.sample .env`
 
 `composer start`
 
-Docker:
+Docker
 =
 This section will be updated with details for using [Docker](https://www.docker.com/) to run the application.
 
-Configuration:
+Configuration
 =
-You may need to edit `bootstrap/app.php` and add your own database settings there.
+You will need to edit `.env` to have your own settings for database connections.
 
 For TLS/SSL, the keys and certs go in `docker/ssl/private` and `docker/ssl/certs` respectively.
+
+License
+=
+This project uses the MIT license.
