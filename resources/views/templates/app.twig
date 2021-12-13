@@ -8,11 +8,15 @@
         <link rel="stylesheet" href="{{ base_url() }}/css/app.css">
     </head>
     <body>
+        <b><h4>Welcome to my corner of the Internet.</h4></b>
+        <hr>
+
         {% include 'templates/partials/navigation.twig' %}
 
         <div class="container">
             {% include 'templates/partials/flash.twig' %}
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock %}
         </div>
 
         <script type="module" src="./js/main.js"></script>

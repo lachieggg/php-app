@@ -11,5 +11,19 @@ window.onload = randomPicture();
 
 function randomPicture() {
      var number = Math.floor(Math.random() * pictures.length);
-     document.getElementById("home-img").src = pictures[number];
+		 try {
+			 document.getElementById("home-img").src = pictures[number];
+		 } catch(err) {
+			 // no home image on page
+			 // skipping
+		 }
 }
+
+$(window).load(function() {
+	$('.flexslider').flexslider({
+	  animation: "slide",
+	  animationLoop: false,
+	  itemWidth: 210,
+	  itemMargin: 5
+	});
+});
