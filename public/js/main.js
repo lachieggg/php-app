@@ -20,10 +20,15 @@ function randomPicture() {
 }
 
 $(window).load(function() {
-	$('.flexslider').flexslider({
-	  animation: "slide",
-	  animationLoop: false,
-	  itemWidth: 210,
-	  itemMargin: 5
-	});
+	try {
+		$('.flexslider').flexslider({
+		  animation: "slide",
+			animationLoop: false,
+			itemWidth: 210,
+			itemMargin: 5
+		});
+	} catch(err) {
+	  // flexslider is not available
+		// skipping
+	}
 });
