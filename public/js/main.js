@@ -19,7 +19,7 @@ function randomPicture() {
 		 }
 }
 
-$(window).load(function() {
+$(window).on('load', function() {
 	try {
 		$('.flexslider').flexslider({
 		  animation: "slide",
@@ -29,6 +29,6 @@ $(window).load(function() {
 		});
 	} catch(err) {
 	  // flexslider is not available
-		// skipping
+	  // skipping
 	}
 });
