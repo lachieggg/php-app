@@ -23,10 +23,13 @@
         "docker compose up -d"
       ],
       "stop": [
-	"docker kill $(docker ps -q)"
+	      "docker kill $(docker ps -q)"
       ],
       "restart": [
         "composer stop; composer start"
+      ],
+      "rebuild-webserver": [
+        "docker kill webserver && docker system prune -af && composer restart"
       ]
     }
 }
