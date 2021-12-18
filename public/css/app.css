@@ -18,13 +18,6 @@ body {
   scrollbar-width: none;
 }
 
-#welcome-img {
-  width: 576px;
-  height: 324px;
-  border-radius: 60px;
-  border: 20px;
-  padding: 0px;
-}
 
 .search-form {
   display: block;
@@ -36,6 +29,14 @@ body {
   border-radius: 60px;
 }
 
+#welcome-img 
+{
+  width: 50%;
+  height: 50%;
+  border-radius: 60px;
+}
+
+
 @media (max-width: 960px)
 {
   .search-form
@@ -43,15 +44,27 @@ body {
     display: none;
   }
 
-  #home-img {
+  #home-img
+  {
     border-radius: 60px;
     align-self: center;
+    width: 75%;
+    height: 75%;
   }
+
+  #welcome-img 
+  {
+    width: 50%;
+    height: 50%;
+    border-radius: 60px;
+  }
+  
 }
 
 .index-body {
 	background-color: lightblue;
 	font-family: Sans-serif;
+  font-size: 16px;
 	font-weight: 100;
 }
 
