@@ -20,7 +20,6 @@ class CsrfViewMiddleware extends Middleware {
       'tokenValue' => $this->container->csrf->getTokenValue()
     ]);
 
-    $response = $next($request, $response);
-    return $response;
+    return $next($request, $response);
   }
 }

@@ -3,9 +3,8 @@
 namespace LoginApp\Controllers;
 
 use LoginApp\Controllers\Controller;
-
-use Slim\Views\Twig as View;
 use LoginApp\Models\User;
+use Slim\Views\Twig as View;
 use Ramsey\Uuid\Uuid;
 use Respect\Validation\Validator as v;
 use Illuminate\Support\Arr;
@@ -55,23 +54,17 @@ class AuthController extends Controller
    * @param $request
    * @param $response
    */
-  public function getSignUp($request, $response)
-  {
-    return $this->view->render($response, 'auth/sign-up.twig');
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
   public function postSignUp($request, $response)
   {
     $validation = $this->validator->validate($request, [
       'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
       'name' => v::notEmpty()->alpha(),
       'password' => v::noWhitespace()->notEmpty()->passwordConfirmation(),
-      'password_confirmation' => v::noWhitespace()->notEmpty()->passwordConfirmation()
+      'confirmation' => v::noWhitespace()->notEmpty()->passwordConfirmation()
     ]);
+
+    $email = htmlspecialchars($request->getParam('email'));
+    $name = htmlspecialchars($request->getParam('name'));
 
     if($validation->failed()) {
       return $response->withRedirect($this->router->pathFor('auth.sign-up'));
@@ -79,15 +72,26 @@ class AuthController extends Controller
 
     $user = User::create([
       'uuid' => Uuid::uuid4(),
-      'email' => $request->getParam('email'),
-      'name' => $request->getParam('name'),
+      'email' => $email,
+      'name' => $name,
       'password' =>  password_hash($request->getParam('password'), PASSWORD_DEFAULT),
     ]);
 
-    $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
+    $this->auth->attempt($email, $request->getParam('password'));
 
     return $response->withRedirect($this->router->pathFor('home'));
   }
+
+
+  /**
+   * @param $request
+   * @param $response
+   */
+  public function getSignUp($request, $response)
+  {
+    return $this->view->render($response, 'auth/sign-up.twig');
+  }
+
 
   /**
    * @param $request

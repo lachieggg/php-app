@@ -16,14 +16,14 @@
                     <form id='sign-up-form' action="{{ path_for('auth.sign-up') }}" method="post" autocomplete="off">
                         <div class="form-group{{ errors.email ? ' has-error' : '' }}">
                             <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="you@domain.com" class="form-control" value="{{ old.email }}">
+                            <input type="email" name="email" id="email" placeholder="you@domain.com" class="form-control" value="{{ old_input.email }}">
                             {% if errors.email %}
                                 <span class="help-block">{{ errors.email | first }}</span>
                             {% endif %}
                         </div>
                         <div class="form-group{{ errors.name ? ' has-error' : '' }}">
                             <label for="first_name">Name</label>
-                            <input type="text" name="name" id="name" placeholder="John Appleseed" class="form-control" value="{{ old.name }}">
+                            <input type="text" name="name" id="name" placeholder="John Appleseed" class="form-control" value="{{ old_input.name }}">
                             {% if errors.name %}
                                 <span class="help-block">{{ errors.name | first }}</span>
                             {% endif %}
@@ -36,10 +36,10 @@
                             {% endif %}
                         </div>
                         <div class="form-group{{ errors.password ? ' has-error' : '' }}">
-                            <label for="password">Re-enter password</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
-                            {% if errors.password_confirmation %}
-                                <span class="help-block">{{ errors.password_confirmation | first }}</span>
+                            <label for="password">Confirm password</label>
+                            <input type="password" name="confirmation" id="confirmation" class="form-control">
+                            {% if errors.confirmation %}
+                                <span class="help-block">{{ errors.confirmation | first }}</span>
                             {% endif %}
                         </div>
                         <button type="submit" class="btn btn-default">Sign up</button>

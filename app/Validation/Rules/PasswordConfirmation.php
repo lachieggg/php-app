@@ -13,6 +13,6 @@ class PasswordConfirmation extends AbstractRule
      */
     public function validate($input)
     {
-        return v::keyValue('password', 'equals', 'password_confirmation')->validate($_POST);
+        return v::keyValue('password', 'equals', 'confirmation')->validate($_POST);
     }
 }
