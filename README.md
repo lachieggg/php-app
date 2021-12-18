@@ -22,6 +22,8 @@ MySQL injection protection is also built in.
 
 All passwords are stored as a hash in the database with a salt.
 
+HTTPS redirection is enforced.
+
 Base
 =
 To get started you will need both `composer` and `docker`
