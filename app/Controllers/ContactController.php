@@ -41,7 +41,7 @@ class ContactController extends Controller
    * @param $response
    */
   public function getContactPosts($request, $response) {
-    if($this->auth->isAdmin()) {
+    if($this->auth->admin()) {
       $posts = Comment::select('user_comments.uuid', 'user_comments.comment_text', 'user_comments.created_at')
         ->orderBy('created_at', 'DESC')
         ->get(['user_comments.*', 'users.*']);
@@ -79,7 +79,7 @@ class ContactController extends Controller
    */
   public function deleteContactPost($request, $response)
   {
-    if($this->auth->isAdmin()) {
+    if($this->auth->admin()) {
       $uuid = $request->getParam('uuid');
       $comment = Comment::where('uuid', $uuid)->first();
       $comment->delete();

@@ -82,7 +82,6 @@ class AuthController extends Controller
     return $response->withRedirect($this->router->pathFor('home'));
   }
 
-
   /**
    * @param $request
    * @param $response
@@ -91,7 +90,6 @@ class AuthController extends Controller
   {
     return $this->view->render($response, 'auth/sign-up.twig');
   }
-
 
   /**
    * @param $request
@@ -110,7 +108,7 @@ class AuthController extends Controller
    */
   public function getBlogAdmin($request, $response)
   {
-    return $this->auth->isAdmin() ? $this->view->render($response, 'auth/admin/blog.twig') : $this->view->render($response, 'auth/private.twig');
+    return $this->auth->admin() ? $this->view->render($response, 'auth/admin/blog.twig') : $this->view->render($response, 'auth/private.twig');
   }
 
   /**
@@ -119,6 +117,6 @@ class AuthController extends Controller
    */
   public function getGalleryAdmin($request, $response)
   {
-    return $this->auth->isAdmin() ? $this->view->render($response, 'auth/admin/gallery.twig') : $this->view->render($response, 'auth/private.twig');
+    return $this->auth->admin() ? $this->view->render($response, 'auth/admin/gallery.twig') : $this->view->render($response, 'auth/private.twig');
   }
 }

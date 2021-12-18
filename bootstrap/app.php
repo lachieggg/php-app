@@ -7,86 +7,67 @@ use LoginApp\Controllers\AuthController;
 use LoginApp\Controllers\ContactController;
 use LoginApp\Controllers\BlogController;
 use LoginApp\Controllers\ForumController;
-use LoginApp\Middleware\ValidationErrorsMiddleware;
 use LoginApp\Middleware\OldInputMiddleware;
 use LoginApp\Middleware\CsrfViewMiddleware;
-use Respect\Validation\Validator as RespectValidation;
+use LoginApp\Middleware\ValidationErrorsMiddleware;
 use Illuminate\Database\Capsule\Manager;
-use Slim\App as App;
+use Respect\Validation\Validator as RespectValidation;
+use Slim\Csrf\Guard;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
+use Slim\App;
 
+// Start new session
 session_start();
 
+// Autoload dependencies
 require __DIR__ . '/../vendor/autoload.php';
 
+// Configure Slim Application settings
+$settings = [
+    'displayErrorDetails' => true
+];
+
+// Create the Slim Application
+$app = new App(['settings' => $settings]);
+
+// Set up the routes
+require __DIR__ . '/../app/routes.php';
+
+// Fetch database settings
 $host = getenv('MYSQL_HOST');
-$driver = getenv('DATABASE_DRIVER');
 $username = getenv('MYSQL_USER');
+$driver = getenv('DATABASE_DRIVER');
 $database = getenv('MYSQL_DATABASE');
 $password = getenv('MYSQL_PASSWORD');
 
-$app = new App([
-    'settings' => [
-        'displayErrorDetails' => true,
-        'db' => [
-            'driver' => $driver,
-            'host' => $host,
-            'database' => $database,
-            'username' => $username,
-            'password' => $password,
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
-        ]
-    ],
-]);
 
-require __DIR__ . '/../app/routes.php';
+// Configure database settings
+$db = [
+    'driver' => $driver,
+    'host' => $host,
+    'database' => $database,
+    'username' => $username,
+    'password' => $password,
+    'charset' => 'utf8',
+    'collation' => 'utf8_unicode_ci'
+];
 
+// Fetch the Slim Container
 $container = $app->getContainer();
 
+// Configure Eloquent
 $capsule = new Manager;
-$capsule->addConnection($container['settings']['db']);
+$capsule->addConnection($db);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
-$container['db'] = function ($container) use ($capsule) {
-    return $capsule;
-};
-
-$container['auth'] = function ($container) {
-  return new Auth($container);
-};
-
-$container['view'] = function ($container) {
-    $view = new Twig(__DIR__ . '/../resources/views');
-
-    $view->addExtension(new TwigExtension(
-        $container->router,
-        $container->request->getUri()
-    ));
-
-    $view->getEnvironment()->addGlobal('auth', [
-      'check' => $container->auth->check(),
-      'user' => $container->auth->user(),
-      'admin' => $container->auth->admin()
-    ]);
-
-    return $view;
-};
-
-$container['validator'] = function ($container) {
-    return new Validator;
-};
-
+setAuth($container);
+setView($container);
+setCsrf($container);
+setDatabase($container);
+setValidator($container);
 setControllers($container);
-
-$container['csrf'] = function ($container) {
-  $csrf = new \Slim\Csrf\Guard();
-  $csrf->setPersistentTokenMode(true);
-  return $csrf;
-};
 
 $app->add(new ValidationErrorsMiddleware($container));
 $app->add(new OldInputMiddleware($container));
@@ -97,6 +78,9 @@ RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
 // CSRF protection for Slim 3
 $app->add($container->csrf);
 
+/**
+ * @param $container
+ */
 function setControllers($container) {
     $container['HomeController'] = function ($container) {
         return new HomeController($container);
@@ -112,5 +96,65 @@ function setControllers($container) {
     };
     $container['ForumController'] = function ($container) {
         return new ForumController($container);
+    };
+}
+
+/**
+ * @param $container
+ */
+function setDatabase($container) {
+    $container['db'] = function ($container) use ($capsule) {
+        return $capsule;
+    };
+}
+
+/**
+ * @param $container
+ */
+function setAuth($container) {
+    $container['auth'] = function ($container) {
+        return new Auth($container);
+    };
+}
+
+/**
+ * @param $container
+ */
+function setView($container) {
+    $container['view'] = function ($container) {
+        $view = new Twig(__DIR__ . '/../resources/views');
+    
+        $view->addExtension(new TwigExtension(
+            $container->router,
+            $container->request->getUri()
+        ));
+    
+        $view->getEnvironment()->addGlobal('auth', [
+          'check' => $container->auth->check(),
+          'user' => $container->auth->user(),
+          'admin' => $container->auth->admin()
+        ]);
+    
+        return $view;
+    };
+}
+
+/**
+ * @param $container
+ */
+function setValidator($container) {
+    $container['validator'] = function ($container) {
+        return new Validator;
+    };
+}
+
+/**
+ * @param $container
+ */
+function setCsrf($container) {
+    $container['csrf'] = function ($container) {
+        $csrf = new Guard();
+        $csrf->setPersistentTokenMode(true);
+        return $csrf;
     };
 }
