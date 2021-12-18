@@ -59,8 +59,8 @@ class AuthController extends Controller
     $validation = $this->validator->validate($request, [
       'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
       'name' => v::notEmpty()->alpha(),
-      'password' => v::noWhitespace()->notEmpty()->passwordConfirmation(),
-      'confirmation' => v::noWhitespace()->notEmpty()->passwordConfirmation()
+      'password' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation(),
+      'confirmation' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation()
     ]);
 
     $email = htmlspecialchars($request->getParam('email'));
