@@ -52,6 +52,12 @@ You will need to edit `.env` to have your own settings for database connections.
 
 For TLS/SSL, the keys and certs go in `docker/ssl/private` and `docker/ssl/certs` respectively.
 
+You may also want to edit the `docker/nginx/config/nginx.website.conf` file to set the IP address to be your server IP.
+
+Doing so will prevent direct IP access to your server which is recommended to prevent issues with SSL/TLS. 
+
+
+
 License
 =
 This project uses the MIT license.
