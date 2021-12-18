@@ -39,7 +39,7 @@ class BlogController extends Controller
    */
   public function submitBlogPost($request, $response)
   {
-    if($this->auth->isAdmin()) {
+    if($this->auth->admin()) {
       $type = $request->getParam('type');
       $title = $request->getParam('title');
       $content = $request->getParam('post');
@@ -64,7 +64,7 @@ class BlogController extends Controller
   {
     $uuid = $request->getParam('uuid');
 
-    if($this->auth->isAdmin()) {
+    if($this->auth->admin()) {
       $post = BlogPost::where('uuid', $uuid)->first();
 
       if(isset($post)){
