@@ -62,6 +62,7 @@ $capsule->addConnection($db);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
+// Set container parameters
 setAuth($container);
 setView($container);
 setCsrf($container);
