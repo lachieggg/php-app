@@ -56,6 +56,8 @@ You may also want to edit the `docker/nginx/config/nginx.website.conf` file to s
 
 Doing so will prevent direct IP access to your server which is recommended to prevent issues with SSL/TLS. 
 
+You should also edit the `nginx` config discussed above to enter your server domain name.
+
 
 
 License
