@@ -8,6 +8,9 @@ use Respect\Validation\Validator as v;
 
 class LoginAttempt extends AbstractRule
 {
+    /**
+     * @param $input
+     */
     public function validate($input)
     {
         return True;

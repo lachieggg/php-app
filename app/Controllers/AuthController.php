@@ -12,11 +12,19 @@ use Illuminate\Support\Arr;
 
 class AuthController extends Controller
 {
+  /**
+   * @param $request
+   * @param $response
+   */
   public function getSignIn($request, $response)
   {
     return isset($_SESSION['user']) ? $this->view->render($response, 'home/home.twig') : $this->view->render($response, 'auth/sign-in.twig');
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function postSignIn($request, $response)
   {
     if(isset($_SESSION['user'])) {
@@ -43,11 +51,19 @@ class AuthController extends Controller
     return $auth ? $response->withRedirect($this->router->pathFor('home')) : $response->withRedirect($this->router->pathFor('auth.sign-in'));
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function getSignUp($request, $response)
   {
     return $this->view->render($response, 'auth/sign-up.twig');
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function postSignUp($request, $response)
   {
     $validation = $this->validator->validate($request, [
@@ -73,6 +89,10 @@ class AuthController extends Controller
     return $response->withRedirect($this->router->pathFor('home'));
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function getSignOut($request, $response)
   {
     $this->auth->logout();
@@ -80,11 +100,19 @@ class AuthController extends Controller
     return $response->withRedirect($this->router->pathFor('home'));
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function getBlogAdmin($request, $response)
   {
     return $this->auth->isAdmin() ? $this->view->render($response, 'auth/admin/blog.twig') : $this->view->render($response, 'auth/private.twig');
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function getGalleryAdmin($request, $response)
   {
     return $this->auth->isAdmin() ? $this->view->render($response, 'auth/admin/gallery.twig') : $this->view->render($response, 'auth/private.twig');

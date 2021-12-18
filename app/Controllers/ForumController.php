@@ -9,8 +9,11 @@ use Ramsey\Uuid\Uuid;
 
 class ForumController extends Controller
 {
+  /**
+   * @param $request
+   * @param $response
+   */
   public function getForumPosts($request, $response) {
-
     $posts = Comment::select('user_comments.comment_text', 'user_comments.created_at', 'users.name')
       ->leftJoin('users', 'user_comments.user_uuid', '=', 'users.uuid')
       ->orderBy('created_at', 'DESC')
@@ -19,6 +22,10 @@ class ForumController extends Controller
     return $response->withJson($posts);
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function submitForumPost($request, $response)
   {
     // XSS protection
@@ -38,6 +45,10 @@ class ForumController extends Controller
     return $response->withRedirect($this->router->pathFor('forum'));
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function submitComment($request, $response)
   {
     if($this->auth->isVerified()) {

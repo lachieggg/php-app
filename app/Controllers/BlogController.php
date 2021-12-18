@@ -9,11 +9,19 @@ use Ramsey\Uuid\Uuid;
 
 class BlogController extends Controller
 {
+  /**
+   * @param $request
+   * @param $response
+   */
   public function blog($request, $response)
   {
     return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'blog/blog.twig');
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function getBlogPosts($request, $response)
   {
     $posts = BlogPost::where([
@@ -25,6 +33,10 @@ class BlogController extends Controller
     return $response->withJson($posts);
   }
 
+ /**
+   * @param $request
+   * @param $response
+   */
   public function submitBlogPost($request, $response)
   {
     if($this->auth->isAdmin()) {
@@ -44,6 +56,10 @@ class BlogController extends Controller
     return $response->withRedirect($this->router->pathFor('blog.posts'));
   }
 
+ /**
+   * @param $request
+   * @param $response
+   */
   public function deleteBlogPost($request, $response)
   {
     $uuid = $request->getParam('uuid');
@@ -58,5 +74,4 @@ class BlogController extends Controller
     }
     return $response->withRedirect($this->router->pathFor('blog.posts'));
   }
-
 }

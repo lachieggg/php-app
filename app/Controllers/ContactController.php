@@ -9,22 +9,37 @@ use Ramsey\Uuid\Uuid;
 
 class ContactController extends Controller
 {
+  /**
+   * @param $container
+   */
   public function __construct($container) 
   {
     parent::__construct($container);
     $this->privacy_mode = False;
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function contact($request, $response)
   {
     return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'home/contact.twig');
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function email($request, $response)
   {
     return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'home/contact.twig');
   }
 
+  /**
+   * @param $request
+   * @param $response
+   */
   public function getContactPosts($request, $response) {
     if($this->auth->isAdmin()) {
       $posts = Comment::select('user_comments.uuid', 'user_comments.comment_text', 'user_comments.created_at')
@@ -39,7 +54,8 @@ class ContactController extends Controller
   }
 
   /**
-   * 
+   * @param $request
+   * @param $response
    */
   public function submitContactPost($request, $response)
   {
@@ -57,7 +73,10 @@ class ContactController extends Controller
     return $response->withRedirect($this->router->pathFor('contact'));
   }
 
-
+  /**
+   * @param $request
+   * @param $response
+   */
   public function deleteContactPost($request, $response)
   {
     if($this->auth->isAdmin()) {
@@ -68,5 +87,4 @@ class ContactController extends Controller
       return $response->withRedirect($this->router->pathFor('contact'));
     }
   }
-
 }

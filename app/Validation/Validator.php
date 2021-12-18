@@ -8,6 +8,10 @@ class Validator
 {
   protected $errors;
 
+  /**
+   * @param $request
+   * @param array $rules
+   */
   public function validate($request, array $rules)
   {
     foreach ($rules as $field => $rule) {
@@ -18,17 +22,9 @@ class Validator
       }
     }
 
-    // add the errors to the global _SESSION variable
     $_SESSION['errors'] = $this->errors;
 
     return $this;
-  }
-
-  // TODO
-  public function passwordValidate($first, $second) {
-    if($first !== $second) {
-      return new NestedValidationException('Passwords are different');
-    }
   }
 
   public function failed()

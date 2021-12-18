@@ -8,6 +8,9 @@ use Respect\Validation\Validator as v;
 
 class PasswordConfirmation extends AbstractRule
 {
+    /**
+     * @param $input
+     */
     public function validate($input)
     {
         return v::keyValue('password', 'equals', 'password_confirmation')->validate($_POST);

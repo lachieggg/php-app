@@ -3,6 +3,11 @@
 namespace LoginApp\Middleware;
 
 class CsrfViewMiddleware extends Middleware {
+  /**
+   * @param $request
+   * @param $response
+   * @param $next
+   */
   public function __invoke($request, $response, $next) {
     $this->container->view->getEnvironment()->addGlobal('csrf', [
       'field' => '

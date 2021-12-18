@@ -6,46 +6,12 @@ use LoginApp\Models\User;
 
 class Auth
 {
-  // get the currently signed in user
-  // i.e. is the user signed in?
-  public function user()
-  {
-    //$user_id = ; // token i.e. user id
-    $user = User::where('uuid', $_SESSION['user'])
-    ->first();
-    return $user;
-  }
-
-  // is the user signed in?
-  public function check()
-  {
-    $user = $this->user();
-    if(!isset($user)) {
-       return false;
-    }
-    return isset($_SESSION['user']);
-  }
-
-  public function logout()
-  {
-    unset($_SESSION['user']);
-  }
-
-  // has the user been removed from the database?
-  public function isDeleted() {
-    $bannedUser = User::where('uuid', $_SESSION['user'])
-    ->where('is_deleted', '=', 1)
-    ->first();
-
-    if(isset($bannedUser)) {
-      return true;
-    }
-    return false;
-  }
-
+  /**
+   * @param $email
+   * @param $password
+   */
   public function attempt($email, $password)
   {
-    // grab the user by email
     $user = User::where('email', $email)->first();
     if(!$user) {
       return false;
@@ -59,46 +25,64 @@ class Auth
     return false;
   }
 
-  public function isAdmin()
+  public function logout()
   {
-    // useful for user auth middleware
+    unset($_SESSION['user']);
+  }
+
+  public function user()
+  {
+    return User::where('uuid', $_SESSION['user'])->first();
+  }
+
+  public function check()
+  {
+    $user = $this->user();
+    return isset($user);
+  }
+
+  public function admin()
+  {
     $user = User::where('uuid', $_SESSION['user'])
       ->where('is_admin', 1)
       ->first();
 
-    if(isset($user)) {
+    return isset($user);
+  }
+
+  public function deleted() 
+  {
+    $deleted = User::where('uuid', $_SESSION['user'])
+    ->where('is_deleted', '=', 1)
+    ->first();
+
+    if(isset($deleted)) {
       return true;
     }
     return false;
   }
 
-  public function isVerified() {
-    // logged in
+  public function isVerified() 
+  {
     if(!$this->user()) {
       return false;
     }
-    // deleted?
-    if($this->isDeleted()) {
+    if($this->deleted()) {
       return false;
     }
-    // approved?
-    if(!$this->isApproved()) {
+    if(!$this->approved()) {
       return false;
     }
     return true;
   }
 
-  // has the user been approved?
-  public function isApproved() {
+  public function approved() 
+  {
     $approvedUser = User::where('uuid', $_SESSION['user'])
     ->where('is_approved', '=', 1)
     ->where('is_deleted', '!=', 1)
     ->first();
 
-
-    if(isset($approvedUser)) {
-      return true;
-    }
-    return false;
+    return isset($approvedUser);
   }
 }

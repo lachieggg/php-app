@@ -1,19 +1,32 @@
 <?php
 
-
-use Respect\Validation\Validator as v;
+use LoginApp\Auth\Auth;
+use LoginApp\Validation\Validator;
+use LoginApp\Controllers\HomeController;
+use LoginApp\Controllers\AuthController;
+use LoginApp\Controllers\ContactController;
+use LoginApp\Controllers\BlogController;
+use LoginApp\Controllers\ForumController;
+use LoginApp\Middleware\ValidationErrorsMiddleware;
+use LoginApp\Middleware\OldInputMiddleware;
+use LoginApp\Middleware\CsrfViewMiddleware;
+use Respect\Validation\Validator as RespectValidation;
+use Illuminate\Database\Capsule\Manager;
+use Slim\App as App;
+use Slim\Views\Twig;
+use Slim\Views\TwigExtension;
 
 session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $host = getenv('MYSQL_HOST');
-$database = getenv('MYSQL_DATABASE');
-$username = getenv('MYSQL_USER');
-$password = getenv('MYSQL_PASSWORD');
 $driver = getenv('DATABASE_DRIVER');
+$username = getenv('MYSQL_USER');
+$database = getenv('MYSQL_DATABASE');
+$password = getenv('MYSQL_PASSWORD');
 
-$app = new \Slim\App([
+$app = new App([
     'settings' => [
         'displayErrorDetails' => true,
         'db' => [
@@ -33,7 +46,7 @@ require __DIR__ . '/../app/routes.php';
 
 $container = $app->getContainer();
 
-$capsule = new \Illuminate\Database\Capsule\Manager;
+$capsule = new Manager;
 $capsule->addConnection($container['settings']['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
@@ -43,13 +56,13 @@ $container['db'] = function ($container) use ($capsule) {
 };
 
 $container['auth'] = function ($container) {
-  return new \LoginApp\Auth\Auth($container);
+  return new Auth($container);
 };
 
 $container['view'] = function ($container) {
-    $view = new \Slim\Views\Twig(__DIR__ . '/../resources/views');
+    $view = new Twig(__DIR__ . '/../resources/views');
 
-    $view->addExtension(new \Slim\Views\TwigExtension(
+    $view->addExtension(new TwigExtension(
         $container->router,
         $container->request->getUri()
     ));
@@ -57,34 +70,17 @@ $container['view'] = function ($container) {
     $view->getEnvironment()->addGlobal('auth', [
       'check' => $container->auth->check(),
       'user' => $container->auth->user(),
+      'admin' => $container->auth->admin()
     ]);
 
     return $view;
 };
 
 $container['validator'] = function ($container) {
-    return new LoginApp\Validation\Validator;
+    return new Validator;
 };
 
-$container['HomeController'] = function ($container) {
-    return new \LoginApp\Controllers\HomeController($container);
-};
-
-$container['AuthController'] = function ($container) {
-    return new \LoginApp\Controllers\AuthController($container);
-};
-
-$container['ContactController'] = function ($container) {
-    return new \LoginApp\Controllers\ContactController($container);
-};
-
-$container['BlogController'] = function ($container) {
-    return new \LoginApp\Controllers\BlogController($container);
-};
-
-$container['ForumController'] = function ($container) {
-    return new \LoginApp\Controllers\ForumController($container);
-};
+setControllers($container);
 
 $container['csrf'] = function ($container) {
   $csrf = new \Slim\Csrf\Guard();
@@ -92,13 +88,29 @@ $container['csrf'] = function ($container) {
   return $csrf;
 };
 
-$app->add(new \LoginApp\Middleware\ValidationErrorsMiddleware($container));
-$app->add(new \LoginApp\Middleware\OldInputMiddleware($container));
-$app->add(new \LoginApp\Middleware\CsrfViewMiddleware($container));
+$app->add(new ValidationErrorsMiddleware($container));
+$app->add(new OldInputMiddleware($container));
+$app->add(new CsrfViewMiddleware($container));
 
-v::with('\\LoginApp\\Validation\\Rules\\');
-
+RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
 
 // CSRF protection for Slim 3
 $app->add($container->csrf);
 
+function setControllers($container) {
+    $container['HomeController'] = function ($container) {
+        return new HomeController($container);
+    };
+    $container['AuthController'] = function ($container) {
+        return new AuthController($container);
+    };
+    $container['ContactController'] = function ($container) {
+        return new ContactController($container);
+    };
+    $container['BlogController'] = function ($container) {
+        return new BlogController($container);
+    };
+    $container['ForumController'] = function ($container) {
+        return new ForumController($container);
+    };
+}
