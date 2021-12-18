@@ -18,7 +18,6 @@ body {
   scrollbar-width: none;
 }
 
-
 .search-form {
   display: block;
   padding-top: 10px;
@@ -35,7 +34,6 @@ body {
   height: 50%;
   border-radius: 60px;
 }
-
 
 @media (max-width: 960px)
 {
