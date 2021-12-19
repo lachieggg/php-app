@@ -32,7 +32,7 @@ class Auth
 
   public function user()
   {
-    return User::where('uuid', $_SESSION['user'])->first();
+    return isset($_SESSION['user']) ? User::where('uuid', $_SESSION['user'])->first() : null;
   }
 
   public function check()
@@ -43,11 +43,15 @@ class Auth
 
   public function admin()
   {
-    $user = User::where('uuid', $_SESSION['user'])
+    if(isset($_SESSION['user'])) {
+      $user = User::where('uuid', $_SESSION['user'])
       ->where('is_admin', 1)
       ->first();
 
-    return isset($user);
+      return isset($user);
+    }
+
+    return false;
   }
 
   public function deleted() 

@@ -66,7 +66,7 @@ $capsule->bootEloquent();
 setAuth($container);
 setView($container);
 setCsrf($container);
-setDatabase($container);
+setDatabase($container, $capsule);
 setValidator($container);
 setControllers($container);
 
@@ -103,7 +103,7 @@ function setControllers($container) {
 /**
  * @param $container
  */
-function setDatabase($container) {
+function setDatabase($container, $capsule) {
     $container['db'] = function ($container) use ($capsule) {
         return $capsule;
     };
