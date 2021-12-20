@@ -5,3 +5,4 @@ vendor/
 *.key
 node_modules/
 *.jpg
+.idea/
