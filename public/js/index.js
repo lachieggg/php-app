@@ -1,3 +1,4 @@
+
 const env = {
 	S3_URL : "https://lachie-website.s3.ap-southeast-2.amazonaws.com/"
 }
@@ -28,7 +29,12 @@ function randomPicture() {
 }
 
 function loginPicture() {
-	document.getElementById("welcome-img").src = loginImageUrl;
+	try {
+		document.getElementById("welcome-img").src = loginImageUrl;
+	} catch(err) {
+		// no welcome image on page
+		// skipping
+	}
 }
 
 $(window).on('load', function() {
