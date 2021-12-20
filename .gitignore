@@ -6,3 +6,4 @@ vendor/
 node_modules/
 *.jpg
 .idea/
+public/js/generated

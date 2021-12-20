@@ -42,6 +42,8 @@ Run:
 
 `composer start`
 
+`npm run build`
+
 Docker
 =
 This section will be updated with details for using [Docker](https://www.docker.com/) to run the application.
