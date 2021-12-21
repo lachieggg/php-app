@@ -31,6 +31,9 @@
       ],
       "rebuild-webserver": [
         "docker kill webserver && docker system prune -af && composer restart"
+      ],
+      "migrate": [
+        "docker exec -it application vendor/bin/phinx migrate"
       ]
     }
 }
