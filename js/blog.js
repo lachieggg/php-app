@@ -1,17 +1,23 @@
 
 
 function loadBlogContent() {
-	route = '/blog/posts';
+	var route = '/blog/posts';
 	var xhr = new XMLHttpRequest();
   console.log(serverURL)
 	xhr.open('GET', route, true);
   console.log(serverURL + route);
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  authToken = getCookie('PHPSESSID');
+  var authToken = getCookie('PHPSESSID');
 
+  if(!authToken) {
+    return;
+  }
   xhr.setRequestHeader('Authorization', 'Bearer ' + authToken);
 	xhr.onload = function () {
     var responseText = this.responseText;
+    if(!responseText) {
+      return;
+    }
     var responseJsonArr = JSON.parse(responseText);
     var i;
     for(i=0; i<responseJsonArr.length; i++) {

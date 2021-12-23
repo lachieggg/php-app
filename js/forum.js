@@ -7,12 +7,20 @@ function loadForumContent() {
 	xhr.open('GET', route, true);
   console.log(serverURL + route);
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  authToken = getCookie('PHPSESSID');
+  var authToken = getCookie('PHPSESSID');
+
+  if(!authToken) {
+    return;
+  }
 
   xhr.setRequestHeader('Authorization', 'Bearer ' + authToken);
 	xhr.onload = function () {
       var responseText = this.responseText;
+      if(!responseText) {
+        return;
+      }
       console.log(responseText);
+
       var responseJsonArr = JSON.parse(responseText);
       console.log(responseJsonArr);
       var i;

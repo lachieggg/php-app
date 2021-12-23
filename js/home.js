@@ -1,7 +1,26 @@
+import _ from 'lodash';
+
+function component() {
+	const element = document.createElement('div');
+
+	// Enable or disable this functionality
+	var enabled = false;
+  
+    // Lodash, now imported by this script
+    if(enabled) {
+	  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    }
+ 
+   return element;
+}
+ 
+document.body.appendChild(component());
+
 
 const env = {
 	S3_URL : "https://lachie-website.s3.ap-southeast-2.amazonaws.com/"
 }
+
 
 var pictures = new Array(
 	env.S3_URL + 'images/magnet.png',
@@ -17,6 +36,7 @@ function load() {
 	randomPicture();
 	loginPicture();
 }
+
 
 function randomPicture() {
 	var number = Math.floor(Math.random() * pictures.length);
