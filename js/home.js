@@ -1,21 +1,3 @@
-import _ from 'lodash';
-
-function component() {
-	const element = document.createElement('div');
-
-	// Enable or disable this functionality
-	var enabled = false;
-  
-    // Lodash, now imported by this script
-    if(enabled) {
-	  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    }
- 
-   return element;
-}
- 
-document.body.appendChild(component());
-
 
 const env = {
 	S3_URL : "https://lachie-website.s3.ap-southeast-2.amazonaws.com/"
@@ -61,17 +43,3 @@ function loginPicture() {
 		// skipping
 	}
 }
-
-$(window).on('load', function() {
-	try {
-		$('.flexslider').flexslider({
-		    animation: "slide",
-		    animationLoop: false,
-			itemWidth: 210,
-			itemMargin: 5
-		});
-	} catch(err) {
-	    // flexslider is not available
-	    // skipping
-	}
-});
