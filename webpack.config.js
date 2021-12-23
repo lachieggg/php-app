@@ -1,6 +1,7 @@
 const path = require('path');
 
-module.exports = {
+module.exports = { 
+  mode: 'development',
   entry: {
     'home': './js/home.js',
     'blog': './js/blog.js',

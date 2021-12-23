@@ -22,13 +22,18 @@ const env = {
 }
 
 
+var magnet = 'images/magnet.png';
+var piano = 'images/piano.png';
+var snow = 'images/snow-sky.png';
+var owl = 'images/owl.jpg';
+
 var pictures = new Array(
-	env.S3_URL + 'images/magnet.png',
-	env.S3_URL + 'images/piano.png',
-	env.S3_URL + 'images/snow-sky.png'
+	env.S3_URL + magnet,
+	env.S3_URL + piano,
+	env.S3_URL + snow
 );
 
-var loginImageUrl = env.S3_URL + 'images/owl.jpg';
+var loginImageUrl = env.S3_URL + owl;
 
 window.onload = load();
 
