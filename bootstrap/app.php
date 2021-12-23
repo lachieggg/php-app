@@ -135,6 +135,12 @@ function setView($container) {
           'user' => $container->auth->user(),
           'admin' => $container->auth->admin()
         ]);
+
+        // TODO 
+        // move this to .env
+        $slider = true;
+
+        $view->getEnvironment()->addGlobal('slider', $slider);
     
         return $view;
     };

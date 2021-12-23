@@ -2,9 +2,10 @@
 
 {% block content %}
 
+
 <head>
-  <title>Home</title>
-  	<script type="module" src="js/generated/home.js"></script>
+	<title>Home</title>
+	<link rel="stylesheet" href="css/tiny-slider.css">
 </head>
 
 <body class='index-body'>
@@ -13,12 +14,35 @@
 	<br>
 	<br>
 
-	<img id='home-img'/>
+
+	{% if slider %}
+
+	<div class="my-slider">
+		<div>
+			<img id="slider-1" class="slider-images"/>
+		</div>
+		<div>
+			<img id="slider-2" class="slider-images"/>
+		</div>
+		<div>
+			<img id="slider-3" class="slider-images"/>
+		</div>
+	</div>
+	{% else %}
+	<div>
+		<img id='home-img'/>
+	</div>
+	{% endif %}
+
 
 	<br>
 	<br>
 	<br>
-	
+
+	<script type="module" src="js/generated/home.js"></script>
+
+
+		
 </body>
 
 {% endblock %}

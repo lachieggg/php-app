@@ -20,7 +20,8 @@ var loginImageUrl = env.S3_URL + owl;
 window.onload = load();
 
 function load() {
-	randomPicture();
+	setSliders();
+	//randomPicture();
 	loginPicture();
 }
 
@@ -35,6 +36,18 @@ function randomPicture() {
 	}
 }
 
+function setSliders() {
+	try {
+		document.getElementById("slider-1").src = pictures[0];
+		document.getElementById("slider-2").src = pictures[1];
+		document.getElementById("slider-3").src = pictures[2];
+	} catch(err) {
+		// no slider on page
+		// skipping
+	}
+}
+
+
 function loginPicture() {
 	try {
 		document.getElementById("welcome-img").src = loginImageUrl;
@@ -43,3 +56,26 @@ function loginPicture() {
 		// skipping
 	}
 }
+
+
+// Tiny Slider
+import { tns } from "../node_modules/tiny-slider/src/tiny-slider";
+
+try {
+	var slider = tns({
+		container: '.my-slider',
+		items: 1,
+		slideBy: 'page',
+		nav: false,
+		speed: 1000,
+		controls: false,
+		autoplay: true,
+		autoplayButtonOutput: false
+	});
+	
+	slider.play();
+} catch(err) {
+	// skipping slider
+	//
+}
+
