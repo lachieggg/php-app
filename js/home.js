@@ -63,6 +63,7 @@ import { tns } from "../node_modules/tiny-slider/src/tiny-slider";
 
 try {
 	var slider = tns({
+		mode: 'gallery',
 		container: '.my-slider',
 		items: 1,
 		slideBy: 'page',
