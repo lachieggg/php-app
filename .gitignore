@@ -1,12 +1,26 @@
+# Composer
 vendor/
-.DS_Store
+
+# Env
 .env
+
+# Pictures
+*.jpg
+
+# IDE
+.idea/
+
+# Node
+node_modules/
+public/js/generated
+
+# SSL/TLS
 *.crt
 *.key
 *.csr
 *.pub
 *.pem
-node_modules/
-*.jpg
-.idea/
-public/js/generated
+
+# Mac OS
+.DS_Store
+
