@@ -73,4 +73,17 @@ class HomeController extends Controller
   {
     return $this->view->render($response, 'auth/private.twig');
   }
+
+  /**
+   * @param $request
+   * @param $response
+   */
+  public function publickey($request, $response)
+  {
+    header('Content-Type: text/plain');
+    echo file_get_contents('./ssl/public.pem');
+    die();
+  }
+
+
 }
