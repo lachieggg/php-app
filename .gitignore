@@ -3,6 +3,9 @@ vendor/
 .env
 *.crt
 *.key
+*.csr
+*.pub
+*.pem
 node_modules/
 *.jpg
 .idea/
