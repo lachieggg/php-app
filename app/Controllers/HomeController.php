@@ -42,7 +42,7 @@ class HomeController extends Controller
    */
   public function gallery($request, $response)
   {
-    return $this->privacy_mode ? $this->view->render($response, 'home/gallery.twig') : $this->view->render($response, 'home/home.twig');
+    return $this->view->render($response, 'home/gallery.twig');
   }
 
   /**

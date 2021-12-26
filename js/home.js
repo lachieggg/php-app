@@ -76,7 +76,4 @@ try {
 	
 	slider.play();
 } catch(err) {
-	// skipping slider
-	//
 }
-

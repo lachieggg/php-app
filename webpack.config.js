@@ -7,6 +7,7 @@ module.exports = {
     'blog': './js/blog.js',
     'forum': './js/forum.js',
     'admin': './js/admin.js',
+    'gallery': './js/gallery.js'
   },
   output: {
     filename: '[name].js',
