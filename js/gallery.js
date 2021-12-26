@@ -19,4 +19,4 @@ import { tns } from "../node_modules/tiny-slider/src/tiny-slider";
 // } catch(err) {
 // }
 
-import { slick } from "../node_modules/slick-carousel/slick/slick";
+// import { slick } from "../node_modules/slick-carousel/slick/slick";
