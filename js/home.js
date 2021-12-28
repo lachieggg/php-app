@@ -1,21 +1,27 @@
 
 const env = {
-	S3_URL : "https://lachie-website.s3.ap-southeast-2.amazonaws.com/"
+	S3_IMAGES_URL : "https://lachie-website.s3.ap-southeast-2.amazonaws.com/images/"
 }
 
 
-var magnet = 'images/magnet.png';
-var piano = 'images/piano.png';
-var snow = 'images/snow-sky.png';
-var owl = 'images/owl.jpg';
+var magnet = 'magnet.png';
+var piano = 'piano.png';
+var snow = 'snow-sky.png';
+var owl = 'owl.jpg';
+var cacti = 'cacti.jpg';
+var wtc = 'wtc.jpg';
+var mountain = 'mountain.jpg';
 
 var pictures = new Array(
-	env.S3_URL + magnet,
-	env.S3_URL + piano,
-	env.S3_URL + snow
+	env.S3_IMAGES_URL + magnet,
+	env.S3_IMAGES_URL + piano,
+	env.S3_IMAGES_URL + snow,
+	env.S3_IMAGES_URL + cacti,
+	env.S3_IMAGES_URL + wtc,
+	env.S3_IMAGES_URL + mountain,
 );
 
-var loginImageUrl = env.S3_URL + owl;
+var loginImageUrl = env.S3_IMAGES_URL + owl;
 
 window.onload = load();
 
@@ -24,7 +30,6 @@ function load() {
 	//randomPicture();
 	loginPicture();
 }
-
 
 function randomPicture() {
 	var number = Math.floor(Math.random() * pictures.length);
@@ -38,9 +43,9 @@ function randomPicture() {
 
 function setSliders() {
 	try {
-		document.getElementById("slider-1").src = pictures[0];
-		document.getElementById("slider-2").src = pictures[1];
-		document.getElementById("slider-3").src = pictures[2];
+		for (let i = 0; i < pictures.length; i++) {
+			document.getElementById("slider" + (i+1).toString()).src = pictures[i];
+		}
 	} catch(err) {
 		// no slider on page
 		// skipping

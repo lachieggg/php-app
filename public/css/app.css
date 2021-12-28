@@ -30,6 +30,7 @@ body {
 
 .slider-images {
   border-radius: 60px;
+  max-height: 400px;
 }
 
 #welcome-img 
@@ -60,7 +61,11 @@ body {
     height: 50%;
     border-radius: 60px;
   }
-  
+
+  .slider-images {
+    border-radius: 60px;
+    max-height: 200px;
+  }
 }
 
 .index-body {
