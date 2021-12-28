@@ -18,19 +18,16 @@
     },
     "scripts": {
       "start": [
-        "docker-compose up -d"
+        "npm run build && docker-compose up -d"
       ],
       "start-alt": [
-        "docker compose up -d"
+        "npm run build && docker compose up -d"
       ],
       "stop": [
-	      "docker kill $(docker ps -q)"
+	"docker kill $(docker ps -q)"
       ],
       "restart": [
         "composer stop; composer start"
-      ],
-      "rebuild-webserver": [
-        "docker kill webserver && docker system prune -af && composer restart"
       ],
       "migrate": [
         "docker exec -it application vendor/bin/phinx migrate"
