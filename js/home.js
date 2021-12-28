@@ -17,7 +17,6 @@ window.onload = load();
 
 function load() {
 	if(SLIDER_ENABLED) {
-		console.log("SLIDER ENABLED");
 		setSliders();
 	} else {
 		setPicture();
