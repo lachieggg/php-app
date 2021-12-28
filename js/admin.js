@@ -13,7 +13,6 @@ function post(path, params, method='post') {
 
   for (const key in params) {
     if (params.hasOwnProperty(key)) {
-			console.log(params[key]);
       const hiddenField = document.createElement('input');
       hiddenField.type = 'hidden';
       hiddenField.name = key;
@@ -30,9 +29,7 @@ function post(path, params, method='post') {
 function loadBlogContent() {
 	var route = '/blog/posts';
 	var xhr = new XMLHttpRequest();
-  console.log(serverURL)
 	xhr.open('GET', route, true);
-  console.log(serverURL + route);
 	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   var authToken = getCookie('PHPSESSID');
 
@@ -49,7 +46,6 @@ function loadBlogContent() {
       var responseJsonArr = JSON.parse(responseText);
       var i;
       for(i=0; i<responseJsonArr.length; i++) {
-				console.log(responseJsonArr[i]);
         postHtml = responseJsonArr[i]['post_html'];
 				uuid = responseJsonArr[i]['uuid'];
         renderPost(postHtml, uuid);
@@ -59,7 +55,6 @@ function loadBlogContent() {
 }
 
 function renderPost(postHtml, uuid) {
-	console.log("renderpost uuid = " + uuid);
   blogBodyElement = document.getElementById('blog-body-content');
   blogBodyElement.innerHTML = blogBodyElement.innerHTML + '<hr>' + postHtml;
 	blogBodyElement.innerHTML += '<br> <br> <input id=delete_box_'+uuid+' type="checkbox">';
@@ -67,7 +62,6 @@ function renderPost(postHtml, uuid) {
 }
 
 function deletePost(uuid) {
-	console.log("delete post uuid = " + uuid);
 	checkbox = document.getElementById('delete_box_' + uuid);
 	if(checkbox.checked) {
 

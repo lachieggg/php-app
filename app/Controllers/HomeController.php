@@ -14,7 +14,7 @@ class HomeController extends Controller
   {
     parent::__construct($container);
     $this->privacy_mode = False;
-    $this->resume = getenv('RESUME_URL');
+    $this->resume = getenv('S3_URL') . getenv('RESUME_PATH');
     $this->github = getenv('GITHUB_URL');
   }
 

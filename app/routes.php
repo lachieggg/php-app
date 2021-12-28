@@ -1,10 +1,5 @@
 <?php
 
-// View
-$app->get('/view', function ($request, $response) {
-  return $this->view->render($response, 'home/home.twig');
-});
-
 // Home
 $app->get('/', 'HomeController:index')->setName('home.root');
 $app->get('/home', 'HomeController:index')->setName('home');
@@ -13,7 +8,6 @@ $app->get('/thinkers', 'HomeController:thinkers')->setName('home.thinkers');
 $app->get('/gallery', 'HomeController:gallery')->setName('home.gallery');
 $app->get('/resume', 'HomeController:resume')->setName('home.resume');
 $app->get('/ssl/public', 'HomeController:publickey')->setName('home.ssl.public');
-
 
 // Blog
 $app->get('/blog', 'BlogController:blog')->setName('blog');

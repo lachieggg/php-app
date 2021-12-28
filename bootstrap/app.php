@@ -16,6 +16,8 @@ use Slim\Csrf\Guard;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Slim\App;
+use Dotenv\Dotenv;
+
 
 // Start new session
 session_start();
@@ -69,6 +71,7 @@ setCsrf($container);
 setDatabase($container, $capsule);
 setValidator($container);
 setControllers($container);
+setDotEnv($container);
 
 $app->add(new ValidationErrorsMiddleware($container));
 $app->add(new OldInputMiddleware($container));
@@ -97,6 +100,17 @@ function setControllers($container) {
     };
     $container['ForumController'] = function ($container) {
         return new ForumController($container);
+    };
+}
+
+/**
+ * @param $container
+ */
+function setDotEnv($container) {
+    $container['dotenv'] = function ($container) {
+        $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+        $dotenv->load();
+        return $dotenv;
     };
 }
 
@@ -136,10 +150,13 @@ function setView($container) {
           'admin' => $container->auth->admin()
         ]);
 
-        // TODO 
-        // move this to .env
-        $slider = true;
+        // Set dotenv so it is available more globally
+        $dotenv = $container['dotenv'];
 
+        // Set slider to be a boolean of the string from .env
+        $slider = filter_var($_ENV['SLIDER_ENABLED'], FILTER_VALIDATE_BOOLEAN);
+
+        // Add slider variable to twig environment
         $view->getEnvironment()->addGlobal('slider', $slider);
     
         return $view;

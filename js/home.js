@@ -1,40 +1,34 @@
-
-const env = {
-	S3_IMAGES_URL : "https://lachie-website.s3.ap-southeast-2.amazonaws.com/images/"
-}
-
-
-var magnet = 'magnet.png';
-var piano = 'piano.png';
-var snow = 'snow-sky.png';
-var owl = 'owl.jpg';
-var cacti = 'cacti.jpg';
-var wtc = 'wtc.jpg';
-var mountain = 'mountain.jpg';
+var S3_IMAGES_URL = process.env.S3_URL + "images/";
+var SLIDER_ENABLED = (process.env.SLIDER_ENABLED === 'true');
 
 var pictures = new Array(
-	env.S3_IMAGES_URL + magnet,
-	env.S3_IMAGES_URL + piano,
-	env.S3_IMAGES_URL + snow,
-	env.S3_IMAGES_URL + cacti,
-	env.S3_IMAGES_URL + wtc,
-	env.S3_IMAGES_URL + mountain,
+	S3_IMAGES_URL + 'magnet.png',
+	S3_IMAGES_URL + 'piano.png',
+	S3_IMAGES_URL + 'snow-sky.png',
+	S3_IMAGES_URL + 'mountain.jpg',
+	S3_IMAGES_URL + 'cacti.jpg',
+	S3_IMAGES_URL + 'wtc.jpg',
 );
 
-var loginImageUrl = env.S3_IMAGES_URL + owl;
+var defaultImage = S3_IMAGES_URL + 'wtc.jpg';
+var loginImage = S3_IMAGES_URL + 'owl.jpg';
 
 window.onload = load();
 
 function load() {
-	setSliders();
-	//randomPicture();
+	if(SLIDER_ENABLED) {
+		console.log("SLIDER ENABLED");
+		setSliders();
+	} else {
+		setPicture();
+	}
+	
 	loginPicture();
 }
 
-function randomPicture() {
-	var number = Math.floor(Math.random() * pictures.length);
+function setPicture() {
 	try {
-		document.getElementById("home-img").src = pictures[number];
+		document.getElementById("home-img").src = defaultImage;
 	} catch(err) {
 		// no home image on page
 		// skipping
@@ -55,7 +49,7 @@ function setSliders() {
 
 function loginPicture() {
 	try {
-		document.getElementById("welcome-img").src = loginImageUrl;
+		document.getElementById("welcome-img").src = loginImage;
 	} catch(err) {
 		// no welcome image on page
 		// skipping
@@ -78,7 +72,7 @@ try {
 		autoplay: true,
 		autoplayButtonOutput: false
 	});
-	
 	slider.play();
 } catch(err) {
+	//
 }
