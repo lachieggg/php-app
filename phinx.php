@@ -15,7 +15,7 @@ return
     ],
     'environments' => [
         'default_migration_table' => 'phinxlog',
-        'default_environment' => 'development',
+        'default_environment' => 'production',
         'production' => [
             'adapter' => $_ENV['DATABASE_DRIVER'],
             'host' => $_ENV['MYSQL_HOST'],
