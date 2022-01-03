@@ -2,17 +2,25 @@ lachiegrant.io
 =
 This is the web app source code for [my personal site](http://www.lachiegrant.io).
 
-The API uses the [Slim](https://www.slimframework.com/) micro framework.
+This repository is a full stack application, a combination of PHP and JavaScript.
+
+[Slim](https://www.slimframework.com/) is used as a PHP micro framework.
 
 [Eloquent](https://laravel.com/docs/8.x/eloquent) is used as an ORM.
 
-[Respect Validation](https://github.com/Respect/Validation) is used as a validation engine.
+[Respect Validation](https://respect-validation.readthedocs.io/en/latest/) is used as a validation engine.
 
-This repository is a full stack application, a combination of PHP and JavaScript.
+[Twig](https://twig.symfony.com/) is used as a template engine.
 
-The database driver is [MySQL](https://www.mysql.com/).
+[Phinx](https://book.cakephp.org/phinx/0/en/index.html) is used for migrations.
 
-[Docker](https://www.docker.com) is the simplest way to run the application in local and production environments.
+[MySQL](https://www.mysql.com/) is the database driver.
+
+[Docker](https://www.docker.com) is the simplest way to run this application.
+
+[npm](https://www.npmjs.com/) is used as a front end package manager.
+
+[Webpack](https://webpack.js.org/) is used for bundling the JavaScript. 
 
 Security
 =
@@ -42,11 +50,13 @@ Run:
 
 `composer start`
 
+`composer migrate`
+
 `npm run build`
 
 Docker
 =
-This section will be updated with details for using [Docker](https://www.docker.com/) to run the application.
+To run with Docker, all you need to do is run `composer start` while the Docker daemon is running.
 
 Configuration
 =
