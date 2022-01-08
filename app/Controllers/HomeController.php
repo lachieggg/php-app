@@ -4,6 +4,7 @@ namespace LoginApp\Controllers;
 
 use Slim\Views\Twig as View;
 use LoginApp\Controllers\BlogController;
+use LoginApp\Config;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,7 @@ class HomeController extends Controller
     $this->github = getenv('GITHUB_URL');
   }
 
-   /**
+  /**
    * @param $request
    * @param $response
    */
@@ -85,5 +86,19 @@ class HomeController extends Controller
     die();
   }
 
+  /**
+   * Render the test page
+   * 
+   * @param $request
+   * @param $response
+   */
+  public function test($request, $response)
+  {
+    if(Config::testMode()) {
+      return $this->view->render($response, 'home/test.twig');
+    }
+    
+    return $this->view->render($response, 'home/home.twig');
+  }
 
 }

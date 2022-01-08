@@ -1,6 +1,7 @@
 <?php
 
 use LoginApp\Auth\Auth;
+use LoginApp\Config;
 use LoginApp\Validation\Validator;
 use LoginApp\Controllers\HomeController;
 use LoginApp\Controllers\AuthController;
@@ -72,6 +73,8 @@ setCsrf($container);
 setDatabase($container, $capsule);
 setValidator($container);
 setControllers($container);
+
+$config = new Config($container);
 
 $app->add(new ValidationErrorsMiddleware($container));
 $app->add(new OldInputMiddleware($container));
@@ -150,14 +153,9 @@ function setView($container) {
           'admin' => $container->auth->admin()
         ]);
 
-        // Set dotenv so it is available more globally
-        $dotenv = $container['dotenv'];
-
-        // Set slider to be a boolean of the string from .env
-        $slider = filter_var($_ENV['SLIDER_ENABLED'], FILTER_VALIDATE_BOOLEAN);
-
-        // Add slider variable to twig environment
-        $view->getEnvironment()->addGlobal('slider', $slider);
+        // Add env variables to twig environment
+        $view->getEnvironment()->addGlobal('sliderMode', Config::sliderMode());
+        $view->getEnvironment()->addGlobal('testMode', Config::testMode());
     
         return $view;
     };

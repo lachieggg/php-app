@@ -83,6 +83,36 @@ div.gallery {
   width: 180px;
 }
 
+.rounded-img {
+  border-radius: 20px;
+  align-self: center;
+}
+
+.carousel-img {
+  max-width: 100px;
+  width: 100%;
+  height: auto;
+}
+
+.carousel-control {
+  border-radius: 20px;
+}
+
+.carousel-container {
+  width: 50%;
+  align-self: center;
+  align-items: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  width: 50%;
+  align-self: center;
+  align-items: center;
+}
+
 div.gallery:hover {
   border: 1px solid #777;
 }

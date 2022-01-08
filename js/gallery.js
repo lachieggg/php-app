@@ -1,22 +1,55 @@
+var S3_IMAGES_URL = process.env.S3_URL + "images/";
+var SLIDER_ENABLED = (process.env.SLIDER_ENABLED === 'true');
 
-// Tiny Slider
-import { tns } from "../node_modules/tiny-slider/src/tiny-slider";
+var pictures = new Array(
+	S3_IMAGES_URL + 'mountain-day.jpg',
+	S3_IMAGES_URL + 'mountain-night.jpg',
+	S3_IMAGES_URL + 'fiber.jpg',
+	S3_IMAGES_URL + 'led.jpg',
+	S3_IMAGES_URL + 'hdd.jpg',
+	S3_IMAGES_URL + 'motherboard.jpg',
+	S3_IMAGES_URL + 'city.jpg',
+	S3_IMAGES_URL + 'wtc.jpg',
+	S3_IMAGES_URL + 'diving.jpg',
+	S3_IMAGES_URL + 'minecraft.jpg',
+);
 
-// try {
-// 	var slider = tns({
-// 		mode: 'gallery',
-// 		container: '.my-slider',
-// 		items: 1,
-// 		slideBy: 'page',
-// 		nav: false,
-// 		speed: 1000,
-// 		controls: false,
-// 		autoplay: true,
-// 		autoplayButtonOutput: false
-// 	});
+window.onload = load();
+
+function load() {
+	if(SLIDER_ENABLED) {
+		setSliders();
+	} else {
+		setPicture();
+	}
 	
-// 	slider.play();
-// } catch(err) {
-// }
+	loginPicture();
+}
 
-// import { slick } from "../node_modules/slick-carousel/slick/slick";
+
+function setSliders() {
+	try {
+		for (let i = 0; i < pictures.length; i++) {
+			document.getElementById("slider" + (i+1).toString()).src = pictures[i];
+		}
+	} catch(err) {
+		// no slider on page
+		// skipping
+	}
+}
+
+
+
+$("#myCarousel").carousel();
+
+$(".item").click(function(){
+  $("#myCarousel").carousel(1);
+});
+
+$(".left").click(function(){
+  $("#myCarousel").carousel("prev");
+});
+
+$(".right").click(function(){
+  $("#myCarousel").carousel("next");
+});
