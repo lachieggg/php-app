@@ -153,8 +153,6 @@ function setView($container) {
         // Set dotenv so it is available more globally
         $dotenv = $container['dotenv'];
 
-        echo $_ENV['SLIDER_ENAB'] . PHP_EOL;
-
         // Set slider to be a boolean of the string from .env
         $slider = filter_var($_ENV['SLIDER_ENABLED'], FILTER_VALIDATE_BOOLEAN);
 
