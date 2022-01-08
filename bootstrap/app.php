@@ -65,13 +65,13 @@ $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 // Set container parameters
+setDotEnv($container);
 setAuth($container);
 setView($container);
 setCsrf($container);
 setDatabase($container, $capsule);
 setValidator($container);
 setControllers($container);
-setDotEnv($container);
 
 $app->add(new ValidationErrorsMiddleware($container));
 $app->add(new OldInputMiddleware($container));
@@ -152,6 +152,8 @@ function setView($container) {
 
         // Set dotenv so it is available more globally
         $dotenv = $container['dotenv'];
+
+        echo $_ENV['SLIDER_ENAB'] . PHP_EOL;
 
         // Set slider to be a boolean of the string from .env
         $slider = filter_var($_ENV['SLIDER_ENABLED'], FILTER_VALIDATE_BOOLEAN);
