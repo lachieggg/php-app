@@ -4,7 +4,6 @@ var CAROUSEL_START_IMAGE = process.env.CAROUSEL_START_IMAGE;
 var S3_IMAGES_URL = process.env.S3_URL + "images/";
 
 var pictures = new Array(
-	S3_IMAGES_URL + 'mountain-day.jpg',
 	S3_IMAGES_URL + 'mountain-night.jpg',
 	S3_IMAGES_URL + 'fiber.jpg',
 	S3_IMAGES_URL + 'led.jpg',
@@ -14,6 +13,7 @@ var pictures = new Array(
 	S3_IMAGES_URL + 'wtc.jpg',
 	S3_IMAGES_URL + 'diving.jpg',
 	S3_IMAGES_URL + 'minecraft.jpg',
+	S3_IMAGES_URL + 'mountain-day.jpg'
 );
 
 window.onload = load();
