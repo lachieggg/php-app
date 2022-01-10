@@ -75,7 +75,6 @@ body {
 	font-weight: 100;
 }
 
-/* Gallery styling */
 div.gallery {
   margin: 5px;
   border: 1px solid #ccc;
@@ -89,22 +88,25 @@ div.gallery {
 }
 
 .carousel-img {
-  max-width: 100px;
-  width: 100%;
   height: auto;
-}
-
-.carousel-control {
-  border-radius: 20px;
 }
 
 .carousel-container {
   width: 50%;
-  align-self: center;
-  align-items: center;
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+#myCarousel {
+  -moz-border-radius: 20px; 
+  -webkit-border-radius: 20px; 
+  border-radius: 20px; 
+  overflow: hidden;
+
+  /* Dimensions */
+  max-height: 300px;
+  width: 100%; 
 }
 
 .container {

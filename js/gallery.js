@@ -23,7 +23,6 @@ function load() {
 		setPicture();
 	}
 	
-	loginPicture();
 }
 
 
@@ -38,9 +37,6 @@ function setSliders() {
 	}
 }
 
-
-
-$("#myCarousel").carousel();
 
 $(".item").click(function(){
   $("#myCarousel").carousel(1);
