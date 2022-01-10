@@ -26,47 +26,9 @@ function load() {
 
 function setCarousel() {
 	try {
-		var divElement = document.getElementById("empty-div");
-		var imgElement = document.getElementById("empty-img");
-		var innerElement = document.getElementById("inner-carousel");
-		var innerCarousel = document.getElementById("myCarousel");
-		var outerDiv = document.getElementById("container-carousel");
-
-
-		var prevElem = null;
-
-		// Create all the carousel elements
-		for (let carouselItemIndex = 0; carouselItemIndex < pictures.length; carouselItemIndex++) {
-			// Clone the div
-			var divClone = divElement.cloneNode(true);
-			var id = "carousel-item-" + (carouselItemIndex).toString();
-			divClone.id = id;
-			// Clone the image
-			var imgClone = imgElement.cloneNode(true);
-			var id = "carousel-img-" + (carouselItemIndex).toString();
-			imgClone.id = id;
-			// Put the image inside the div
-			divClone.appendChild(imgClone)
-			// Put the div inside the carousel
-			innerElement.appendChild(divClone);
-		}
-
-		innerCarousel.appendChild(innerElement);
-		outerDiv.appendChild(innerCarousel)
-
-		document.body.appendChild(outerDiv);
-
-		previousNode = document.getElementById("bookmark");
-		previousNode.after(outerDiv); // Adds outerDiv after previousNode
-
-		divElement.remove();
-		imgElement.remove();
-
-		var elementIndex = 0;
 		for (let pictureIndex = CAROUSEL_START_IMAGE; pictureIndex < pictures.length; pictureIndex++) {
 			var id = "carousel-img-" + (pictureIndex).toString();
 			document.getElementById(id).src = pictures[pictureIndex];
-			elementIndex++;
 		}
 	} catch(err) {
 		console.log(err);
