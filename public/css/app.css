@@ -1,71 +1,27 @@
 body {
   background: lightblue;
+  font-family: Sans-serif;
   padding-top: 100px;
   padding-bottom: 40px;
   text-align: center;
 }
 
-#sign-up-form {
+.input-form {
   text-align: left;
-}
-
-#sign-in-form {
-  text-align: left;
-}
-
-:root {
-  scrollbar-color: #BA0B00 #000000;
-  scrollbar-width: none;
-}
-
-.search-form {
-  display: block;
-  padding-top: 10px;
-}
-
-#home-img {
-  align-self: center;
-  border-radius: 60px;
 }
 
 .slider-images {
-  border-radius: 60px;
+  border-radius: 20px;
   max-height: 400px;
 }
 
-#welcome-img 
-{
+.half-img {
   width: 50%;
   height: 50%;
-  border-radius: 60px;
 }
 
-@media (max-width: 960px)
-{
-  .search-form
-  {
-    display: none;
-  }
-
-  #home-img
-  {
-    border-radius: 60px;
-    align-self: center;
-    width: 75%;
-    height: 75%;
-  }
-
-  #welcome-img 
-  {
-    width: 50%;
-    height: 50%;
-    border-radius: 60px;
-  }
-
-  .slider-images {
-    border-radius: 60px;
-    max-height: 200px;
-  }
+.home-img {
+  align-self: center;
 }
 
 .index-body {
@@ -73,13 +29,6 @@ body {
 	font-family: Sans-serif;
   font-size: 16px;
 	font-weight: 100;
-}
-
-div.gallery {
-  margin: 5px;
-  border: 1px solid #ccc;
-  float: left;
-  width: 180px;
 }
 
 .rounded-img {
@@ -98,7 +47,13 @@ div.gallery {
   margin-right: auto;
 }
 
-#myCarousel {
+.container {
+  width: 50%;
+  align-self: center;
+  align-items: center;
+}
+
+.carousel-wrapper {
   -moz-border-radius: 20px; 
   -webkit-border-radius: 20px; 
   border-radius: 20px; 
@@ -109,22 +64,73 @@ div.gallery {
   width: 100%; 
 }
 
-.container {
-  width: 50%;
-  align-self: center;
+/* Removes Scrollbar */
+:root {
+  scrollbar-color: #BA0B00 #000000;
+  scrollbar-width: none;
+}
+
+@media (max-width: 720px)
+{
+  .home-img {
+    display: none;
+  }
+
+  .slider-images {
+    display: none;
+  }
+}
+
+.home-text-mobile {
+  visibility: hidden;
+}
+
+.home-link-navbar {
+  visibility: visible;
+}
+
+#navbar {
   align-items: center;
+  align-content: center;
+  float: center;
 }
 
-div.gallery:hover {
-  border: 1px solid #777;
-}
+@media (pointer:none), (pointer:coarse) {
+  .home-img {
+    width: 50%;
+    height: 50%;
+    align-self: center;
+  }
 
-div.gallery img {
-  width: 100%;
-  height: auto;
-}
+  .slider-images {
+    border-radius: 20px;
+    max-height: 400px;
+    width: 100%;
+    height: 100%;
+  }
 
-div.desc {
-  padding: 15px;
-  text-align: center;
+  .index-body {
+    font-size: 28px;
+    font-weight: 100;
+  }
+
+  .login-links {
+    visibility: hidden;
+  }
+
+  .home-link {
+    visibility: hidden;
+  }
+
+  .home-text {
+    visibility: hidden;
+  }
+
+  .welcome-message {
+    visibility: hidden;
+  }
+
+  .home-link-navbar {
+    visibility: visible;
+  }
 }

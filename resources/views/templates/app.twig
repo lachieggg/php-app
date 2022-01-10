@@ -11,10 +11,14 @@
             crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body>
-        <b><h4>Welcome to my corner of the Internet</h4></b>
-        <br>
+
         {% include 'templates/partials/navigation.twig' %}
 
+        <div class='welcome-message'>
+            <b><h4>Welcome to my corner of the Internet</h4></b>
+            <br>
+        </div>
+        
         <div class="container">
             {% include 'templates/partials/flash.twig' %}
             {% block content %}

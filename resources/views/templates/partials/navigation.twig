@@ -7,15 +7,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path_for('home') }}"><b>lachiegrant.io</b></a>
+            <a class="navbar-brand home-link" href="{{ path_for('home') }}"><i>lachiegrant.io</i></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <li class='home-link-navbar'><a href="{{ path_for('home') }}"><b>Home</b></a></li>
                 <li><a href="{{ path_for('contact') }}">Contact</a></li>
                 <li><a href="{{ path_for('home.thinkers') }}">Thinkers</a></li>
                 <li><a href="{{ path_for('home.github') }}" target="_blank">GitHub</a></li>
                 <li><a href="{{ path_for('home.resume') }}" target="_blank">CV</a></li>
                 <li><a href="{{ path_for('home.gallery') }}">Gallery</a></li>
+                
 
                 {% if auth.admin %}
                     <li><a href="{{ path_for('blog') }}">Blog</a></li>
@@ -39,8 +41,8 @@
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="{{ path_for('auth.sign-up') }}"><b>Sign up</b></a></li>
-                    <li><a href="{{ path_for('auth.sign-in') }}"><b>Sign in</b></a></li>
+                    <li class='login-links'><a href="{{ path_for('auth.sign-up') }}"><b><i>Sign up</i></b></a></li>
+                    <li class='login-links'><a href="{{ path_for('auth.sign-in') }}"><b><i>Sign in</i></b></a></li>
                 {% endif %}
             </ul>
 
