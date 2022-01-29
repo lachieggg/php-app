@@ -42,3 +42,6 @@ $app->post('/contact/post/delete', 'ContactController:deleteContactPost')->setNa
 // Admin
 $app->get('/blog/admin', 'AuthController:getBlogAdmin')->setName('blog.admin');
 $app->get('/gallery/admin', 'AuthController:getGalleryAdmin')->setName('gallery.admin');
+
+// Test
+$app->get('/test/error', 'MissingController:error');
