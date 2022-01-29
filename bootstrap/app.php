@@ -19,8 +19,6 @@ use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Slim\App;
 use Dotenv\Dotenv;
-// use Monolog\Logger;
-// use Monolog\Handler\StreamHandler;
 use Projek\Slim\MonologProvider;
 
 // Start new session
@@ -31,7 +29,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 // Configure Slim Application settings
 $settings = [
-    'displayErrorDetails' => true
+    'displayErrorDetails' => true,
+    'debug' => false
 ];
 
 // Create the Slim Application
@@ -46,7 +45,6 @@ $username = getenv('MYSQL_USER');
 $driver = getenv('DATABASE_DRIVER');
 $database = getenv('MYSQL_DATABASE');
 $password = getenv('MYSQL_PASSWORD');
-
 
 // Configure database settings
 $db = [
@@ -68,7 +66,7 @@ $container['logger'] = function ($c) {
         // Path to log directory
         'directory' => __DIR__ . '/../logs/',
         // Log file name
-        'filename' => 'my-app.log',
+        'filename' => 'login-app.log',
         // Your timezone
         'timezone' => 'Australia/Sydney',
         // Log level
@@ -78,6 +76,15 @@ $container['logger'] = function ($c) {
     ];
 
     return new Projek\Slim\Monolog('slim-app', $settings);
+};
+
+$container['errorHandler'] = function ($container) {
+    return function ($request, $response, $exception) use ($container) {
+        $container->logger->error($exception->getTraceAsString());
+        return $response->withStatus(500)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Something went wrong!');
+    };
 };
 
 
@@ -102,7 +109,7 @@ $config = new Config($container);
 $app->add(new ValidationErrorsMiddleware($container));
 $app->add(new OldInputMiddleware($container));
 $app->add(new CsrfViewMiddleware($container));
-$app->add(new LoggerMiddleware($container));
+//$app->add(new LoggerMiddleware($container));
 
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
 
