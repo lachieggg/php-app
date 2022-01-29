@@ -18,7 +18,8 @@ use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Slim\App;
 use Dotenv\Dotenv;
-
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 // Start new session
 session_start();
@@ -65,6 +66,7 @@ $capsule->addConnection($db);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
+
 // Set container parameters
 setDotEnv($container);
 setAuth($container);
@@ -73,6 +75,7 @@ setCsrf($container);
 setDatabase($container, $capsule);
 setValidator($container);
 setControllers($container);
+setLogger($container);
 
 $config = new Config($container);
 
@@ -178,5 +181,18 @@ function setCsrf($container) {
         $csrf = new Guard();
         $csrf->setPersistentTokenMode(true);
         return $csrf;
+    };
+}
+
+/**
+ * Logging
+ * 
+ * @param $container
+ */
+function setLogger($container) {
+    $container['logger'] = function ($container) {
+        $logger = new Monolog\Logger('app');
+        $logger->pushHandler(new Monolog\Handler\StreamHandler('logs/app.log', Monolog\Logger::DEBUG));
+        return $logger;
     };
 }
