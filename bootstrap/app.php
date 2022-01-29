@@ -78,6 +78,9 @@ $container['logger'] = function ($c) {
     return new Projek\Slim\Monolog('slim-app', $settings);
 };
 
+
+// Overrides the default Slim Error handler
+// and adds a custom handler
 $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         $container->logger->error($exception->getTraceAsString());
