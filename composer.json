@@ -10,7 +10,8 @@
         "doctrine/dbal": "^3.1.4",
         "vlucas/phpdotenv": "^4.1.2",
         "robmorgan/phinx": "^0.12.9",
-        "illuminate/support": "^8.78"
+        "illuminate/support": "^8.78",
+        "projek-xyz/slim-monolog": "^0.1.6"
     },
     "autoload": {
       "psr-4" : {

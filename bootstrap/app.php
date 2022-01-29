@@ -11,6 +11,7 @@ use LoginApp\Controllers\ForumController;
 use LoginApp\Middleware\OldInputMiddleware;
 use LoginApp\Middleware\CsrfViewMiddleware;
 use LoginApp\Middleware\ValidationErrorsMiddleware;
+use LoginApp\Middleware\LoggerMiddleware;
 use Illuminate\Database\Capsule\Manager;
 use Respect\Validation\Validator as RespectValidation;
 use Slim\Csrf\Guard;
@@ -18,8 +19,9 @@ use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
 use Slim\App;
 use Dotenv\Dotenv;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
+// use Monolog\Logger;
+// use Monolog\Handler\StreamHandler;
+use Projek\Slim\MonologProvider;
 
 // Start new session
 session_start();
@@ -60,6 +62,25 @@ $db = [
 // Fetch the Slim Container
 $container = $app->getContainer();
 
+// Monolog helper
+$container['logger'] = function ($c) {
+    $settings = [
+        // Path to log directory
+        'directory' => __DIR__ . '/../logs/',
+        // Log file name
+        'filename' => 'my-app.log',
+        // Your timezone
+        'timezone' => 'Australia/Sydney',
+        // Log level
+        'level' => 'debug',
+        // Handlers
+        'handlers' => [],
+    ];
+
+    return new Projek\Slim\Monolog('slim-app', $settings);
+};
+
+
 // Configure Eloquent
 $capsule = new Manager;
 $capsule->addConnection($db);
@@ -75,13 +96,13 @@ setCsrf($container);
 setDatabase($container, $capsule);
 setValidator($container);
 setControllers($container);
-setLogger($container);
 
 $config = new Config($container);
 
 $app->add(new ValidationErrorsMiddleware($container));
 $app->add(new OldInputMiddleware($container));
 $app->add(new CsrfViewMiddleware($container));
+$app->add(new LoggerMiddleware($container));
 
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
 
@@ -181,18 +202,5 @@ function setCsrf($container) {
         $csrf = new Guard();
         $csrf->setPersistentTokenMode(true);
         return $csrf;
-    };
-}
-
-/**
- * Logging
- * 
- * @param $container
- */
-function setLogger($container) {
-    $container['logger'] = function ($container) {
-        $logger = new Monolog\Logger('app');
-        $logger->pushHandler(new Monolog\Handler\StreamHandler('logs/app.log', Monolog\Logger::DEBUG));
-        return $logger;
     };
 }

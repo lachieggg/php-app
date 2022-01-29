@@ -6,12 +6,6 @@ use Slim\Http\Response;
 
 // Home
 $app->get('/', 'HomeController:index')->setName('home.root');
-
-$app->get('/hello/{name}', function (Request $request, Response $response) use ($app) {
-    $app->getContainer()['logger']->info("/ route called");
-    return $response;
-});
-
 $app->get('/home', 'HomeController:index')->setName('home');
 $app->get('/github', 'HomeController:github')->setName('home.github');
 $app->get('/thinkers', 'HomeController:thinkers')->setName('home.thinkers');
