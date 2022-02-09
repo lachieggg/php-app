@@ -15,7 +15,7 @@ class BlogController extends Controller
    */
   public function blog($request, $response)
   {
-    return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'blog/blog.twig');
+    return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'home/blog.twig');
   }
 
   /**
