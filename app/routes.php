@@ -12,7 +12,7 @@ $app->get('/thinkers', 'HomeController:thinkers')->setName('home.thinkers');
 $app->get('/gallery', 'HomeController:gallery')->setName('home.gallery');
 $app->get('/resume', 'HomeController:resume')->setName('home.resume');
 $app->get('/test', 'HomeController:test')->setName('home.test');
-$app->get('/ssl/public', 'HomeController:publickey')->setName('home.ssl.public');
+$app->get('/pgp/public', 'HomeController:publickey')->setName('home.pgp.public');
 
 // Blog
 $app->get('/blog', 'BlogController:blog')->setName('blog');
