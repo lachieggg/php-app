@@ -126,6 +126,7 @@ body {
   }
 
   .navigation-bar {
+    border-top: 10px;
     font-size: 20px;
   }
 
