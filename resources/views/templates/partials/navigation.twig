@@ -31,7 +31,7 @@
 
             </ul>
 
-            <ul class="nav navbar-nav navbar-right navigation-bar">
+            <ul class="nav navbar-nav navbar-right navigation-bar login-links">
                 {% if auth.check %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.user.name }} <span class="caret"></span></a>
@@ -40,8 +40,8 @@
                         </ul>
                     </li>
                 {% else %}
-                    <li class='login-links'><a href="{{ path_for('auth.sign-up') }}"><b><i>Sign up</i></b></a></li>
-                    <li class='login-links'><a href="{{ path_for('auth.sign-in') }}"><b><i>Sign in</i></b></a></li>
+                    <li><a href="{{ path_for('auth.sign-up') }}"><b><i>Sign up</i></b></a></li>
+                    <li><a href="{{ path_for('auth.sign-in') }}"><b><i>Sign in</i></b></a></li>
                 {% endif %}
             </ul>
 

@@ -124,7 +124,7 @@ body {
   }
 
   .login-links {
-    visibility: hidden;
+    display: none;
   }
 
   .home-text {
