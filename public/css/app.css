@@ -98,6 +98,7 @@ body {
   float: center;
   font-family: 'Courier New', Courier, monospace;
   font: 'Courier New';
+  font-size: 14px;
 }
 
 .courier-font {
