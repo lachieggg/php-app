@@ -1,6 +1,6 @@
 body {
   background: lightblue;
-  font-family: Sans-serif;
+  font-family: "Lucida Console";
   padding-top: 100px;
   padding-bottom: 40px;
   text-align: center;
@@ -8,6 +8,10 @@ body {
 
 .input-form {
   text-align: left;
+}
+
+.lucida-font {
+  font-family: "Lucida Console";
 }
 
 .slider-images {
@@ -93,10 +97,12 @@ body {
   align-content: center;
   float: center;
   font-family: 'Courier New', Courier, monospace;
+  font: 'Courier New';
 }
 
 .courier-font {
   font-family: 'Courier New', Courier, monospace;
+  font: 'Courier New';
 }
 
 @media (pointer:none), (pointer:coarse) {
