@@ -142,6 +142,6 @@ body {
   }
 
   .home-link-navbar {
-    visibility: visible;
+    visibility: hidden;
   }
 }
