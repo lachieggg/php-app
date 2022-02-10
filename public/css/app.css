@@ -26,7 +26,6 @@ body {
 
 .index-body {
 	background-color: lightblue;
-	font-family: Sans-serif;
   font-size: 16px;
 	font-weight: 100;
 }
@@ -86,13 +85,18 @@ body {
 }
 
 .home-link-navbar {
-  visibility: visible;
+  visibility: hidden;
 }
 
-#navbar {
+.navigation-bar {
   align-items: center;
   align-content: center;
   float: center;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.courier-font {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 @media (pointer:none), (pointer:coarse) {
