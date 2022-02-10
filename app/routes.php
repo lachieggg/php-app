@@ -12,6 +12,7 @@ $app->get('/thinkers', 'HomeController:thinkers')->setName('home.thinkers');
 $app->get('/gallery', 'HomeController:gallery')->setName('home.gallery');
 $app->get('/resume', 'HomeController:resume')->setName('home.resume');
 $app->get('/test', 'HomeController:test')->setName('home.test');
+$app->get('/consulting', 'HomeController:consulting')->setName('home.consulting');
 $app->get('/pgp/public', 'HomeController:publickey')->setName('home.pgp.public');
 
 // Blog

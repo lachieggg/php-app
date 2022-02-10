@@ -79,6 +79,15 @@ class HomeController extends Controller
    * @param $request
    * @param $response
    */
+  public function consulting($request, $response)
+  {
+    return $this->view->render($response, 'home/consulting.twig');
+  }
+
+  /**
+   * @param $request
+   * @param $response
+   */
   public function publickey($request, $response)
   {
     header('Content-Type: text/plain');
