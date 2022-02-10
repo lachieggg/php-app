@@ -32,9 +32,9 @@ class HomeController extends Controller
    * @param $request
    * @param $response
    */
-  public function thinkers($request, $response)
+  public function people($request, $response)
   {
-    return $this->view->render($response, 'home/thinkers.twig');
+    return $this->view->render($response, 'home/people.twig');
   }
 
   /**
