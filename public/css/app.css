@@ -88,13 +88,7 @@ body {
   visibility: hidden;
 }
 
-.home-link-navbar {
-  visibility: hidden;
-}
-
 .navigation-bar {
-  align-items: center;
-  align-content: center;
   float: center;
   font-family: 'Courier New', Courier, monospace;
   font: 'Courier New';
@@ -126,17 +120,11 @@ body {
   }
 
   .navigation-bar {
-    border-top: 10px;
-    margin-top: 20px;
     font-size: 20px;
   }
 
   .login-links {
-    visibility: hidden;
-  }
-
-  .home-link {
-    visibility: hidden;
+    display: none;
   }
 
   .home-text {
@@ -147,7 +135,4 @@ body {
     visibility: hidden;
   }
 
-  .home-link-navbar {
-    visibility: hidden;
-  }
 }
