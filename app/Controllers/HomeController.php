@@ -82,7 +82,7 @@ class HomeController extends Controller
   public function publickey($request, $response)
   {
     header('Content-Type: text/plain');
-    echo file_get_contents('./ssl/public.pem');
+    echo file_get_contents('./pgp/public.pem');
     die();
   }
 
