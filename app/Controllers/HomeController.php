@@ -109,5 +109,16 @@ class HomeController extends Controller
     
     return $this->view->render($response, 'home/home.twig');
   }
+  
+  /**
+   * Render the weird page
+   * 
+   * @param $request
+   * @param $response
+   */
+  public function cool($request, $response)
+  {
+    echo file_get_contents("html/cool/cool.html");
+  }
 
 }

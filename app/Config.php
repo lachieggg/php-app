@@ -17,7 +17,15 @@ class Config {
         return filter_var($_ENV['SLIDER_ENABLED'], FILTER_VALIDATE_BOOLEAN);
     }
 
+    public static function galleryMode() {
+        return filter_var($_ENV['GALLERY_ENABLED'], FILTER_VALIDATE_BOOLEAN);
+    }
+
     public static function testMode() {
         return filter_var($_ENV['TEST_MODE'], FILTER_VALIDATE_BOOLEAN);
+    }
+
+    public static function coolMode() {
+        return filter_var($_ENV['COOL_MODE'], FILTER_VALIDATE_BOOLEAN);
     }
 }
