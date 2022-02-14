@@ -14,13 +14,7 @@ $app->get('/resume', 'HomeController:resume')->setName('home.resume');
 $app->get('/test', 'HomeController:test')->setName('home.test');
 $app->get('/consulting', 'HomeController:consulting')->setName('home.consulting');
 $app->get('/pgp/public', 'HomeController:publickey')->setName('home.pgp.public');
-$app->get('/cool', 'HomeController:cool')->setname('home.cool');
-
-// Blog
-$app->get('/blog', 'BlogController:blog')->setName('blog');
-$app->get('/blog/posts', 'BlogController:getBlogPosts')->setName('blog.posts');
-$app->post('/blog/create', 'BlogController:submitBlogPost')->setName('blog.create');
-$app->post('/blog/delete', 'BlogController:deleteBlogPost')->setName('blog.remove');
+$app->get('/blog', 'HomeController:blog')->setname('home.blog');
 
 // Forum
 $app->post('/forum/post', 'ForumController:submitForumPost')->setName('forum.post.create');

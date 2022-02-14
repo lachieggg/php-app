@@ -25,7 +25,7 @@ class Config {
         return filter_var($_ENV['TEST_MODE'], FILTER_VALIDATE_BOOLEAN);
     }
 
-    public static function coolMode() {
-        return filter_var($_ENV['COOL_MODE'], FILTER_VALIDATE_BOOLEAN);
+    public static function blogMode() {
+        return filter_var($_ENV['BLOG_MODE'], FILTER_VALIDATE_BOOLEAN);
     }
 }

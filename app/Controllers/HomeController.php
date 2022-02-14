@@ -116,9 +116,9 @@ class HomeController extends Controller
    * @param $request
    * @param $response
    */
-  public function cool($request, $response)
+  public function blog($request, $response)
   {
-    echo file_get_contents("html/cool/cool.html");
+    echo file_get_contents("html/blog/blog.html");
   }
 
 }
