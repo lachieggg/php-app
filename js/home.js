@@ -2,6 +2,7 @@ var S3_IMAGES_URL = process.env.S3_URL + "images/";
 var SLIDER_ENABLED = (process.env.SLIDER_ENABLED === 'true');
 
 var pictures = new Array(
+	S3_IMAGES_URL + 'graduation.jpg',
 	S3_IMAGES_URL + 'mountain-day.jpg',
 	S3_IMAGES_URL + 'mountain-night.jpg',
 	S3_IMAGES_URL + 'fiber.jpg',
@@ -25,7 +26,7 @@ function load() {
 	} else {
 		setPicture();
 	}
-	
+
 	loginPicture();
 }
 
