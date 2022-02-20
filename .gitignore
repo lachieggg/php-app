@@ -4,9 +4,6 @@ vendor/
 # Env
 .env
 
-# Pictures
-*.jpg
-
 # IDE
 .idea/
 
