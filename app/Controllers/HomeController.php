@@ -111,7 +111,7 @@ class HomeController extends Controller
   }
   
   /**
-   * Render the weird page
+   * Render the blog page
    * 
    * @param $request
    * @param $response

@@ -36,7 +36,6 @@ $app->get('/contact/posts', 'ContactController:getContactPosts')->setName('conta
 $app->post('/contact/post/delete', 'ContactController:deleteContactPost')->setName('contact.posts.delete');
 
 // Admin
-$app->get('/blog/admin', 'AuthController:getBlogAdmin')->setName('blog.admin');
 $app->get('/gallery/admin', 'AuthController:getGalleryAdmin')->setName('gallery.admin');
 
 // Test
