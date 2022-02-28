@@ -102,8 +102,8 @@ body {
 
 @media (pointer:none), (pointer:coarse) {
   .home-img {
-    width: 50%;
-    height: 50%;
+    max-width: 50%;
+    max-height: 50%;
     align-self: center;
   }
 
