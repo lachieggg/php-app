@@ -5,6 +5,7 @@ var firstPicture = 'images/nebula.jpg';
 
 var pictures = new Array(
 	firstPicture,
+	S3_IMAGES_URL + 'luna.jpg',
 	S3_IMAGES_URL + 'graduation.jpg',
 	S3_IMAGES_URL + 'mountain-day.jpg',
 	S3_IMAGES_URL + 'mountain-night.jpg',
