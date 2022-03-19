@@ -1,22 +1,14 @@
 var S3_IMAGES_URL = process.env.S3_URL + "images/";
 var SLIDER_ENABLED = (process.env.SLIDER_ENABLED === 'true');
 
-var firstPicture = 'images/nebula.jpg';
-
 var pictures = new Array(
-	firstPicture,
+	'images/nebula.jpg',
 	S3_IMAGES_URL + 'luna.jpg',
 	S3_IMAGES_URL + 'mountain-day.jpg',
-	S3_IMAGES_URL + 'mountain-night.jpg',
 	S3_IMAGES_URL + 'fiber.jpg',
-	S3_IMAGES_URL + 'wtc.jpg'
-	//S3_IMAGES_URL + 'graduation.jpg',
-	//S3_IMAGES_URL + 'led.jpg',
-	//S3_IMAGES_URL + 'hdd.jpg',
-	//S3_IMAGES_URL + 'motherboard.jpg',
-	//S3_IMAGES_URL + 'city.jpg',
-	//S3_IMAGES_URL + 'diving.jpg',
-	//S3_IMAGES_URL + 'minecraft.jpg',
+	S3_IMAGES_URL + 'wtc.jpg',
+	S3_IMAGES_URL + 'cityscape.jpg',
+	S3_IMAGES_URL + 'library.jpg'
 );
 
 var defaultImage = S3_IMAGES_URL + 'wtc.jpg';
