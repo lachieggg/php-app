@@ -5,7 +5,6 @@ var pictures = new Array(
 	'images/nebula.jpg',
 	S3_IMAGES_URL + 'luna.jpg',
 	S3_IMAGES_URL + 'mountain-day.jpg',
-	S3_IMAGES_URL + 'fiber.jpg',
 	S3_IMAGES_URL + 'wtc.jpg',
 	S3_IMAGES_URL + 'cityscape.jpg',
 	S3_IMAGES_URL + 'library.jpg'
