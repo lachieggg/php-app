@@ -2,7 +2,7 @@ var S3_IMAGES_URL = process.env.S3_URL + "images/";
 var SLIDER_ENABLED = (process.env.SLIDER_ENABLED === 'true');
 
 var pictures = new Array(
-	'images/nebula.jpg',
+	S3_IMAGES_URL + 'nebula.jpg',
 	S3_IMAGES_URL + 'luna.jpg',
 	S3_IMAGES_URL + 'mountain-day.jpg',
 	S3_IMAGES_URL + 'wtc.jpg',
@@ -63,7 +63,6 @@ import { tns } from "../node_modules/tiny-slider/src/tiny-slider";
 try {
 	var slider = tns({
 		mode: 'gallery',
-
 		container: '.my-slider',
 		items: 1,
 		slideBy: 'page',
