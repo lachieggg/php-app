@@ -52,6 +52,8 @@ Run:
 
 `composer migrate`
 
+`npm install`
+
 `npm run build`
 
 Docker
