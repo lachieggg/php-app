@@ -1,19 +1,19 @@
 var CAROUSEL_ENABLED = (process.env.CAROUSEL_ENABLED === 'true');
 var CAROUSEL_START_IMAGE = process.env.CAROUSEL_START_IMAGE;
 
-var S3_IMAGES_URL = process.env.S3_URL + "images/";
+var IMAGES_URL = process.env.URL + "images/";
 
 var pictures = new Array(
-	S3_IMAGES_URL + 'mountain-night.jpg',
-	S3_IMAGES_URL + 'fiber.jpg',
-	S3_IMAGES_URL + 'led.jpg',
-	S3_IMAGES_URL + 'hdd.jpg',
-	S3_IMAGES_URL + 'motherboard.jpg',
-	S3_IMAGES_URL + 'city.jpg',
-	S3_IMAGES_URL + 'wtc.jpg',
-	S3_IMAGES_URL + 'diving.jpg',
-	S3_IMAGES_URL + 'minecraft.jpg',
-	S3_IMAGES_URL + 'mountain-day.jpg'
+	IMAGES_URL + 'mountain-night.jpg',
+	IMAGES_URL + 'fiber.jpg',
+	IMAGES_URL + 'led.jpg',
+	IMAGES_URL + 'hdd.jpg',
+	IMAGES_URL + 'motherboard.jpg',
+	IMAGES_URL + 'city.jpg',
+	IMAGES_URL + 'wtc.jpg',
+	IMAGES_URL + 'diving.jpg',
+	IMAGES_URL + 'minecraft.jpg',
+	IMAGES_URL + 'mountain-day.jpg'
 );
 
 window.onload = load();
