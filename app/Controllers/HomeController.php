@@ -17,6 +17,7 @@ class HomeController extends Controller
     $this->privacy_mode = False;
     $this->resume = getenv('URL') . getenv('RESUME_PATH');
     $this->github = getenv('GITHUB_URL');
+    $this->blog_enabled = true;
   }
 
   /**
@@ -118,8 +119,8 @@ class HomeController extends Controller
    */
   public function blog($request, $response)
   {
-    // Disable blog
-    return;
+    if(!$this->blog_enabled) { return "Please come back later! :-) <a href='/'>Home</a>" }
+
     echo file_get_contents("html/blog/blog.html");
   }
 
