@@ -24,3 +24,6 @@ public/js/generated
 
 # Log files
 *.log
+
+# Archive
+public/html/blog/.archive
