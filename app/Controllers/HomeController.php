@@ -118,6 +118,8 @@ class HomeController extends Controller
    */
   public function blog($request, $response)
   {
+    // Disable blog
+    return;
     echo file_get_contents("html/blog/blog.html");
   }
 
