@@ -119,7 +119,7 @@ class HomeController extends Controller
    */
   public function blog($request, $response)
   {
-    if(!$this->blog_enabled) { return "Please come back later! :-) <a href='/'>Home</a>" }
+    if(!$this->blog_enabled) { return "Please come back later! :-) <a href='/'>Home</a>"; }
 
     echo file_get_contents("html/blog/blog.html");
   }
