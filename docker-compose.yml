@@ -15,8 +15,6 @@ services:
       - ./:/var/www
     networks:
       - app-network
-    links:
-      - database
     env_file: .env
     environment:
       - MYSQL_USER
