@@ -3,7 +3,6 @@
 {% block content %}
 <body id='sign-in-body' class='index-body'>
 	<div id='login-welcome-div'>
-		<br>
     <img id='welcome-img' class='my-slider-images half-img' src='images/sample.png'></img>
   </div>
   <br>
@@ -31,9 +30,14 @@
               <button type="submit" class="btn btn-default">Sign in</button>
                 {{ csrf.field | raw }}
             </form>
+            <br>
+            <div>
+              Don't have an account? <a href="{{ path_for('auth.sign-up') }}">Sign up</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    
 </body>
 {% endblock %}

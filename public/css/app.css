@@ -24,12 +24,12 @@ body {
   max-height: 600px;
 }
 
-.container {
+.half-img {
   width: 50%;
 }
 
-.login-links {
-  display: none;
+.container {
+  width: 50%;
 }
 
 :root {
