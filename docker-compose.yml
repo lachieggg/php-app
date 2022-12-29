@@ -24,20 +24,19 @@ services:
       - MYSQL_DRIVER
       - MYSQL_HOST
 
+
+  
   database:
     build:
       context: .
-      dockerfile: ./docker/mysql/Dockerfile.database
+      dockerfile: ./docker/postgres/Dockerfile.postgres
+    env_file: .env
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - MYSQL_DATABASE
-      - MYSQL_ROOT_HOST
-    container_name: database
-    networks:
-      - app-network
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
 
   webserver:
     build:

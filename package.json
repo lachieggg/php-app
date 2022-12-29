@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/lachieggg/lachiegrant.io#readme",
   "dependencies": {
+    "aws-sdk": "^2.1284.0",
     "dotenv-webpack": "^7.0.3",
     "jquery": "^3.6.0",
     "tiny-slider": "^2.9.4",

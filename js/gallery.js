@@ -1,7 +1,28 @@
 var CAROUSEL_ENABLED = (process.env.CAROUSEL_ENABLED === 'true');
 var CAROUSEL_START_IMAGE = process.env.CAROUSEL_START_IMAGE;
 
-var IMAGES_URL = process.env.URL + "images/";
+var IMAGES_URL = process.env.IMAGES_URL
+
+// Load the AWS SDK for JavaScript
+var AWS = require('aws-sdk');
+
+// Set the AWS region
+AWS.config.update({region: 'ap-southeast-2'});
+
+// Create an S3 client
+var s3 = new AWS.S3();
+
+// Set the name of the bucket that you want to list the objects for
+var bucketName = 'lachie-website';
+
+// Call the listObjects method to retrieve the list of objects
+s3.listObjects({Bucket: bucketName}, function(err, data) {
+  if (err) {
+    console.log('Error:', err);
+  } else {
+    console.log('Objects:', data.Contents);
+  }
+});
 
 var pictures = new Array(
 	IMAGES_URL + 'mountain-night.jpg',

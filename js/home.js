@@ -1,4 +1,4 @@
-var IMAGES_URL = process.env.URL + "images/";
+var IMAGES_URL = process.env.IMAGES_URL + 'images/'
 var SLIDER_ENABLED = (process.env.SLIDER_ENABLED === 'true');
 
 var pictures = new Array(
