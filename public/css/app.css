@@ -9,10 +9,10 @@ body {
   text-align: left;
 }
 
-.slider-images {
+/* .slider-images {
   border-radius: 20px;
   max-height: 400px;
-}
+} */
 
 .my-slider {
   border-radius: 20px;
@@ -21,17 +21,14 @@ body {
 
 .home-img {
   border-radius: 20px;
-}
-
-.half-img {
-  width: 50%;
-  height: 50%;
-}
-
-.home-img {
   align-self: center;
 }
 
+/* 
+.half-img {
+  width: 50%;
+  height: 50%;
+} */
 .index-body {
 	background-color: lightblue;
   font-size: 16px;
