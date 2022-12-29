@@ -43,6 +43,13 @@ body {
   font-size: 14px;
 }
 
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+
 @media (max-width: 720px)
 {
   .my-slider-images {
