@@ -1,6 +1,5 @@
 <?php
 
-
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -12,7 +11,7 @@ $app->get('/people', 'HomeController:people')->setName('home.people');
 $app->get('/resume', 'HomeController:resume')->setName('home.resume');
 $app->get('/consulting', 'HomeController:consulting')->setName('home.consulting');
 $app->get('/blog', 'HomeController:blog')->setname('home.blog');
-$app->get('/contact', 'ContactController:email')->setName('contact');
+$app->get('/contact', 'ContactController:contact')->setName('contact');
 $app->get('/pgp/public', 'HomeController:publickey')->setName('home.pgp.public');
 
 // Auth
@@ -23,4 +22,3 @@ $app->get('/sign-in', 'AuthController:getSignIn')->setName('auth.sign-in');
 $app->get('/email-exists', 'AuthController:getEmailExists')->setName('auth.email-exists');
 $app->get('/change-password', 'AuthController:changePassword')->setName('auth.password.change');
 $app->get('/sign-out', 'AuthController:getSignOut')->setName('auth.sign-out');
-

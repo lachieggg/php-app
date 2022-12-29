@@ -189,8 +189,6 @@ function setView($container) {
 
         // Add env variables to twig environment
         $view->getEnvironment()->addGlobal('sliderMode', Config::sliderMode());
-        $view->getEnvironment()->addGlobal('galleryMode', Config::galleryMode());
-        $view->getEnvironment()->addGlobal('testMode', Config::testMode());
         $view->getEnvironment()->addGlobal('blogMode', Config::blogMode());
 
         return $view;

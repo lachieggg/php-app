@@ -14,10 +14,8 @@ class HomeController extends Controller
   public function __construct($container) 
   {
     parent::__construct($container);
-    $this->privacy_mode = False;
     $this->resume = getenv('URL') . getenv('RESUME_PATH');
     $this->github = getenv('GITHUB_URL');
-    $this->blog_enabled = true;
   }
 
   /**
@@ -71,6 +69,17 @@ class HomeController extends Controller
    * @param $request
    * @param $response
    */
+  public function publickey($request, $response)
+  {
+    header('Content-Type: text/plain');
+    echo file_get_contents('./pgp/public.pem');
+    die();
+  }
+
+  /**
+   * @param $request
+   * @param $response
+   */
   public function forum($request, $response)
   {
     return $this->view->render($response, 'auth/private.twig');
@@ -86,32 +95,6 @@ class HomeController extends Controller
   }
 
   /**
-   * @param $request
-   * @param $response
-   */
-  public function publickey($request, $response)
-  {
-    header('Content-Type: text/plain');
-    echo file_get_contents('./pgp/public.pem');
-    die();
-  }
-
-  /**
-   * Render the test page
-   * 
-   * @param $request
-   * @param $response
-   */
-  public function test($request, $response)
-  {
-    if(Config::testMode()) {
-      return $this->view->render($response, 'home/test.twig');
-    }
-    
-    return $this->view->render($response, 'home/home.twig');
-  }
-  
-  /**
    * Render the blog page
    * 
    * @param $request
@@ -119,9 +102,10 @@ class HomeController extends Controller
    */
   public function blog($request, $response)
   {
-    if(!$this->blog_enabled) { return "Please come back later! :-) <a href='/'>Home</a>"; }
+    if(!Config::blogMode()) {
+      return $this->view->render($response, 'home/unavailable.twig');
+    }
 
     echo file_get_contents("html/blog/blog.html");
   }
-
 }
