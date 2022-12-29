@@ -5,7 +5,6 @@ module.exports = {
   mode: 'production',
   entry: {
     'home': './js/home.js',
-    'gallery': './js/gallery.js'
   },
   output: {
     filename: '[name].js',
