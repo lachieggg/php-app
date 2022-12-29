@@ -1,16 +1,10 @@
 body {
-  background: lightblue;
-  padding: 100px 40px;
+  padding: 100px;
   text-align: center;
 }
 
-.input-form {
-  text-align: left;
-}
-
-.slider-images {
-  border-radius: 20px;
-  max-height: 600px;
+.index-body {
+  background: lightblue;
 }
 
 .my-slider {
@@ -18,52 +12,32 @@ body {
   max-height: 400px;
 }
 
-.home-img {
-  border-radius: 20px;
-  align-self: center;
-}
-
-.index-body {
-	background-color: lightblue;
-  font-size: 16px;
-	font-weight: 100;
-}
-
-.carousel-img {
-  height: auto;
-  border-radius: 20px;
-  align-self: center;
-}
-
-.carousel-container {
+.my-slider-container {
   width: 50%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
+.my-slider-images {
+  border-radius: 20px;
+  max-height: 600px;
+}
+
 .container {
   width: 50%;
-  align-self: center;
-  align-items: center;
 }
 
 .login-links {
   display: none;
 }
 
-/* Removes Scrollbar */
 :root {
   scrollbar-color: #BA0B00 #000000;
   scrollbar-width: none;
 }
 
-.home-text-mobile {
-  visibility: hidden;
-}
-
 .navigation-bar {
-  float: center;
   font-family: 'Courier New', Courier, monospace;
   font: 'Courier New';
   font-size: 14px;
@@ -71,7 +45,7 @@ body {
 
 @media (max-width: 720px)
 {
-  .slider-images {
+  .my-slider-images {
     display: none;
   }
 }
