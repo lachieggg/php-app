@@ -55,16 +55,6 @@ body {
   display: none;
 }
 
-.carousel-wrapper {
-  -moz-border-radius: 20px; 
-  -webkit-border-radius: 20px; 
-  /* border-radius: 20px;  */
-  overflow: hidden;
-
-  /* Dimensions */
-  max-height: 300px;
-  width: 100%; 
-}
 
 /* Removes Scrollbar */
 :root {
