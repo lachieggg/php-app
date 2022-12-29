@@ -66,4 +66,10 @@ body {
   .navigation-bar {
     font-size: 20px;
   }
+
+  .my-slider-images {
+    border-radius: 20px;
+    max-width: 50%;
+  }
+  
 }
