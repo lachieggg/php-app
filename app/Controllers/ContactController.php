@@ -18,14 +18,14 @@ class ContactController extends Controller
     $this->privacy_mode = False;
   }
 
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function contact($request, $response)
-  {
-    return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'home/contact.twig');
-  }
+  // /**
+  //  * @param $request
+  //  * @param $response
+  //  */
+  // public function contact($request, $response)
+  // {
+  //   return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'home/contact.twig');
+  // }
 
   /**
    * @param $request
