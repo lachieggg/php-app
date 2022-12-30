@@ -49,12 +49,12 @@ body {
   vertical-align: top;
 }
 
-
 @media (max-width: 720px)
 {
   .my-slider-images {
     display: none;
   }
+
 }
 
 @media (pointer:none), (pointer:coarse) {
@@ -67,10 +67,13 @@ body {
     font-size: 14px;
   }
 
+  .login-button {
+    display: none !important;
+  }
+
   .my-slider-images {
     border-radius: 20px;
     max-width: 50%;
     max-height: 50%;
   }
-  
 }
