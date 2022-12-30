@@ -28,4 +28,24 @@ function defineRoutes(RouteCollectorProxy $group)
     $group->get('/email-exists', 'AuthController:getEmailExists')->setName('auth.email-exists');
     $group->get('/change-password', 'AuthController:changePassword')->setName('auth.password.change');
     $group->get('/sign-out', 'AuthController:getSignOut')->setName('auth.sign-out');
+
+    $group->add(function ($request, $handler) {
+        // Log the request
+        $this->logger->info('request', [
+            'method' => $request->getMethod(),
+            'uri' => (string)$request->getUri(),
+        ]);
+    
+        // Handle the request
+        $response = $handler->handle($request);
+    
+        // Log the response
+        $this->logger->info('response', [
+            'status' => $response->getStatusCode(),
+            'reason' => $response->getReasonPhrase(),
+        ]);
+    
+        return $response;
+    });
+    
 }

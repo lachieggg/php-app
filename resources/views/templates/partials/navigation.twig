@@ -10,30 +10,30 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navigation-bar">
-                <li><a href="{{ app.router.path_for('home') }}">Home</a></li>
-                <li><a href="{{ app.router.path_for('contact') }}">Contact</a></li>
-                <li><a href="{{ app.router.path_for('home.people') }}">People</a></li>
-                <li><a href="{{ app.router.path_for('home.consulting') }}">Consulting</a></li>
-                <li><a href="{{ app.router.path_for('home.blog') }}">Blog</a></li>
-                <li><a href="{{ app.router.path_for('home.github') }}" target="_blank">GitHub</a></li>
-                <li><a href="{{ app.router.path_for('home.resume') }}" target="_blank">CV</a></li>
+                <li><a href="{{ app.router.pathFor('home') }}">Home</a></li>
+                <li><a href="{{ app.router.pathFor('contact') }}">Contact</a></li>
+                <li><a href="{{ app.router.pathFor('home.people') }}">People</a></li>
+                <li><a href="{{ app.router.pathFor('home.consulting') }}">Consulting</a></li>
+                <li><a href="{{ app.router.pathFor('home.blog') }}">Blog</a></li>
+                <li><a href="{{ app.router.pathFor('home.github') }}" target="_blank">GitHub</a></li>
+                <li><a href="{{ app.router.pathFor('home.resume') }}" target="_blank">CV</a></li>
 
                 {% if auth.admin %}
-                    <li><a href="{{ app.router.path_for('blog') }}">Blog</a></li>
-                    <li><a href="{{ app.router.path_for('home.gallery') }}">Gallery</a></li>
-                    <li><a href="{{ app.router.path_for('blog.admin') }}"> Blog Admin </a></li>
-                    <li><a href="{{ app.router.path_for('gallery.admin') }}"> Gallery Admin </a></li>
+                    <li><a href="{{ app.router.pathFor('blog') }}">Blog</a></li>
+                    <li><a href="{{ app.router.pathFor('home.gallery') }}">Gallery</a></li>
+                    <li><a href="{{ app.router.pathFor('blog.admin') }}"> Blog Admin </a></li>
+                    <li><a href="{{ app.router.pathFor('gallery.admin') }}"> Gallery Admin </a></li>
                 {% endif %}
 
                 {% if auth.check %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.user.name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ app.router.path_for('auth.sign-out') }}">Sign out</a></li>
+                            <li><a href="{{ app.router.pathFor('auth.sign-out') }}">Sign out</a></li>
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="{{ app.router.path_for('auth.sign-in') }}">Login</a></li>
+                    <li><a href="{{ app.router.pathFor('auth.sign-in') }}">Login</a></li>
                 {% endif %}
 
             </ul>

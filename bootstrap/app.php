@@ -119,9 +119,10 @@ $app->addErrorMiddleware(true, true, true);
 // $errorHandler = $errorMiddleware->getDefaultErrorHandler();
 // $errorHandler->registerErrorRenderer('text/html', \Slim\Views\TwigErrorRenderer::class);
 
+$db = $settings['db'];
 // Configure Eloquent
 $capsule = new Manager;
-$capsule->addConnection($settings['db']);
+$capsule->addConnection($db);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 

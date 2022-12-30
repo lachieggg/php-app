@@ -24,7 +24,7 @@ class ContactController extends Controller
    */
   public function contact($request, $response)
   {
-    return $this->privacy_mode ? $this->view->render($response, 'auth/private.twig') : $this->view->render($response, 'home/contact.twig');
+    return $this->privacy_mode ? $this->container->get('view')->render($response, 'auth/private.twig') : $this->container->get('view')->render($response, 'home/contact.twig');
   }
 
   /**
@@ -61,7 +61,7 @@ class ContactController extends Controller
       'comment_text' => $comment 
     ]);
 
-    return $response->withRedirect($this->router->pathFor('contact'));
+    return $response->withRedirect($this->container->get('router')->pathFor('contact'));
   }
 
   /**

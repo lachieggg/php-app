@@ -32,7 +32,7 @@ class HomeController extends Controller
    */
   public function people($request, $response)
   {
-    return $this->view->render($response, 'home/people.twig');
+    return $this->container->get('view')->render($response, 'home/people.twig');
   }
 
   /**
@@ -41,7 +41,7 @@ class HomeController extends Controller
    */
   public function gallery($request, $response)
   {
-    return $this->view->render($response, 'home/gallery.twig');
+    return $this->container->get('view')->render($response, 'home/gallery.twig');
   }
 
   /**
@@ -81,7 +81,7 @@ class HomeController extends Controller
    */
   public function forum($request, $response)
   {
-    return $this->view->render($response, 'auth/private.twig');
+    return $this->container->get('view')->render($response, 'auth/private.twig');
   }
 
   /**
@@ -90,7 +90,7 @@ class HomeController extends Controller
    */
   public function consulting($request, $response)
   {
-    return $this->view->render($response, 'home/consulting.twig');
+    return $this->container->get('view')->render($response, 'home/consulting.twig');
   }
 
   /**
@@ -102,7 +102,7 @@ class HomeController extends Controller
   public function blog($request, $response)
   {
     if(!Config::blogMode()) {
-      return $this->view->render($response, 'home/unavailable.twig');
+      return$this->container->get('view')->render($response, 'home/unavailable.twig');
     }
 
     echo file_get_contents("html/blog/blog.html");

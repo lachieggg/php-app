@@ -12,7 +12,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Sign in</div>
           <div class="panel-body">
-            <form class='input-form' action="{{ app.router.path_for('auth.sign-in') }}" method="post" autocomplete="off">
+            <form class='input-form' action="{{ app.router.pathFor('auth.sign-in') }}" method="post" autocomplete="off">
               <div class="form-group{{ errors.email ? ' has-error' : '' }}">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" placeholder="you@domain.com" class="form-control" value="{{ old_input.email }}">
@@ -32,7 +32,7 @@
             </form>
             <br>
             <div>
-              Don't have an account? <a href="{{ app.router.path_for('auth.sign-up') }}">Sign up</a>
+              Don't have an account? <a href="{{ app.router.pathFor('auth.sign-up') }}">Sign up</a>
             </div>
           </div>
         </div>
