@@ -27,3 +27,6 @@ public/js/generated
 
 # Archive
 public/html/blog/.archive
+
+# Cache
+**/twig-cache
