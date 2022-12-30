@@ -3,7 +3,6 @@
 namespace LoginApp\Controllers;
 
 use Slim\Views\Twig as View;
-use LoginApp\Controllers\BlogController;
 use LoginApp\Config;
 
 class HomeController extends Controller
@@ -24,7 +23,7 @@ class HomeController extends Controller
    */
   public function index($request, $response)
   {
-    return $this->view->render($response, 'home/home.twig');
+    return $this->container->get('view')->render($response, 'home/home.twig');
   }
 
   /**

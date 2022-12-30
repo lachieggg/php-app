@@ -1,13 +1,14 @@
 <?php
 
+// Include the routes.php file
+require_once __DIR__ . '/../app/routes.php';
+
 use LoginApp\Auth\Auth;
 use LoginApp\Config;
 use LoginApp\Validation\Validator;
 use LoginApp\Controllers\HomeController;
 use LoginApp\Controllers\AuthController;
 use LoginApp\Controllers\ContactController;
-use LoginApp\Controllers\BlogController;
-use LoginApp\Controllers\ForumController;
 use LoginApp\Middleware\OldInputMiddleware;
 use LoginApp\Middleware\CsrfViewMiddleware;
 use LoginApp\Middleware\ValidationErrorsMiddleware;
@@ -16,10 +17,26 @@ use Illuminate\Database\Capsule\Manager;
 use Respect\Validation\Validator as RespectValidation;
 use Slim\Csrf\Guard;
 use Slim\Views\Twig;
-use Slim\Views\TwigExtension;
 use Slim\App;
 use Dotenv\Dotenv;
 use Projek\Slim\MonologProvider;
+use Slim\Psr7\Factory\ResponseFactory;
+use Slim\Factory\AppFactory;
+use Psr\Container\ContainerInterface;
+use DI\Container;
+use Monolog\Logger;
+use Slim\Routing\Router;
+use Slim\Csrf\GuardMiddleware;
+use LoginApp\Middleware\CsrfMiddleware;
+use DI\ContainerBuilder;
+use Twig\Loader\FilesystemLoader;
+use Slim\Views\TwigMiddleware;
+use Slim\Views\View;
+use Slim\Psr7\Factory\ServerRequestFactory;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Factory\ServerRequestCreatorFactory;
+
+use function LoginApp\Routes\defineRoutes;
 
 // Start new session
 session_start();
@@ -27,190 +44,228 @@ session_start();
 // Autoload dependencies
 require __DIR__ . '/../vendor/autoload.php';
 
-// Configure Slim Application settings
-$settings = [
-    'displayErrorDetails' => true,
-    'debug' => false
-];
-
-// Create the Slim Application
-$app = new App(['settings' => $settings]);
-
-// Set up the routes
-require __DIR__ . '/../app/routes.php';
-
 // Fetch database settings
-$host = getenv('MYSQL_HOST');
-$username = getenv('MYSQL_USER');
-$driver = getenv('DATABASE_DRIVER');
-$database = getenv('MYSQL_DATABASE');
-$password = getenv('MYSQL_PASSWORD');
+$host = getenv('POSTGRES_HOST');
+$username = getenv('POSTGRES_USER');
+$database = getenv('POSTGRES_DB');
+$password = getenv('POSTGRES_PASSWORD');
+$driver = 'pgsql';
 
-// Configure database settings
-$db = [
-    'driver' => $driver,
-    'host' => $host,
-    'database' => $database,
-    'username' => $username,
-    'password' => $password,
-    'charset' => 'utf8',
-    'collation' => 'utf8_unicode_ci'
+// Set up the settings for the container
+$settings = [
+    'twig' => [
+        'cache_path' => './twig-cache',
+        'debug' => true,
+        'auto_reload' => true,
+        'template_path' => __DIR__ . '/../resources/views'
+    ],
+    'db' => [
+        'driver' => $driver,
+        'host' => $host,
+        'database' => $database,
+        'username' => $username,
+        'password' => $password,
+        'charset' => 'utf8',
+        'collation' => 'utf8_unicode_ci'
+    ],
+    'displayErrorDetails' => true,
+    'debug' => false,
 ];
+
+
+$responseFactory = new ResponseFactory();
+$containerBuilder = new ContainerBuilder();
+
+// Add the settings to the container
+$containerBuilder->addDefinitions([
+    'settings' => $settings,
+    'request'  => function () {
+        $serverRequestCreator = ServerRequestCreatorFactory::create();
+        return $serverRequestCreator->createServerRequestFromGlobals();
+    },
+]);
+
+$container = $containerBuilder->build();
+
+AppFactory::setContainer($container);
+
+$app = AppFactory::create();
+$app->add(new CsrfMiddleware());
+
+defineRoutes($app);
+
 
 // Fetch the Slim Container
 $container = $app->getContainer();
 
-// Monolog helper
-$container['logger'] = function ($c) {
-    $settings = [
-        // Path to log directory
-        'directory' => __DIR__ . '/../logs/',
-        // Log file name
-        'filename' => 'login-app.log',
-        // Your timezone
-        'timezone' => 'Australia/Sydney',
-        // Log level
-        'level' => 'debug',
-        // Handlers
-        'handlers' => [],
-    ];
+$router = $app->getRouteCollector()->getRouteParser();
 
-    return new Projek\Slim\Monolog('slim-app', $settings);
-};
-
+$container->set('router', $router);
 
 // Overrides the default Slim Error handler
 // and adds a custom handler
-$container['errorHandler'] = function ($container) {
+$container->set('errorHandler', function ($container) {
     return function ($request, $response, $exception) use ($container) {
-        $container->logger->error($exception->getTraceAsString());
+        $container->get('logger')->error($exception->getTraceAsString());
         return $response->withStatus(500)
             ->withHeader('Content-Type', 'text/html')
             ->write('Something went wrong!');
     };
-};
+});
 
+
+$app->addErrorMiddleware(true, true, true);
+// $errorMiddleware = $app->getMiddlewareCollection()->getErrorMiddleware();
+// $errorHandler = $errorMiddleware->getDefaultErrorHandler();
+// $errorHandler->registerErrorRenderer('text/html', \Slim\Views\TwigErrorRenderer::class);
 
 // Configure Eloquent
 $capsule = new Manager;
-$capsule->addConnection($db);
+$capsule->addConnection($settings['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
-
 
 // Set container parameters
 setDotEnv($container);
 setAuth($container);
-setView($container);
-setCsrf($container);
 setDatabase($container, $capsule);
 setValidator($container);
 setControllers($container);
+setView($container, $app);
+setLogger($container);
+
 
 $config = new Config($container);
 
 $app->add(new ValidationErrorsMiddleware($container));
-$app->add(new OldInputMiddleware($container));
-$app->add(new CsrfViewMiddleware($container));
-//$app->add(new LoggerMiddleware($container));
+$app->addMiddleware(new OldInputMiddleware($container));
+
+// Add Routing Middleware
+$app->addRoutingMiddleware();
+
+$app->add(new CsrfMiddleware());
+
+$app->addMiddleware(new LoggerMiddleware($container));
 
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
 
-// CSRF protection for Slim 3
-$app->add($container->csrf);
 
 /**
  * @param $container
  */
 function setControllers($container) {
-    $container['HomeController'] = function ($container) {
+    $container->set('HomeController', function ($container) {
         return new HomeController($container);
-    };
-    $container['AuthController'] = function ($container) {
+    });
+    $container->set('AuthController', function ($container) {
         return new AuthController($container);
-    };
-    $container['ContactController'] = function ($container) {
+    });
+    $container->set('ContactController', function ($container) {
         return new ContactController($container);
-    };
-    $container['BlogController'] = function ($container) {
-        return new BlogController($container);
-    };
-    $container['ForumController'] = function ($container) {
-        return new ForumController($container);
-    };
+    });
 }
 
 /**
  * @param $container
  */
 function setDotEnv($container) {
-    $container['dotenv'] = function ($container) {
+    $container->set('dotenv', function ($container) {
         $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
         $dotenv->load();
         return $dotenv;
-    };
+    });
 }
 
 /**
  * @param $container
  */
 function setDatabase($container, $capsule) {
-    $container['db'] = function ($container) use ($capsule) {
+    $container->set('db', function ($container) use ($capsule) {
         return $capsule;
-    };
+    });
 }
 
 /**
  * @param $container
  */
 function setAuth($container) {
-    $container['auth'] = function ($container) {
+    $container->set('auth', function ($container) {
         return new Auth($container);
-    };
+    });    
 }
 
 /**
  * @param $container
  */
-function setView($container) {
-    $container['view'] = function ($container) {
-        $view = new Twig(__DIR__ . '/../resources/views');
-    
-        $view->addExtension(new TwigExtension(
-            $container->router,
-            $container->request->getUri()
-        ));
-    
-        $view->getEnvironment()->addGlobal('auth', [
-          'check' => $container->auth->check(),
-          'user' => $container->auth->user(),
-          'admin' => $container->auth->admin()
+function setView($container, $app) {
+
+    // Set up Twig
+    $container->set('view', function ($container, $app) {
+        $settings = $container->get('settings')['twig'];
+        $view = new Twig(new FilesystemLoader($settings['template_path']), [
+            'cache' => $settings['cache_path'],
         ]);
 
-        // Add env variables to twig environment
-        $view->getEnvironment()->addGlobal('sliderMode', Config::sliderMode());
-        $view->getEnvironment()->addGlobal('blogMode', Config::blogMode());
-
         return $view;
-    };
+    });
+
+    // Add Twig Middleware
+    $app->add(TwigMiddleware::createFromContainer($app, 'view'));
 }
+
 
 /**
  * @param $container
  */
 function setValidator($container) {
-    $container['validator'] = function ($container) {
-        return new Validator;
-    };
+    $container->set('validator', function ($container) {
+       return new Validator;
+    });
 }
 
 /**
  * @param $container
  */
-function setCsrf($container) {
-    $container['csrf'] = function ($container) {
-        $csrf = new Guard();
-        $csrf->setPersistentTokenMode(true);
-        return $csrf;
-    };
+function setLogger($container) {
+    $container->set('logger', function (ContainerInterface $container) {
+        $settings = [
+            // Path to log directory
+            'directory' => __DIR__ . '/../logs/',
+            // Log file name
+            'filename' => 'login-app.log',
+            // Your timezone
+            'timezone' => 'Australia/Sydney',
+            // Log level
+            'level' => 'debug',
+            // Handlers
+            'handlers' => [],
+        ];
+
+
+        // Create a logger instance
+        $logger = new Monolog\Logger($settings['filename']);
+
+        // Set the log directory
+        $logDirectory = $settings['directory'];
+
+        // Check if the directory exists, if not create it
+        if (!is_dir($logDirectory)) {
+            mkdir($logDirectory, 0777, true);
+        }
+
+        // Create a stream handler to log to a file
+        $stream = new Monolog\Handler\StreamHandler($logDirectory . $settings['filename'], $settings['level']);
+
+        // Set the timezone for the logger
+        $dateFormat = "Y-m-d H:i:s";
+        $output = "%datetime% %channel%.%level_name%: %message% %context% %extra%\n";
+        $formatter = new Monolog\Formatter\LineFormatter($output, $dateFormat);
+        $stream->setFormatter($formatter);
+
+        // Add the stream handler to the logger
+        $logger->pushHandler($stream);
+
+        // Return the logger instance
+        return $logger;
+    });
 }

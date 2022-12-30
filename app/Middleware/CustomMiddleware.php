@@ -2,7 +2,7 @@
 
 namespace LoginApp\Middleware;
 
-class Middleware
+class CustomMiddleware
 {
   protected $container;
 
