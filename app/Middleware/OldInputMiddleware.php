@@ -24,17 +24,23 @@ class OldInputMiddleware extends CustomMiddleware implements MiddlewareInterface
     protected $view;
 
     /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
+     * Process a request.
      *
-     * @return ResponseInterface
+     * @param ServerRequestInterface $request The request object
+     * @param RequestHandlerInterface $handler The request handler
+     *
+     * @return ResponseInterface The response object
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface {
+        // Check if there are old input values in the session
         if (isset($_SESSION['old_input'])) {
-            $this->container->view->getEnvironment()->addGlobal('old_input', $_SESSION['old_input']);
-            $_SESSION['old_input'] = $request->getParams();
+        // Add the old input values to the view environment
+        $this->container->view->getEnvironment()->addGlobal('old_input', $_SESSION['old_input']);
+        // Update the old input values in the session
+        $_SESSION['old_input'] = $request->getParsedBody();
         }
-
+    
+        // Process the request and return the response
         return $handler->handle($request);
     }
 }

@@ -20,7 +20,7 @@ class ValidationErrorsMiddleware extends CustomMiddleware implements Middleware
     public function process(Request $request, RequestHandler $handler): Response
     {
         if (isset($_SESSION['errors'])) {
-            $this->container->view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
+            $this->container->get('view')->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
             unset($_SESSION['errors']);
         }
         return $handler->handle($request);

@@ -49,11 +49,15 @@ require_once __DIR__ . '/../app/routes.php';
 // Autoload dependencies
 require __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+$dotenv->load();
+
 // Fetch database settings
 $host = getenv('POSTGRES_HOST');
 $username = getenv('POSTGRES_USER');
 $database = getenv('POSTGRES_DB');
 $password = getenv('POSTGRES_PASSWORD');
+$port = getenv('POSTGRES_PORT');
 $driver = 'pgsql';
 
 // Set up the settings for the container
@@ -70,6 +74,7 @@ $settings = [
         'database' => $database,
         'username' => $username,
         'password' => $password,
+        'port' => $port,
         'charset' => 'utf8',
         'collation' => 'utf8_unicode_ci'
     ],
@@ -101,18 +106,6 @@ $routeCollector = $app->getRouteCollector();
 defineMaps($routeCollector);
 
 $routeCollector->setDefaultInvocationStrategy(new RequestResponseArgs());
-
-// Overrides the default Slim Error handler
-// and adds a custom handler
-$container->set('errorHandler', function ($container) {
-    return function ($request, $response, $exception) use ($container) {
-        $container->get('logger')->error($exception->getTraceAsString());
-        return $response->withStatus(500)
-            ->withHeader('Content-Type', 'text/html')
-            ->write('Something went wrong!');
-    };
-});
-
 $app->addErrorMiddleware(true, true, true);
 
 // Configure Eloquent
@@ -151,18 +144,54 @@ function setControllers($container) {
     $container->set('ContactController', new ContactController($container));
 }
 
+/**
+ * Set the dotenv object in the container.
+ *
+ * @param $container The container to set the dotenv object in
+ */
 function setDotEnv($container) {
     $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
     $dotenv->load();
     $container->set('dotenv', $dotenv);
 }
 
+/**
+ * Set the database connection in the container.
+ *
+ * @param $container The container to set the database connection in
+ * @param Manager $capsule The database connection to set in the container
+ */
 function setDatabase($container, $capsule) {
     $container->set('db', $capsule);
 }
 
+/**
+ * Set the auth object in the container.
+ *
+ * @param container The container to set the auth object in
+ */
 function setAuth($container) {
     $container->set('auth', new Auth($container));    
+}
+
+function setErrorHandler($container) {
+    // Overrides the default Slim Error handler
+    // and adds a custom handler
+    $container->set('errorHandler', function ($container) {
+        return function ($request, $response, $exception) use ($container) {
+            $container->get('logger')->error($exception->getTraceAsString());
+            return $response->withStatus(500)
+                ->withHeader('Content-Type', 'text/html')
+                ->write('Something went wrong!');
+        };
+    });
+
+}
+/**
+ * @param $container
+ */
+function setValidator($container) {
+    $container->set('validator', new Validator);
 }
 
 /**
@@ -194,13 +223,6 @@ function setView($container, $router) {
     
     // Set up Twig
     $container->set('view', $view);
-}
-
-/**
- * @param $container
- */
-function setValidator($container) {
-    $container->set('validator', new Validator);
 }
 
 /**
