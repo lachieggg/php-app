@@ -4,9 +4,8 @@ namespace LoginApp\Controllers;
 
 use Slim\Views\Twig as View;
 use LoginApp\Config;
-use Slim\Http\Response;
 use Slim\Psr7\Request;
-use Slim\Psr7\Response as Psr7Response;
+use Slim\Psr7\Response;
 
 class HomeController extends Controller
 {
@@ -25,10 +24,10 @@ class HomeController extends Controller
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function index($request, $response)
+  public function index(Request $request, Response $response)
   {
     return $this->container->get('view')->render($response, 'home/home.twig', [
       // 'router' => $this->container->get('router'),
@@ -38,48 +37,48 @@ class HomeController extends Controller
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function people($request, $response)
+  public function people(Request $request, Response $response)
   {
     return $this->container->get('view')->render($response, 'home/people.twig');
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function gallery($request, $response)
+  public function gallery(Request $request, Response $response)
   {
     return $this->container->get('view')->render($response, 'home/gallery.twig');
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function github($request, $response)
+  public function github(Request $request, Response $response)
   {
     header("Location: " . $this->github);
     die();
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function resume($request, $response)
+  public function resume(Request $request, Response $response)
   {
     header("Location: " . $this->resume);
     die();
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function publickey($request, $response)
+  public function publickey(Request $request, Response $response)
   {
     header('Content-Type: text/plain');
     echo file_get_contents('./pgp/public.pem');
@@ -88,10 +87,10 @@ class HomeController extends Controller
 
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function consulting($request, $response)
+  public function consulting(Request $request, Response $response)
   {
     return $this->container->get('view')->render($response, 'home/consulting.twig');
   }
@@ -99,21 +98,17 @@ class HomeController extends Controller
   /**
    * Render the blog page
    * 
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function blog(Request $request, Psr7Response $response)
+  public function blog(Request $request, Response $response)
   {
     if(!Config::blogMode()) {
       return $this->view->render($response, 'home/unavailable.twig');
     }
 
     echo file_get_contents("html/blog/blog.html");
-    $response->getBody()->write(" ");
-    $response->withStatus(200);
 
-    // Convert the Slim response to a PSR-7 response and return it
-    // return $response->toPsrResponse();
     return $response;
   }
 }

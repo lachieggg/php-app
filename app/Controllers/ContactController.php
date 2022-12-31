@@ -6,6 +6,8 @@ use Slim\Views\Twig as View;
 use LoginApp\Controllers\Controller;
 use LoginApp\Models\Comment;
 use Ramsey\Uuid\Uuid;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
 
 class ContactController extends Controller
 {
@@ -19,19 +21,19 @@ class ContactController extends Controller
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function contact($request, $response)
+  public function contact(Request $request, Response $response)
   {
     return $this->privacy_mode ? $this->container->get('view')->render($response, 'auth/private.twig') : $this->container->get('view')->render($response, 'home/contact.twig');
   }
 
   /**
-   * @param $request
-   * @param $response
-   */
-  public function getContactPosts($request, $response) {
+   * @param Request $request
+   * @param Request $response
+   */  
+  public function getContactPosts(Request $request, Response $response) {
     if($this->auth->admin()) {
       $posts = Comment::select('user_comments.uuid', 'user_comments.comment_text', 'user_comments.created_at')
         ->orderBy('created_at', 'DESC')
@@ -45,10 +47,10 @@ class ContactController extends Controller
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function submitContactPost($request, $response)
+  public function submitContactPost(Request $request, Response $response)
   {
     // XSS protection
     $comment = htmlspecialchars($request->getParam('comment'));
@@ -65,10 +67,10 @@ class ContactController extends Controller
   }
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function deleteContactPost($request, $response)
+  public function deleteContactPost(Request $request, Response $response)
   {
     if($this->auth->admin()) {
       $uuid = $request->getParam('uuid');
