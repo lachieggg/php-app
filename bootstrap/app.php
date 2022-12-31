@@ -17,6 +17,7 @@ use Illuminate\Database\Capsule\Manager;
 use Respect\Validation\Validator as RespectValidation;
 use Slim\Csrf\Guard;
 use Slim\Views\Twig;
+use Twig\Environment;
 use Slim\App;
 use Dotenv\Dotenv;
 use Projek\Slim\MonologProvider;
@@ -35,8 +36,12 @@ use Slim\Views\View;
 use Slim\Psr7\Factory\ServerRequestFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\ServerRequestCreatorFactory;
+use Twig\Extension\DebugExtension;
+use LoginApp\Logging\MonologExtension;
+use Slim\Handlers\Strategies\RequestResponseArgs;
 
 use function LoginApp\Routes\defineRoutes;
+use function LoginApp\Routes\defineMaps;
 
 // Start new session
 session_start();
@@ -69,12 +74,12 @@ $settings = [
         'collation' => 'utf8_unicode_ci'
     ],
     'displayErrorDetails' => true,
-    'debug' => false,
+    'debug' => true,
 ];
 
-
-$responseFactory = new ResponseFactory();
+// $responseFactory = new ResponseFactory();
 $containerBuilder = new ContainerBuilder();
+
 
 // Add the settings to the container
 $containerBuilder->addDefinitions([
@@ -83,6 +88,9 @@ $containerBuilder->addDefinitions([
         $serverRequestCreator = ServerRequestCreatorFactory::create();
         return $serverRequestCreator->createServerRequestFromGlobals();
     },
+    'response' => function () {
+        return new \Slim\Psr7\Response();
+    }
 ]);
 
 $container = $containerBuilder->build();
@@ -94,13 +102,16 @@ $app->add(new CsrfMiddleware());
 
 defineRoutes($app);
 
+/**
+ * Changing the default invocation strategy on the RouteCollector component
+ * will change it for every route being defined after this change being applied
+ */
+$routeCollector = $app->getRouteCollector();
+// $routeCollector->setDefaultInvocationStrategy(new RequestResponseArgs());
 
-// Fetch the Slim Container
-$container = $app->getContainer();
+defineMaps($routeCollector);
 
-$router = $app->getRouteCollector()->getRouteParser();
-
-$container->set('router', $router);
+$routeCollector->setDefaultInvocationStrategy(new RequestResponseArgs());
 
 // Overrides the default Slim Error handler
 // and adds a custom handler
@@ -113,11 +124,7 @@ $container->set('errorHandler', function ($container) {
     };
 });
 
-
 $app->addErrorMiddleware(true, true, true);
-// $errorMiddleware = $app->getMiddlewareCollection()->getErrorMiddleware();
-// $errorHandler = $errorMiddleware->getDefaultErrorHandler();
-// $errorHandler->registerErrorRenderer('text/html', \Slim\Views\TwigErrorRenderer::class);
 
 $db = $settings['db'];
 // Configure Eloquent
@@ -131,10 +138,11 @@ setDotEnv($container);
 setAuth($container);
 setDatabase($container, $capsule);
 setValidator($container);
-setControllers($container);
-setView($container, $app);
+setView($container, $routeCollector);
 setLogger($container);
+setControllers($container);
 
+// $container->get('view')->getEnvironment()->addGlobal('router', $routeCollector);
 
 $config = new Config($container);
 
@@ -149,7 +157,6 @@ $app->add(new CsrfMiddleware());
 $app->addMiddleware(new LoggerMiddleware($container));
 
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
-
 
 /**
  * @param $container
@@ -198,30 +205,39 @@ function setAuth($container) {
 /**
  * @param $container
  */
-function setView($container, $app) {
+function setView($container, $router) {
+    $settings = $container->get('settings')['twig'];
 
+    $loader = new FilesystemLoader($settings['template_path']);
+    $env = new Environment($loader);
+
+    // Set up Monolog
+    $logger = new Logger('my_logger');
+    // Add Monolog extension to Twig environment
+    $monologExtension = new MonologExtension($logger);
+    $env->addExtension($monologExtension);
+
+    $env->addGlobal('app', $container);
+    $env->addGlobal('router', $router);
+
+    $view = new Twig($loader, [
+        'cache' => $settings['cache_path'],
+        'debug' => $settings['debug'],
+        // 'app' => $container,
+        'router' => $router
+    ], $env);
+
+    $view->addExtension(new DebugExtension());        
+    
     // Set up Twig
-    $container->set('view', function ($container, $app) {
-        $settings = $container->get('settings')['twig'];
-        $view = new Twig(new FilesystemLoader($settings['template_path']), [
-            'cache' => $settings['cache_path'],
-        ]);
-
-        return $view;
-    });
-
-    // Add Twig Middleware
-    $app->add(TwigMiddleware::createFromContainer($app, 'view'));
+    $container->set('view', $view);
 }
-
 
 /**
  * @param $container
  */
 function setValidator($container) {
-    $container->set('validator', function ($container) {
-       return new Validator;
-    });
+    $container->set('validator', new Validator);
 }
 
 /**
@@ -241,7 +257,6 @@ function setLogger($container) {
             // Handlers
             'handlers' => [],
         ];
-
 
         // Create a logger instance
         $logger = new Monolog\Logger($settings['filename']);

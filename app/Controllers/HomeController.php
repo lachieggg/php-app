@@ -7,6 +7,9 @@ use LoginApp\Config;
 
 class HomeController extends Controller
 {
+
+  protected $view;
+
   /**
    * @param $container
    */
@@ -23,7 +26,11 @@ class HomeController extends Controller
    */
   public function index($request, $response)
   {
-    return $this->container->get('view')->render($response, 'home/home.twig');
+    return $this->container->get('view')->render($response, 'home/home.twig', [
+      // 'router' => $this->container->get('router'),
+      // 'app' => $this->container,
+      'test' => 'test'
+    ]);
   }
 
   /**
