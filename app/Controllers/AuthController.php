@@ -11,13 +11,25 @@ use Illuminate\Support\Arr;
 
 class AuthController extends Controller
 {
+
+  protected $view;
+
+  /**
+   * @param $container
+   */
+  public function __construct($container) 
+  {
+    parent::__construct($container);
+    $this->view = $this->container->get('view');
+  }
+
   /**
    * @param $request
    * @param $response
    */
   public function getSignIn($request, $response)
   {
-    return isset($_SESSION['user']) ? $this->view->render($response, 'home/home.twig') : $this->view->render($response, 'auth/sign-in.twig');
+    return isset($_SESSION['user']) ? $this->view>render($response, 'home/home.twig') : $this->view->render($response, 'auth/sign-in.twig');
   }
 
   /**
