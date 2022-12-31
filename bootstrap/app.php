@@ -1,8 +1,5 @@
 <?php
 
-// Include the routes.php file
-require_once __DIR__ . '/../app/routes.php';
-
 use LoginApp\Auth\Auth;
 use LoginApp\Config;
 use LoginApp\Validation\Validator;
@@ -46,6 +43,9 @@ use function LoginApp\Routes\defineMaps;
 // Start new session
 session_start();
 
+// Include the routes.php file
+require_once __DIR__ . '/../app/routes.php';
+
 // Autoload dependencies
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -77,9 +77,7 @@ $settings = [
     'debug' => true,
 ];
 
-// $responseFactory = new ResponseFactory();
 $containerBuilder = new ContainerBuilder();
-
 
 // Add the settings to the container
 $containerBuilder->addDefinitions([
@@ -96,19 +94,10 @@ $containerBuilder->addDefinitions([
 $container = $containerBuilder->build();
 
 AppFactory::setContainer($container);
-
 $app = AppFactory::create();
 $app->add(new CsrfMiddleware());
 
-defineRoutes($app);
-
-/**
- * Changing the default invocation strategy on the RouteCollector component
- * will change it for every route being defined after this change being applied
- */
 $routeCollector = $app->getRouteCollector();
-// $routeCollector->setDefaultInvocationStrategy(new RequestResponseArgs());
-
 defineMaps($routeCollector);
 
 $routeCollector->setDefaultInvocationStrategy(new RequestResponseArgs());
@@ -126,8 +115,8 @@ $container->set('errorHandler', function ($container) {
 
 $app->addErrorMiddleware(true, true, true);
 
-$db = $settings['db'];
 // Configure Eloquent
+$db = $settings['db'];
 $capsule = new Manager;
 $capsule->addConnection($db);
 $capsule->setAsGlobal();
@@ -142,18 +131,13 @@ setView($container, $routeCollector);
 setLogger($container);
 setControllers($container);
 
-// $container->get('view')->getEnvironment()->addGlobal('router', $routeCollector);
-
 $config = new Config($container);
 
+// Add Middleware
 $app->add(new ValidationErrorsMiddleware($container));
 $app->addMiddleware(new OldInputMiddleware($container));
-
-// Add Routing Middleware
 $app->addRoutingMiddleware();
-
 $app->add(new CsrfMiddleware());
-
 $app->addMiddleware(new LoggerMiddleware($container));
 
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
@@ -162,44 +146,23 @@ RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
  * @param $container
  */
 function setControllers($container) {
-    $container->set('HomeController', function ($container) {
-        return new HomeController($container);
-    });
-    $container->set('AuthController', function ($container) {
-        return new AuthController($container);
-    });
-    $container->set('ContactController', function ($container) {
-        return new ContactController($container);
-    });
+    $container->set('HomeController', new HomeController($container));
+    $container->set('AuthController', new AuthController($container));
+    $container->set('ContactController', new ContactController($container));
 }
 
-/**
- * @param $container
- */
 function setDotEnv($container) {
-    $container->set('dotenv', function ($container) {
-        $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
-        $dotenv->load();
-        return $dotenv;
-    });
+    $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+    $dotenv->load();
+    $container->set('dotenv', $dotenv);
 }
 
-/**
- * @param $container
- */
 function setDatabase($container, $capsule) {
-    $container->set('db', function ($container) use ($capsule) {
-        return $capsule;
-    });
+    $container->set('db', $capsule);
 }
 
-/**
- * @param $container
- */
 function setAuth($container) {
-    $container->set('auth', function ($container) {
-        return new Auth($container);
-    });    
+    $container->set('auth', new Auth($container));    
 }
 
 /**
@@ -244,44 +207,42 @@ function setValidator($container) {
  * @param $container
  */
 function setLogger($container) {
-    $container->set('logger', function (ContainerInterface $container) {
-        $settings = [
-            // Path to log directory
-            'directory' => __DIR__ . '/../logs/',
-            // Log file name
-            'filename' => 'login-app.log',
-            // Your timezone
-            'timezone' => 'Australia/Sydney',
-            // Log level
-            'level' => 'debug',
-            // Handlers
-            'handlers' => [],
-        ];
+    $settings = [
+        // Path to log directory
+        'directory' => __DIR__ . '/../logs/',
+        // Log file name
+        'filename' => 'login-app.log',
+        // Your timezone
+        'timezone' => 'Australia/Sydney',
+        // Log level
+        'level' => 'debug',
+        // Handlers
+        'handlers' => [],
+    ];
 
-        // Create a logger instance
-        $logger = new Monolog\Logger($settings['filename']);
+    // Create a logger instance
+    $logger = new Monolog\Logger($settings['filename']);
 
-        // Set the log directory
-        $logDirectory = $settings['directory'];
+    // Set the log directory
+    $logDirectory = $settings['directory'];
 
-        // Check if the directory exists, if not create it
-        if (!is_dir($logDirectory)) {
-            mkdir($logDirectory, 0777, true);
-        }
+    // Check if the directory exists, if not create it
+    if (!is_dir($logDirectory)) {
+        mkdir($logDirectory, 0777, true);
+    }
 
-        // Create a stream handler to log to a file
-        $stream = new Monolog\Handler\StreamHandler($logDirectory . $settings['filename'], $settings['level']);
+    // Create a stream handler to log to a file
+    $stream = new Monolog\Handler\StreamHandler($logDirectory . $settings['filename'], $settings['level']);
 
-        // Set the timezone for the logger
-        $dateFormat = "Y-m-d H:i:s";
-        $output = "%datetime% %channel%.%level_name%: %message% %context% %extra%\n";
-        $formatter = new Monolog\Formatter\LineFormatter($output, $dateFormat);
-        $stream->setFormatter($formatter);
+    // Set the timezone for the logger
+    $dateFormat = "Y-m-d H:i:s";
+    $output = "%datetime% %channel%.%level_name%: %message% %context% %extra%\n";
+    $formatter = new Monolog\Formatter\LineFormatter($output, $dateFormat);
+    $stream->setFormatter($formatter);
 
-        // Add the stream handler to the logger
-        $logger->pushHandler($stream);
+    // Add the stream handler to the logger
+    $logger->pushHandler($stream);
 
-        // Return the logger instance
-        return $logger;
-    });
+    // Set the logger instance in the container
+    $container->set('logger', $logger);
 }
