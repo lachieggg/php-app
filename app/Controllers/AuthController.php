@@ -8,115 +8,136 @@ use Slim\Views\Twig as View;
 use Ramsey\Uuid\Uuid;
 use Respect\Validation\Validator as v;
 use Illuminate\Support\Arr;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
+// use Slim\Http\Response;
+// use Slim\Http\Request;
+use LoginApp\Auth\Auth;
 
 class AuthController extends Controller
 {
+
+  protected $view;
+  protected $auth;
+
   /**
-   * @param $request
-   * @param $response
+   * @param $container
    */
-  public function getSignIn($request, $response)
+  public function __construct($container) 
+  {
+    parent::__construct($container);
+    $this->view = $this->container->get('view');
+    $this->auth = new Auth();
+  }
+
+  /**
+   * @param Request $request
+   * @param Response $response
+   */
+  public function getSignIn(Request $request, Response $response)
   {
     return isset($_SESSION['user']) ? $this->view->render($response, 'home/home.twig') : $this->view->render($response, 'auth/sign-in.twig');
   }
 
-  /**
-   * @param $request
-   * @param $response
+   /**
+   * @param Request $request
+   * @param Request $response
    */
-  public function postSignIn($request, $response)
+  public function getSignUp(Request $request, Response $response)
   {
+    return $this->view->render($response, 'auth/sign-up.twig');
+  }
+
+  /**
+   * Handle a sign-in request.
+   *
+   * @param Request $request The request object
+   * @param Response $response The response object
+   */
+  public function postSignIn(Request $request, Response $response)
+  {
+    // Check if the user is already logged in
     if(isset($_SESSION['user'])) {
-      return $response->withRedirect($this->router->pathFor('home'));
+      return $response->withHeader('Location', "/home");
     }
 
-    $email = htmlspecialchars($request->getParam('email'));
-    $password = htmlspecialchars($request->getParam('password'));
+    // Get the request body parameters
+    $params = $request->getParsedBody();
+    // Access the email and password parameters
+    $email = htmlspecialchars($params['email']);
+    $password = htmlspecialchars($params['password']);
 
+    // Validate the request
     $validation = $this->validator->validate($request, [
       'email' => v::noWhitespace()->notEmpty(),
       'password' => v::noWhitespace()->notEmpty()->loginAttempt(),
     ]);
 
+    // Redirect if validation fails
     if($validation->failed()) {
-      return $response->withRedirect($this->router->pathFor('auth.sign-in'));
+      return $response->withHeader('Location', "/sign-in");
     }
 
+    // Attempt to log in the user
     $auth = $this->auth->attempt(
       $email,
       $password
     );
 
-    return $auth ? $response->withRedirect($this->router->pathFor('home')) : $response->withRedirect($this->router->pathFor('auth.sign-in'));
+    // Redirect to the home page if login is successful, otherwise redirect back to the sign-in page
+    return $auth ? $response->withHeader('Location', "/home") : $response->withHeader('Location', "/sign-in");
   }
 
   /**
-   * @param $request
-   * @param $response
+   * Handle a sign-up request.
+   *
+   * @param Request $request The request object
+   * @param Request $response The response object
    */
-  public function postSignUp($request, $response)
+  public function postSignUp(Request $request, Response $response)
   {
-    $validation = $this->validator->validate($request, [
+    // Get the request body parameters
+    $params = $request->getParsedBody();
+    // Access the email and name parameters
+    $email = htmlspecialchars($params['email']);
+    $name = htmlspecialchars($params['name']);
+
+    // Validate the request
+    $validation = $this->container->get('validator')->validate($request, [
       'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
       'name' => v::notEmpty()->alpha(),
       'password' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation(),
       'confirmation' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation()
     ]);
 
-    $email = htmlspecialchars($request->getParam('email'));
-    $name = htmlspecialchars($request->getParam('name'));
-
+    // Redirect if validation fails
     if($validation->failed()) {
-      return $response->withRedirect($this->router->pathFor('auth.sign-up'));
+      return $response->withHeader('Location', "/sign-up");
     }
 
+    // Create a new user
     $user = User::create([
       'uuid' => Uuid::uuid4(),
       'email' => $email,
       'name' => $name,
-      'password' =>  password_hash($request->getParam('password'), PASSWORD_DEFAULT),
+      'password' =>  password_hash($params['password'], PASSWORD_DEFAULT),
     ]);
 
-    $this->auth->attempt($email, $request->getParam('password'));
+    $this->auth->attempt($email, $params['password']);
 
-    return $response->withRedirect($this->router->pathFor('home'));
+    return $response->withHeader('Location', "/home");
   }
 
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function getSignUp($request, $response)
-  {
-    return $this->view->render($response, 'auth/sign-up.twig');
-  }
+ 
 
   /**
-   * @param $request
-   * @param $response
+   * @param Request $request
+   * @param Request $response
    */
-  public function getSignOut($request, $response)
+  public function getSignOut(Request $request, Response $response)
   {
     $this->auth->logout();
 
-    return $response->withRedirect($this->router->pathFor('home'));
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function getBlogAdmin($request, $response)
-  {
-    return $this->auth->admin() ? $this->view->render($response, 'auth/admin/blog.twig') : $this->view->render($response, 'auth/private.twig');
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function getGalleryAdmin($request, $response)
-  {
-    return $this->auth->admin() ? $this->view->render($response, 'auth/admin/gallery.twig') : $this->view->render($response, 'auth/private.twig');
+    return $response->withHeader('Location', "/home");
   }
 }

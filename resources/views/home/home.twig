@@ -9,33 +9,21 @@
 </head>
 
 <body class='index-body'>
-	<div class='home-text'>
-		This site is a place to express, track and integrate across subjects that are interesting to me.
-		<br>
-		<br>
-	</div>
-
-	<div class='home-text-mobile'>
-		<b>Welcome to 2022</b>
-	</div>
-
-
-
 	{% if sliderMode %}
 
 	<div class="my-slider">
-		<div><img src='images/nebula.jpg' id="slider1" class="slider-images"/></div>
-		<div><img id="slider2" class="slider-images"/></div>
-		<div><img id="slider3" class="slider-images"/></div>
-		<div><img id="slider4" class="slider-images"/></div>
-		<div><img id="slider5" class="slider-images"/></div>
-		<div><img id="slider6" class="slider-images"/></div>
+		<div><img src='images/nebula.jpg' id="slider1" class="my-slider-images"/></div>
+		<div><img id="slider2" class="my-slider-images"/></div>
+		<div><img id="slider3" class="my-slider-images"/></div>
+		<div><img id="slider4" class="my-slider-images"/></div>
+		<div><img id="slider5" class="my-slider-images"/></div>
+		<div><img id="slider6" class="my-slider-images"/></div>
 	</div>
 
 	{% else %}
 
 	<div>
-		<img class='home-img' id='home-img'/>
+		<img class='my-slider-images' id='home-img'/>
 	</div>
 
 	{% endif %}

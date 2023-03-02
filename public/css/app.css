@@ -1,107 +1,63 @@
 body {
-  background: lightblue;
-  font-family: "Lucida Console";
-  padding-top: 100px;
-  padding-bottom: 40px;
+  padding: 100px;
   text-align: center;
 }
 
-.input-form {
-  text-align: left;
+.index-body {
+  background: lightblue;
 }
 
-.lucida-font {
-  font-family: "Lucida Console";
-}
-
-.slider-images {
+.my-slider {
   border-radius: 20px;
   max-height: 400px;
 }
 
-.half-img {
-  width: 50%;
-  height: 50%;
-}
-
-.home-img {
-  align-self: center;
-}
-
-.index-body {
-	background-color: lightblue;
-  font-size: 16px;
-	font-weight: 100;
-}
-
-.rounded-img {
-  border-radius: 20px;
-  align-self: center;
-}
-
-.carousel-img {
-  height: auto;
-}
-
-.carousel-container {
+.my-slider-container {
   width: 50%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
+.my-slider-images {
+  border-radius: 20px;
+  max-height: 600px;
+}
+
+.half-img {
+  width: 50%;
+}
+
 .container {
   width: 50%;
-  align-self: center;
-  align-items: center;
 }
 
-.carousel-wrapper {
-  -moz-border-radius: 20px; 
-  -webkit-border-radius: 20px; 
-  border-radius: 20px; 
-  overflow: hidden;
-
-  /* Dimensions */
-  max-height: 300px;
-  width: 100%; 
-}
-
-/* Removes Scrollbar */
 :root {
   scrollbar-color: #BA0B00 #000000;
   scrollbar-width: none;
 }
 
-@media (max-width: 720px)
-{
-  .home-img {
-    display: none;
-  }
-
-  .slider-images {
-    display: none;
-  }
-}
-
-.home-text-mobile {
-  visibility: hidden;
-}
-
 .navigation-bar {
-  float: center;
   font-family: 'Courier New', Courier, monospace;
   font: 'Courier New';
   font-size: 14px;
 }
 
-.courier-font {
-  font-family: 'Courier New', Courier, monospace;
-  font: 'Courier New';
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
 }
 
 .login-links {
   display: none;
+}
+
+@media (max-width: 720px)
+{
+  .my-slider-images {
+    display: none;
+  }
 }
 
 @media (pointer:none), (pointer:coarse) {
@@ -112,33 +68,22 @@ body {
     object-fit: cover;
   }
 
-  .slider-images {
-    border-radius: 20px;
-    max-height: 600px;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   .index-body {
     font-size: 28px;
     font-weight: 100;
   }
 
   .navigation-bar {
-    font-size: 20px;
+    font-size: 14px;
   }
 
-  .login-links {
-    display: none;
+  .login-button {
+    display: none !important;
   }
 
-  .home-text {
-    visibility: hidden;
+  .my-slider-images {
+    border-radius: 20px;
+    max-width: 50%;
+    max-height: 50%;
   }
-
-  .welcome-message {
-    visibility: hidden;
-  }
-
 }
