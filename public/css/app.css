@@ -49,8 +49,8 @@ body {
   vertical-align: top;
 }
 
-.login-links {
-  display: none;
+.login-button {
+  display: none !important;
 }
 
 @media (max-width: 720px)
