@@ -20,12 +20,6 @@ function defineMaps($router)
     $router->map(['GET'], '/contact', 'ContactController:contact')->setName('contact');
     $router->map(['GET'], '/consulting', 'HomeController:consulting')->setName('home.consulting');
     $router->map(['GET'], '/pgp/public', 'HomeController:publickey')->setName('home.pgp.public');
-
-    // Auth
-    $router->map(['POST'], '/sign-up', 'AuthController:postSignUp')->setName('auth.sign-up');
-    $router->map(['POST'], '/sign-in', 'AuthController:postSignIn')->setName('auth.sign-in');
-    $router->map(['GET'], '/sign-in', 'AuthController:getSignIn')->setName('auth.sign-in');
-    $router->map(['GET'], '/sign-up', 'AuthController:getSignUp')->setName('auth.sign-up');
 }
 
 
