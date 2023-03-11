@@ -192,8 +192,8 @@ function setErrorHandler($container) {
                 ->write('Something went wrong!');
         };
     });
-
 }
+
 /**
  * @param $container
  */
@@ -222,7 +222,6 @@ function setView($container, $router) {
     $view = new Twig($loader, [
         'cache' => $settings['cache_path'],
         'debug' => $settings['debug'],
-        // 'app' => $container,
         'router' => $router
     ], $env);
 
