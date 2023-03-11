@@ -30,8 +30,6 @@ class HomeController extends Controller
   public function index(Request $request, Response $response)
   {
     return $this->container->get('view')->render($response, 'home/home.twig', [
-      // 'router' => $this->container->get('router'),
-      // 'app' => $this->container,
       'test' => 'test'
     ]);
   }
@@ -84,7 +82,6 @@ class HomeController extends Controller
     echo file_get_contents('./pgp/public.pem');
     die();
   }
-
 
   /**
    * @param Request $request

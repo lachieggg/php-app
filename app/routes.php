@@ -7,6 +7,7 @@ use Slim\Http\Response;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
+
 function defineMaps($router) {
     // Home
     $router->map(['GET'], '/', 'HomeController:index')->setName('home.root');
@@ -25,3 +26,6 @@ function defineMaps($router) {
     $router->map(['GET'], '/sign-in', 'AuthController:getSignIn')->setName('auth.sign-in');
     $router->map(['GET'], '/sign-up', 'AuthController:getSignUp')->setName('auth.sign-up');
 }
+
+
+

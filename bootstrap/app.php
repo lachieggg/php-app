@@ -135,6 +135,13 @@ $app->addMiddleware(new LoggerMiddleware($container));
 
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
 
+// Define a custom error handler for 404 Not Found errors
+$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function (Slim\Psr7\Request $request, Slim\Psr7\Response $response) {
+    $response = $response->withStatus(404, 'Not Found');
+    $response->getBody()->write('404 Not Found');
+    return $response;
+});
+
 /**
  * @param $container
  */
