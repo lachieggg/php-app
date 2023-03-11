@@ -8,7 +8,8 @@ use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
 
-function defineMaps($router) {
+function defineMaps($router)
+{
     // Home
     $router->map(['GET'], '/', 'HomeController:index')->setName('home.root');
     $router->map(['GET'], '/home', 'HomeController:index')->setName('home');

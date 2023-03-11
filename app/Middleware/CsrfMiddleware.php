@@ -16,8 +16,8 @@ class CsrfMiddleware extends Guard implements Middleware
     /**
      * Process middleware
      *
-     * @param  ServerRequestInterface  $request  request object
-     * @param  RequestHandlerInterface $handler handler object
+     * @param ServerRequestInterface  $request request object
+     * @param RequestHandlerInterface $handler handler object
      *
      * @return ResponseInterface response object
      */

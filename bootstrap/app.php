@@ -85,7 +85,8 @@ $settings = [
 $containerBuilder = new ContainerBuilder();
 
 // Add the settings to the container
-$containerBuilder->addDefinitions([
+$containerBuilder->addDefinitions(
+    [
     'settings' => $settings,
     'request'  => function () {
         $serverRequestCreator = ServerRequestCreatorFactory::create();
@@ -94,7 +95,8 @@ $containerBuilder->addDefinitions([
     'response' => function () {
         return new \Slim\Psr7\Response();
     }
-]);
+    ]
+);
 
 $container = $containerBuilder->build();
 
@@ -136,16 +138,19 @@ $app->addMiddleware(new LoggerMiddleware($container));
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
 
 // Define a custom error handler for 404 Not Found errors
-$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function (Slim\Psr7\Request $request, Slim\Psr7\Response $response) {
-    $response = $response->withStatus(404, 'Not Found');
-    $response->getBody()->write('404 Not Found');
-    return $response;
-});
+$app->map(
+    ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function (Slim\Psr7\Request $request, Slim\Psr7\Response $response) {
+        $response = $response->withStatus(404, 'Not Found');
+        $response->getBody()->write('404 Not Found');
+        return $response;
+    }
+);
 
 /**
  * @param $container
  */
-function setControllers($container) {
+function setControllers($container)
+{
     $container->set('HomeController', new HomeController($container));
     $container->set('AuthController', new AuthController($container));
     $container->set('ContactController', new ContactController($container));
@@ -156,7 +161,8 @@ function setControllers($container) {
  *
  * @param $container The container to set the dotenv object in
  */
-function setDotEnv($container) {
+function setDotEnv($container)
+{
     $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
     $dotenv->load();
     $container->set('dotenv', $dotenv);
@@ -166,9 +172,10 @@ function setDotEnv($container) {
  * Set the database connection in the container.
  *
  * @param $container The container to set the database connection in
- * @param Manager $capsule The database connection to set in the container
+ * @param Manager $capsule   The database connection to set in the container
  */
-function setDatabase($container, $capsule) {
+function setDatabase($container, $capsule)
+{
     $container->set('db', $capsule);
 }
 
@@ -177,34 +184,40 @@ function setDatabase($container, $capsule) {
  *
  * @param container The container to set the auth object in
  */
-function setAuth($container) {
+function setAuth($container)
+{
     $container->set('auth', new Auth($container));    
 }
 
-function setErrorHandler($container) {
+function setErrorHandler($container)
+{
     // Overrides the default Slim Error handler
     // and adds a custom handler
-    $container->set('errorHandler', function ($container) {
-        return function ($request, $response, $exception) use ($container) {
-            $container->get('logger')->error($exception->getTraceAsString());
-            return $response->withStatus(500)
-                ->withHeader('Content-Type', 'text/html')
-                ->write('Something went wrong!');
-        };
-    });
+    $container->set(
+        'errorHandler', function ($container) {
+            return function ($request, $response, $exception) use ($container) {
+                $container->get('logger')->error($exception->getTraceAsString());
+                return $response->withStatus(500)
+                    ->withHeader('Content-Type', 'text/html')
+                    ->write('Something went wrong!');
+            };
+        }
+    );
 }
 
 /**
  * @param $container
  */
-function setValidator($container) {
+function setValidator($container)
+{
     $container->set('validator', new Validator);
 }
 
 /**
  * @param $container
  */
-function setView($container, $router) {
+function setView($container, $router)
+{
     $settings = $container->get('settings')['twig'];
 
     $loader = new FilesystemLoader($settings['template_path']);
@@ -219,11 +232,13 @@ function setView($container, $router) {
     $env->addGlobal('app', $container);
     $env->addGlobal('router', $router);
 
-    $view = new Twig($loader, [
+    $view = new Twig(
+        $loader, [
         'cache' => $settings['cache_path'],
         'debug' => $settings['debug'],
         'router' => $router
-    ], $env);
+        ], $env
+    );
 
     $view->addExtension(new DebugExtension());        
     
@@ -234,7 +249,8 @@ function setView($container, $router) {
 /**
  * @param $container
  */
-function setLogger($container) {
+function setLogger($container)
+{
     $settings = [
         // Path to log directory
         'directory' => __DIR__ . '/../logs/',

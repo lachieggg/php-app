@@ -4,13 +4,13 @@ namespace LoginApp\Middleware;
 
 class CustomMiddleware
 {
-  protected $container;
+    protected $container;
 
-  /**
-   * @param $container
-   */
-  public function __construct($container)
-  {
-    $this->container = $container;
-  }
+    /**
+     * @param $container
+     */
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
 }

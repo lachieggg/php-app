@@ -13,8 +13,8 @@ class ValidationErrorsMiddleware extends CustomMiddleware implements Middleware
      * Process an incoming server request and return a response, optionally delegating
      * to the next middleware component to create the response.
      *
-     * @param Request $request
-     * @param RequestHandler $handler
+     * @param  Request        $request
+     * @param  RequestHandler $handler
      * @return Response
      */
     public function process(Request $request, RequestHandler $handler): Response

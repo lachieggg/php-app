@@ -7,7 +7,9 @@ use Twig\Extension\AbstractExtension;
 
 class MonologExtension extends AbstractExtension
 {
-    /** @var Logger */
+    /**
+     * @var Logger 
+     */
     private $logger;
 
     public function __construct(Logger $logger)
