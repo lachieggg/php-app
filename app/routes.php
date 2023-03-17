@@ -21,6 +21,3 @@ function defineMaps($router)
     $router->map(['GET'], '/consulting', 'HomeController:consulting')->setName('home.consulting');
     $router->map(['GET'], '/pgp/public', 'HomeController:publickey')->setName('home.pgp.public');
 }
-
-
-
