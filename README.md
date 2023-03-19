@@ -64,7 +64,7 @@ Configuration
 =
 You will need to edit `.env` to have your own settings for database connections.
 
-For SSL/TLS, the keys and certs go in `docker/ssl/private` and `docker/ssl/certs` respectively.
+For SSL/TLS, the keys and certs go in `docker/nginx/tls/private` and `docker/nginx/tls/certs` respectively.
 
 You can utilize the `scripts/` directory for installing necessary dependencies for [Ubuntu](https://ubuntu.com/).
 
