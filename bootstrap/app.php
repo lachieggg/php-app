@@ -63,8 +63,8 @@ $app = AppFactory::create();
 
 // Define the router
 $routeCollector = $app->getRouteCollector();
-defineRoutes($routeCollector);
 $routeCollector->setDefaultInvocationStrategy(new RequestResponseArgs());
+defineRoutes($routeCollector);
 
 // Set container parameters
 $container->set('auth', new Auth($container));
@@ -84,6 +84,8 @@ $app->addMiddleware(new LoggerMiddleware($container));
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware(true, true, true);
 
+// Add validation engine
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');
 
+// Set some error handlers
 setErrorHandlers($app, $container);
