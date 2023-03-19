@@ -4,6 +4,9 @@ namespace LoginApp\Controllers;
 
 class Controller
 {
+    /**
+     * @var $container
+     */
     protected $container;
     protected $privacy_mode;
 

@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Capsule\Manager;
 
+/**
+ * @param $settings
+ */
 function getCapsule($settings)
 {
     $db = $settings['db'];
@@ -9,4 +12,6 @@ function getCapsule($settings)
     $capsule->addConnection($db);
     $capsule->setAsGlobal();
     $capsule->bootEloquent();
+
+    return $capsule;
 }

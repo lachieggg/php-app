@@ -2,19 +2,25 @@
 
 namespace LoginApp\Controllers;
 
+use LoginApp\Auth\Auth;
 use LoginApp\Controllers\Controller;
 use LoginApp\Models\User;
-use Slim\Views\Twig as View;
 use Ramsey\Uuid\Uuid;
 use Respect\Validation\Validator as v;
-use Illuminate\Support\Arr;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
-use LoginApp\Auth\Auth;
+use Slim\Views\Twig as View;
 
 class AuthController extends Controller
 {
+    /**
+     * @var View
+     */
     protected $view;
+    
+    /**
+     * @var Auth
+     */
     protected $auth;
 
     /**
@@ -68,8 +74,8 @@ class AuthController extends Controller
         $validation = $this->validator->validate(
             $request,
             [
-            'email' => v::noWhitespace()->notEmpty(),
-            'password' => v::noWhitespace()->notEmpty()->loginAttempt(),
+                'email' => v::noWhitespace()->notEmpty(),
+                'password' => v::noWhitespace()->notEmpty()->loginAttempt(),
             ]
         );
 
@@ -106,10 +112,10 @@ class AuthController extends Controller
         $validation = $this->container->get('validator')->validate(
             $request,
             [
-            'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
-            'name' => v::notEmpty()->alpha(),
-            'password' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation(),
-            'confirmation' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation()
+                'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
+                'name' => v::notEmpty()->alpha(),
+                'password' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation(),
+                'confirmation' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation()
             ]
         );
 
@@ -136,6 +142,9 @@ class AuthController extends Controller
 
 
     /**
+     * Sign out the user and redirect
+     * to the home page
+     *
      * @param Request $request
      * @param Request $response
      */

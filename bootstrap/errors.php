@@ -33,7 +33,3 @@ function setErrorHandlers($app, $container)
         }
     );
 }
-
-function setErrorHandler($container)
-{
-}

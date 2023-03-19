@@ -2,16 +2,30 @@
 
 namespace LoginApp\Controllers;
 
-use Slim\Views\Twig as View;
-use LoginApp\Config;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
+use Slim\Views\Twig as View;
 
 class HomeController extends Controller
 {
+    /**
+     * @var string
+     */
+    protected $resume;
+
+    /**
+     * @var string
+     */
+    protected $github;
+
+    /**
+     * @var View
+     */
     protected $view;
 
     /**
+     * HomeController constructor.
+     *
      * @param $container
      */
     public function __construct($container)
@@ -23,8 +37,11 @@ class HomeController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Request $response
+     * Render the index page
+     *
+     * @param Request  $request
+     * @param Response $response
+     * @return mixed
      */
     public function index(Request $request, Response $response)
     {
@@ -32,14 +49,17 @@ class HomeController extends Controller
             $response,
             'home/home.twig',
             [
-            'test' => 'test'
+                'test' => 'test'
             ]
         );
     }
 
     /**
-     * @param Request $request
-     * @param Request $response
+     * Render the people page
+     *
+     * @param Request  $request
+     * @param Response $response
+     * @return mixed
      */
     public function people(Request $request, Response $response)
     {
@@ -47,8 +67,11 @@ class HomeController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Request $response
+     * Render the gallery page
+     *
+     * @param Request  $request
+     * @param Response $response
+     * @return mixed
      */
     public function gallery(Request $request, Response $response)
     {
@@ -56,8 +79,10 @@ class HomeController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Request $response
+     * Redirect to Github URL
+     *
+     * @param Request  $request
+     * @param Response $response
      */
     public function github(Request $request, Response $response)
     {
@@ -66,8 +91,10 @@ class HomeController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Request $response
+     * Redirect to resume URL
+     *
+     * @param Request  $request
+     * @param Response $response
      */
     public function resume(Request $request, Response $response)
     {
@@ -76,8 +103,10 @@ class HomeController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Request $response
+     * Output the public key file
+     *
+     * @param Request  $request
+     * @param Response $response
      */
     public function publickey(Request $request, Response $response)
     {
@@ -87,8 +116,11 @@ class HomeController extends Controller
     }
 
     /**
-     * @param Request $requestF
-     * @param Request $response
+     * Render the consulting page
+     *
+     * @param Request  $request
+     * @param Response $response
+     * @return mixed
      */
     public function consulting(Request $request, Response $response)
     {
@@ -98,8 +130,9 @@ class HomeController extends Controller
     /**
      * Render the blog page
      *
-     * @param Request $request
-     * @param Request $response
+     * @param Request  $request
+     * @param Response $response
+     * @return Response
      */
     public function blog(Request $request, Response $response)
     {

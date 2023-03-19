@@ -2,10 +2,7 @@
 
 namespace LoginApp\Controllers;
 
-use Slim\Views\Twig as View;
 use LoginApp\Controllers\Controller;
-use LoginApp\Models\Comment;
-use Ramsey\Uuid\Uuid;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 

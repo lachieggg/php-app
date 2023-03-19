@@ -1,15 +1,16 @@
 <?php
 
-use LoginApp\Controllers\HomeController;
-use LoginApp\Controllers\AuthController;
-use LoginApp\Controllers\ContactController;
-use Psr\Container\ContainerInterface;
 use DI\Container;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
 
 /**
  * makeContainer
+ * 
+ * @param $settings
+ * @param $capsule
+ * 
+ * @return Container
  */
 function makeContainer($settings, $capsule)
 {

@@ -2,11 +2,6 @@
 
 namespace LoginApp\Routes;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
-use Slim\App;
-use Slim\Routing\RouteCollectorProxy;
-
 function defineRoutes($router)
 {
     // Home

@@ -2,7 +2,12 @@
 
 use Dotenv\Dotenv;
 
-// getSettings
+/**
+ * getSettings returns a settings
+ * array
+ * 
+ * @return array
+ */
 function getSettings()
 {
     $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
