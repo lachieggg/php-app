@@ -9,13 +9,12 @@ use Slim\Psr7\Response;
 
 class HomeController extends Controller
 {
-
     protected $view;
 
     /**
      * @param $container
      */
-    public function __construct($container) 
+    public function __construct($container)
     {
         parent::__construct($container);
         $this->resume = getenv('URL') . getenv('RESUME_PATH');
@@ -30,7 +29,9 @@ class HomeController extends Controller
     public function index(Request $request, Response $response)
     {
         return $this->container->get('view')->render(
-            $response, 'home/home.twig', [
+            $response,
+            'home/home.twig',
+            [
             'test' => 'test'
             ]
         );
@@ -96,7 +97,7 @@ class HomeController extends Controller
 
     /**
      * Render the blog page
-     * 
+     *
      * @param Request $request
      * @param Request $response
      */

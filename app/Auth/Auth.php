@@ -6,7 +6,6 @@ use LoginApp\Models\User;
 
 class Auth
 {
-
     /**
      * Attempt to log in a user with the given email and password.
      * If the login is successful, the user's session is updated.
@@ -20,12 +19,12 @@ class Auth
         // Query for a user with the given email
         $user = User::where('email', $email)->first();
         // Return false if no user is found
-        if(!$user) {
+        if (!$user) {
             return false;
         }
 
         // Verify the given password against the user's hashed password
-        if(password_verify($password, $user->password)) {
+        if (password_verify($password, $user->password)) {
             // Update the user's session if the password is correct
             $_SESSION['user'] = $user->uuid;
             return true;
@@ -73,7 +72,7 @@ class Auth
     public function admin(): bool
     {
         // Check if a user is logged in
-        if(isset($_SESSION['user'])) {
+        if (isset($_SESSION['user'])) {
             // Query for a user with the current session's user ID who is an admin
             $user = User::where('uuid', $_SESSION['user'])
                 ->where('is_admin', 1)
@@ -98,7 +97,7 @@ class Auth
             ->where('is_deleted', '=', 1)
             ->first();
 
-        if(isset($deleted)) {
+        if (isset($deleted)) {
             return true;
         }
         return false;
@@ -111,20 +110,20 @@ class Auth
      *
      * @return bool Returns true if the user is verified, false otherwise
      */
-    public function isVerified() 
+    public function isVerified()
     {
         // Check if user is logged in
-        if(!$this->user()) {
+        if (!$this->user()) {
             return false;
         }
 
         // Check if user is deleted
-        if($this->deleted()) {
+        if ($this->deleted()) {
             return false;
         }
 
         // Check if user is approved
-        if(!$this->approved()) {
+        if (!$this->approved()) {
             return false;
         }
 
@@ -138,7 +137,7 @@ class Auth
      *
      * @return bool Returns true if the user is approved, false otherwise
      */
-    public function approved() 
+    public function approved()
     {
         // Query for a user with the current session's user ID, who is approved and not deleted
         $approvedUser = User::where('uuid', $_SESSION['user'])

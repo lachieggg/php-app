@@ -10,7 +10,6 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Monolog\Logger;
 
-
 class LoggerMiddleware extends CustomMiddleware implements MiddlewareInterface
 {
     /**
@@ -52,5 +51,4 @@ class LoggerMiddleware extends CustomMiddleware implements MiddlewareInterface
 
         return $response;
     }
-
 }

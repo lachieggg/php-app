@@ -7,8 +7,7 @@ use Slim\Http\Response;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
-
-function defineMaps($router)
+function defineRoutes($router)
 {
     // Home
     $router->map(['GET'], '/', 'HomeController:index')->setName('home.root');

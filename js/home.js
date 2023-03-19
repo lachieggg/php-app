@@ -10,7 +10,7 @@ function setPicture()
 {
     try {
         document.getElementById("home-img").src = defaultImage;
-    } catch(err) {
+    } catch (err) {
         // no home image on page
         // skipping
     }

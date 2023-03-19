@@ -41,7 +41,7 @@ class OldInputMiddleware extends CustomMiddleware implements MiddlewareInterface
             // Update the old input values in the session
             $_SESSION['old_input'] = $request->getParsedBody();
         }
-    
+
         // Process the request and return the response
         return $handler->handle($request);
     }

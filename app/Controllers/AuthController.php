@@ -14,14 +14,13 @@ use LoginApp\Auth\Auth;
 
 class AuthController extends Controller
 {
-
     protected $view;
     protected $auth;
 
     /**
      * @param $container
      */
-    public function __construct($container) 
+    public function __construct($container)
     {
         parent::__construct($container);
         $this->view = $this->container->get('view');
@@ -55,7 +54,7 @@ class AuthController extends Controller
     public function postSignIn(Request $request, Response $response)
     {
         // Check if the user is already logged in
-        if(isset($_SESSION['user'])) {
+        if (isset($_SESSION['user'])) {
             return $response->withHeader('Location', "/home");
         }
 
@@ -67,14 +66,15 @@ class AuthController extends Controller
 
         // Validate the request
         $validation = $this->validator->validate(
-            $request, [
+            $request,
+            [
             'email' => v::noWhitespace()->notEmpty(),
             'password' => v::noWhitespace()->notEmpty()->loginAttempt(),
             ]
         );
 
         // Redirect if validation fails
-        if($validation->failed()) {
+        if ($validation->failed()) {
             return $response->withHeader('Location', "/sign-in");
         }
 
@@ -104,7 +104,8 @@ class AuthController extends Controller
 
         // Validate the request
         $validation = $this->container->get('validator')->validate(
-            $request, [
+            $request,
+            [
             'email' => v::noWhitespace()->notEmpty()->emailAvailable(),
             'name' => v::notEmpty()->alpha(),
             'password' => v::noWhitespace()->notEmpty()->length(8, 128)->passwordConfirmation(),
@@ -113,7 +114,7 @@ class AuthController extends Controller
         );
 
         // Redirect if validation fails
-        if($validation->failed()) {
+        if ($validation->failed()) {
             return $response->withHeader('Location', "/sign-up");
         }
 
@@ -132,7 +133,7 @@ class AuthController extends Controller
         return $response->withHeader('Location', "/home");
     }
 
- 
+
 
     /**
      * @param Request $request
