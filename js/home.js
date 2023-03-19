@@ -1,15 +1,8 @@
 var IMAGES_URL = process.env.IMAGES_URL + 'images/'
 
-var pictures = new Array(
-    IMAGES_URL + 'nebula.jpg',
-    IMAGES_URL + 'luna.jpg',
-    IMAGES_URL + 'mountain-day.jpg',
-    IMAGES_URL + 'wtc.jpg',
-    IMAGES_URL + 'cityscape.jpg',
-    IMAGES_URL + 'library.jpg'
-);
+const images = process.env.PICTURES.split(',');
 
-var defaultImage = IMAGES_URL + 'wtc.jpg';
+var defaultImage = IMAGES_URL + images[0]
 
 setPicture();
 
