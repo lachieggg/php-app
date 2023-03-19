@@ -6,7 +6,6 @@ var defaultImage = IMAGES_URL + images[0]
 
 setPicture();
 
-
 function setPicture()
 {
     try {
