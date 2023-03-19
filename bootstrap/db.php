@@ -3,9 +3,13 @@
 use Illuminate\Database\Capsule\Manager;
 
 /**
- * @param $settings
+ * getCapsule
+ *
+ * @param array $settings The settings array to be used.
+ *
+ * @return Manager
  */
-function getCapsule($settings)
+function getCapsule(array $settings)
 {
     $db = $settings['db'];
     $capsule = new Manager();

@@ -12,7 +12,7 @@ class Validator
      * Validate a request.
      *
      * @param $request The request to validate
-     * @param array $rules   The validation rules to apply
+     * @param array                           $rules The validation rules to apply
      */
     public function validate($request, array $rules)
     {

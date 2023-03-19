@@ -3,16 +3,18 @@
 use DI\Container;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
+use Slim\Factory\ServerRequestCreatorFactory;
+use Illuminate\Database\Capsule\Manager;
 
 /**
  * makeContainer
- * 
- * @param $settings
- * @param $capsule
- * 
+ *
+ * @param array   $settings The settings array to be used.
+ * @param Manager $capsule  The database manager capsule.
+ *
  * @return Container
  */
-function makeContainer($settings, $capsule)
+function makeContainer(array $settings, Manager $capsule)
 {
     $containerBuilder = new ContainerBuilder();
 

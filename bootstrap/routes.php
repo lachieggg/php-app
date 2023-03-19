@@ -1,7 +1,11 @@
 <?php
 
-namespace LoginApp\Routes;
 
+/**
+ * defineRoutes
+ *
+ * @param \Slim\Interfaces\RouteCollectorInterface $router The router to be used.
+ */
 function defineRoutes($router)
 {
     // Home

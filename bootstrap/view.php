@@ -8,9 +8,14 @@ use Slim\Views\Twig;
 use Twig\Extension\DebugExtension;
 
 /**
- * @param $container
+ * getView
+ *
+ * @param \DI\Container                            $container The container to be used.
+ * @param \Slim\Interfaces\RouteCollectorInterface $router    The router to be used.
+ *
+ * @return Slim\Views\Twig
  */
-function getView($container, $router)
+function getView(\DI\Container $container, \Slim\Interfaces\RouteCollectorInterface $router)
 {
     $settings = $container->get('settings')['twig'];
 

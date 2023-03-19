@@ -5,7 +5,7 @@ use Dotenv\Dotenv;
 /**
  * getSettings returns a settings
  * array
- * 
+ *
  * @return array
  */
 function getSettings()

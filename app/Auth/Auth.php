@@ -12,7 +12,7 @@ class Auth
      *
      * @param  string $email    The email of the user to log in
      * @param  string $password The password of the user to log in
-     * @return bool Returns true if the login was successful, false otherwise
+     * @return boolean Returns true if the login was successful, false otherwise
      */
     public function attempt(string $email, string $password): bool
     {
@@ -55,7 +55,7 @@ class Auth
     /**
      * Check if a user is logged in
      *
-     * @return bool
+     * @return boolean
      */
     public function check(): bool
     {
@@ -67,7 +67,7 @@ class Auth
      * Check if the current user is an admin.
      * A user is considered an admin if they have the "is_admin" flag set to 1 in the database.
      *
-     * @return bool Returns true if the user is an admin, false otherwise
+     * @return boolean Returns true if the user is an admin, false otherwise
      */
     public function admin(): bool
     {
@@ -88,7 +88,7 @@ class Auth
      * Check if the current user is deleted.
      * A user is considered deleted if they have the "is_deleted" flag set to 1 in the database.
      *
-     * @return bool Returns true if the user is deleted, false otherwise
+     * @return boolean Returns true if the user is deleted, false otherwise
      */
     public function deleted(): bool
     {
@@ -108,7 +108,7 @@ class Auth
      * Check if the current user is verified.
      * A user is considered verified if they are logged in, not deleted, and approved.
      *
-     * @return bool Returns true if the user is verified, false otherwise
+     * @return boolean Returns true if the user is verified, false otherwise
      */
     public function isVerified()
     {
@@ -135,7 +135,7 @@ class Auth
      * Check if the current user is approved.
      * A user is considered approved if they have the "is_approved" flag set to 1 in the database.
      *
-     * @return bool Returns true if the user is approved, false otherwise
+     * @return boolean Returns true if the user is approved, false otherwise
      */
     public function approved()
     {

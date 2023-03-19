@@ -2,10 +2,13 @@
 
 /**
  * setErrorHandlers
- * @param $app
- * @param $container
+ *
+ * @param \Slim\App     $app       The slim app object.
+ * @param \DI\Container $container The container object.
+ *
+ * @return void
  */
-function setErrorHandlers($app, $container)
+function setErrorHandlers(\Slim\App $app, \DI\Container $container)
 {
     // Define a custom error handler for 404 Not Found errors
     $app->map(

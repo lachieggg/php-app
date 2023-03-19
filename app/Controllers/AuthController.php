@@ -10,6 +10,7 @@ use Respect\Validation\Validator as v;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Slim\Views\Twig as View;
+use DI\Container;
 
 class AuthController extends Controller
 {
@@ -24,9 +25,9 @@ class AuthController extends Controller
     protected $auth;
 
     /**
-     * @param $container The slim container
+     * @param Container $container The slim container.
      */
-    public function __construct($container)
+    public function __construct(Container $container)
     {
         parent::__construct($container);
         $this->view = $this->container->get('view');
@@ -34,17 +35,23 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request  $request  The request object
-     * @param Response $response The response object
+     * @param Request  $request  The request object.
+     * @param Response $response The response object.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function getSignIn(Request $request, Response $response)
     {
-        return isset($_SESSION['user']) ? $this->view->render($response, 'home/home.twig') : $this->view->render($response, 'auth/sign-in.twig');
+        return isset($_SESSION['user'])
+            ? $this->view->render($response, 'home/home.twig')
+            : $this->view->render($response, 'auth/sign-in.twig');
     }
 
     /**
-     * @param Request  $request  The request object
-     * @param Response $response The response object
+     * @param Request  $request  The request object.
+     * @param Response $response The response object.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function getSignUp(Request $request, Response $response)
     {
@@ -54,8 +61,10 @@ class AuthController extends Controller
     /**
      * Handle a sign-in request.
      *
-     * @param Request  $request  The request object
-     * @param Response $response The response object
+     * @param Request  $request  The request object.
+     * @param Response $response The response object.
+     *
+     * @return Response
      */
     public function postSignIn(Request $request, Response $response)
     {
@@ -97,8 +106,10 @@ class AuthController extends Controller
     /**
      * Handle a sign-up request.
      *
-     * @param Request  $request  The request object
-     * @param Response $response The response object
+     * @param Request  $request  The request object.
+     * @param Response $response The response object.
+     *
+     * @return Response
      */
     public function postSignUp(Request $request, Response $response)
     {
@@ -144,8 +155,10 @@ class AuthController extends Controller
      * Sign out the user and redirect
      * to the home page
      *
-     * @param Request  $request  The request object
-     * @param Response $response The response object
+     * @param Request  $request  The request object.
+     * @param Response $response The response object.
+     *
+     * @return Response
      */
     public function getSignOut(Request $request, Response $response)
     {

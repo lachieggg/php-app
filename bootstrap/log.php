@@ -1,10 +1,11 @@
 <?php
 
-use Projek\Slim\MonologProvider;
 use Monolog\Logger;
 
 /**
- * @param $container
+ * getLogger
+ *
+ * @return Logger
  */
 function getLogger()
 {

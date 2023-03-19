@@ -12,20 +12,18 @@ use Respect\Validation\Validator as RespectValidation;
 use Slim\Factory\AppFactory;
 use Slim\Handlers\Strategies\RequestResponseArgs;
 
-use function LoginApp\Routes\defineRoutes;
-
 // Start new session
 session_start();
 
-// Log
+// Require
 require __DIR__ . '/log.php';
 require __DIR__ . '/container.php';
 require __DIR__ . '/settings.php';
 require __DIR__ . '/db.php';
 require __DIR__ . '/view.php';
 require __DIR__ . '/errors.php';
+require __DIR__ . '/routes.php';
 require __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../app/routes.php';
 
 // Get application settings
 $settings = getSettings();
