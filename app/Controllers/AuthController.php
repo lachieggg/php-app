@@ -24,7 +24,7 @@ class AuthController extends Controller
     protected $auth;
 
     /**
-     * @param $container
+     * @param $container The slim container
      */
     public function __construct($container)
     {
@@ -34,8 +34,8 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request  $request
-     * @param Response $response
+     * @param Request  $request  The request object
+     * @param Response $response The response object
      */
     public function getSignIn(Request $request, Response $response)
     {
@@ -43,8 +43,8 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Request $response
+     * @param Request  $request  The request object
+     * @param Response $response The response object
      */
     public function getSignUp(Request $request, Response $response)
     {
@@ -97,8 +97,8 @@ class AuthController extends Controller
     /**
      * Handle a sign-up request.
      *
-     * @param Request $request  The request object
-     * @param Request $response The response object
+     * @param Request  $request  The request object
+     * @param Response $response The response object
      */
     public function postSignUp(Request $request, Response $response)
     {
@@ -140,13 +140,12 @@ class AuthController extends Controller
     }
 
 
-
     /**
      * Sign out the user and redirect
      * to the home page
      *
-     * @param Request $request
-     * @param Request $response
+     * @param Request  $request  The request object
+     * @param Response $response The response object
      */
     public function getSignOut(Request $request, Response $response)
     {
