@@ -25,7 +25,6 @@ use DI\Container;
 use Monolog\Logger;
 use Slim\Routing\Router;
 use Slim\Csrf\GuardMiddleware;
-use LoginApp\Middleware\CsrfMiddleware;
 use DI\ContainerBuilder;
 use Twig\Loader\FilesystemLoader;
 use Slim\Views\TwigMiddleware;
@@ -102,7 +101,6 @@ $container = $containerBuilder->build();
 
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-$app->add(new CsrfMiddleware());
 
 $routeCollector = $app->getRouteCollector();
 defineMaps($routeCollector);
@@ -132,7 +130,6 @@ $config = new Config($container);
 $app->add(new ValidationErrorsMiddleware($container));
 $app->addMiddleware(new OldInputMiddleware($container));
 $app->addRoutingMiddleware();
-$app->add(new CsrfMiddleware());
 $app->addMiddleware(new LoggerMiddleware($container));
 
 RespectValidation::with('\\LoginApp\\Validation\\Rules\\');

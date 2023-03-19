@@ -14,9 +14,4 @@ class User extends Model
         'name',
         'password',
     ];
-
-    public function comments()
-    {
-        return $this->hasMany(Comments::class);
-    }
 }

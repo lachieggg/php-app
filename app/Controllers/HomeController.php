@@ -102,10 +102,6 @@ class HomeController extends Controller
      */
     public function blog(Request $request, Response $response)
     {
-        if(!Config::blogMode()) {
-            return $this->view->render($response, 'home/unavailable.twig');
-        }
-
         echo file_get_contents("html/blog/blog.html");
 
         return $response;
