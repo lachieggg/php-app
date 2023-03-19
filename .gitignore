@@ -17,9 +17,16 @@ public/js/generated
 *.csr
 *.pub
 *.pem
+*.cert
 
 # Mac OS
 .DS_Store
 
 # Log files
 *.log
+
+# Archive
+public/html/blog/.archive
+
+# Cache
+**/twig-cache

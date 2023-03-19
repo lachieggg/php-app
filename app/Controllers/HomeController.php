@@ -3,122 +3,111 @@
 namespace LoginApp\Controllers;
 
 use Slim\Views\Twig as View;
-use LoginApp\Controllers\BlogController;
 use LoginApp\Config;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
 
 class HomeController extends Controller
 {
-  /**
-   * @param $container
-   */
-  public function __construct($container) 
-  {
-    parent::__construct($container);
-    $this->privacy_mode = False;
-    $this->resume = getenv('URL') . getenv('RESUME_PATH');
-    $this->github = getenv('GITHUB_URL');
-  }
 
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function index($request, $response)
-  {
-    return $this->view->render($response, 'home/home.twig');
-  }
+    protected $view;
 
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function people($request, $response)
-  {
-    return $this->view->render($response, 'home/people.twig');
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function gallery($request, $response)
-  {
-    return $this->view->render($response, 'home/gallery.twig');
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function github($request, $response)
-  {
-    header("Location: " . $this->github);
-    die();
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function resume($request, $response)
-  {
-    header("Location: " . $this->resume);
-    die();
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function forum($request, $response)
-  {
-    return $this->view->render($response, 'auth/private.twig');
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function consulting($request, $response)
-  {
-    return $this->view->render($response, 'home/consulting.twig');
-  }
-
-  /**
-   * @param $request
-   * @param $response
-   */
-  public function publickey($request, $response)
-  {
-    header('Content-Type: text/plain');
-    echo file_get_contents('./pgp/public.pem');
-    die();
-  }
-
-  /**
-   * Render the test page
-   * 
-   * @param $request
-   * @param $response
-   */
-  public function test($request, $response)
-  {
-    if(Config::testMode()) {
-      return $this->view->render($response, 'home/test.twig');
+    /**
+     * @param $container
+     */
+    public function __construct($container) 
+    {
+        parent::__construct($container);
+        $this->resume = getenv('URL') . getenv('RESUME_PATH');
+        $this->github = getenv('GITHUB_URL');
+        $this->view = $container->get('view');
     }
-    
-    return $this->view->render($response, 'home/home.twig');
-  }
-  
-  /**
-   * Render the blog page
-   * 
-   * @param $request
-   * @param $response
-   */
-  public function blog($request, $response)
-  {
-    echo file_get_contents("html/blog/blog.html");
-  }
 
+    /**
+     * @param Request $request
+     * @param Request $response
+     */
+    public function index(Request $request, Response $response)
+    {
+        return $this->container->get('view')->render(
+            $response, 'home/home.twig', [
+            'test' => 'test'
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param Request $response
+     */
+    public function people(Request $request, Response $response)
+    {
+        return $this->container->get('view')->render($response, 'home/people.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @param Request $response
+     */
+    public function gallery(Request $request, Response $response)
+    {
+        return $this->container->get('view')->render($response, 'home/gallery.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @param Request $response
+     */
+    public function github(Request $request, Response $response)
+    {
+        header("Location: " . $this->github);
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * @param Request $response
+     */
+    public function resume(Request $request, Response $response)
+    {
+        header("Location: " . $this->resume);
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * @param Request $response
+     */
+    public function publickey(Request $request, Response $response)
+    {
+        header('Content-Type: text/plain');
+        echo file_get_contents('./pgp/public.pem');
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * @param Request $response
+     */
+    public function consulting(Request $request, Response $response)
+    {
+        return $this->container->get('view')->render($response, 'home/consulting.twig');
+    }
+
+    /**
+     * Render the blog page
+     * 
+     * @param Request $request
+     * @param Request $response
+     */
+    public function blog(Request $request, Response $response)
+    {
+        if(!Config::blogMode()) {
+            return $this->view->render($response, 'home/unavailable.twig');
+        }
+
+        echo file_get_contents("html/blog/blog.html");
+
+        return $response;
+    }
 }

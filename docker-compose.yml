@@ -15,29 +15,28 @@ services:
       - ./:/var/www
     networks:
       - app-network
-    links:
-      - database
     env_file: .env
     environment:
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - MYSQL_DATABASE
-      - MYSQL_ROOT_HOST
-      - MYSQL_DRIVER
-      - MYSQL_HOST
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+    networks:
+      - app-network
 
   database:
     build:
       context: .
-      dockerfile: ./docker/mysql/Dockerfile.database
+      dockerfile: ./docker/postgres/Dockerfile.postgres
+    env_file: .env
+    container_name: db
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - MYSQL_DATABASE
-      - MYSQL_ROOT_HOST
-    container_name: database
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
     networks:
       - app-network
 
