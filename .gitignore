@@ -29,5 +29,5 @@ public/js/generated
 **/twig-cache
 
 # PHP
-.php-cs-fixer.cache
-.phpunit.result.cache
+**/.php-cs-fixer.cache
+**/.phpunit.result.cache
