@@ -16,7 +16,6 @@ class ContactController extends Controller
     {
         parent::__construct($container);
 
-        $this->privacy_mode = true;
     }
 
     /**
@@ -27,8 +26,6 @@ class ContactController extends Controller
      */
     public function contact(Request $request, Response $response)
     {
-        return $this->privacy_mode
-            ? $this->container->get('view')->render($response, 'auth/private.twig')
-            : $this->container->get('view')->render($response, 'home/contact.twig');
+        return $this->container->get('view')->render($response, 'home/contact.twig');
     }
 }
