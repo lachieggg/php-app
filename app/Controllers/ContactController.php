@@ -16,7 +16,7 @@ class ContactController extends Controller
     {
         parent::__construct($container);
 
-        $this->privacy_mode = false;
+        $this->privacy_mode = true;
     }
 
     /**
