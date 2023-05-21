@@ -55,18 +55,6 @@ class HomeController extends Controller
     }
 
     /**
-     * Render the people page
-     *
-     * @param Request  $request
-     * @param Response $response
-     * @return mixed
-     */
-    public function people(Request $request, Response $response)
-    {
-        return $this->container->get('view')->render($response, 'home/people.twig');
-    }
-
-    /**
      * Render the gallery page
      *
      * @param Request  $request
@@ -115,17 +103,6 @@ class HomeController extends Controller
         die();
     }
 
-    /**
-     * Render the consulting page
-     *
-     * @param Request  $request
-     * @param Response $response
-     * @return mixed
-     */
-    public function consulting(Request $request, Response $response)
-    {
-        return $this->container->get('view')->render($response, 'home/consulting.twig');
-    }
 
     /**
      * Render the blog page
