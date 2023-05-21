@@ -31,3 +31,6 @@ public/js/generated
 # PHP
 .php-cs-fixer.cache
 .phpunit.result.cache
+
+# Acme
+**/.well-known
